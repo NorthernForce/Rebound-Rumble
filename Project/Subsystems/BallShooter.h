@@ -1,22 +1,21 @@
-#ifndef DRIVE_H
-#define DRIVE_H
+#ifndef BALLSHOOTER_H
+#define BALLSHOOTER_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
 /**
- * @brief The drive object for the robot. All
- * methods for interacting with drive will go
- * here.
+ * @brief This class contains all methods
+ * for interacting with the ball shooter mechanism
+ * on the robot. 
  *
  * @author Arthur Lockman
  */
-class Drive: public Subsystem {
+class BallShooter: public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	void InitDrive();
 public:
-	Drive();
+	BallShooter();
 	void InitDefaultCommand();
 };
 

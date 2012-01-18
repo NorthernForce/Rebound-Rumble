@@ -1,22 +1,21 @@
-#ifndef DRIVE_H
-#define DRIVE_H
+#ifndef ULTRASONICSENSOR_H
+#define ULTRASONICSENSOR_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
 /**
- * @brief The drive object for the robot. All
- * methods for interacting with drive will go
- * here.
+ * @brief This class controls the Ultrasonic
+ * Range Finding Sensor on the robot. All methods
+ * for interacting with that sensor will go here.
  *
  * @author Arthur Lockman
  */
-class Drive: public Subsystem {
+class UltrasonicSensor: public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	void InitDrive();
 public:
-	Drive();
+	UltrasonicSensor();
 	void InitDefaultCommand();
 };
 

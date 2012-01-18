@@ -1,22 +1,22 @@
-#ifndef DRIVE_H
-#define DRIVE_H
+#ifndef BALLPICKUP_H
+#define BALLPICKUP_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
 /**
- * @brief The drive object for the robot. All
- * methods for interacting with drive will go
- * here.
+ * @brief This class controls the ball
+ * pickup mechanism on the robot. It contains
+ * all classes for interacting with the 
+ * pickup device.
  *
  * @author Arthur Lockman
  */
-class Drive: public Subsystem {
+class BallPickup: public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	void InitDrive();
 public:
-	Drive();
+	BallPickup();
 	void InitDefaultCommand();
 };
 
