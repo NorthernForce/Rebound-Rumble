@@ -1,11 +1,11 @@
-#include "ExampleSubsystem.h"
+#include "Accelerometer.h"
 #include "../Robotmap.h"
 
-ExampleSubsystem::ExampleSubsystem() : Subsystem("ExampleSubsystem") {
+Accelerometer::Accelerometer() : Subsystem("Accelerometer") {
 	
 }
     
-void ExampleSubsystem::InitDefaultCommand() {
+void Accelerometer::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
 }
@@ -13,4 +13,3 @@ void ExampleSubsystem::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-

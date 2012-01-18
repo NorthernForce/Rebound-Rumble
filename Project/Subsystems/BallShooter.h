@@ -1,19 +1,21 @@
-#ifndef EXAMPLE_SUBSYSTEM_H
-#define EXAMPLE_SUBSYSTEM_H
+#ifndef BALLSHOOTER_H
+#define BALLSHOOTER_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
 /**
+ * @brief This class contains all methods
+ * for interacting with the ball shooter mechanism
+ * on the robot. 
  *
- *
- * @author ExampleAuthor
+ * @author Arthur Lockman
  */
-class ExampleSubsystem: public Subsystem {
+class BallShooter: public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
-	ExampleSubsystem();
+	BallShooter();
 	void InitDefaultCommand();
 };
 

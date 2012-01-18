@@ -1,22 +1,21 @@
-#ifndef DRIVE_H
-#define DRIVE_H
+#ifndef GYRO_H
+#define GYRO_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
 /**
- * @brief The drive object for the robot. All
- * methods for interacting with drive will go
- * here.
+ * @brief This controls the gyro sensor
+ * that will go onto the robot. All methods
+ * for interacting with the gyro go here.
  *
  * @author Arthur Lockman
  */
-class Drive: public Subsystem {
+class GyroSubsystem: public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	void InitDrive();
 public:
-	Drive();
+	GyroSubsystem();
 	void InitDefaultCommand();
 };
 
