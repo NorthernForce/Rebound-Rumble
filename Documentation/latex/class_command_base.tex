@@ -1,0 +1,183 @@
+\hypertarget{class_command_base}{\section{\-Command\-Base \-Class \-Reference}
+\label{class_command_base}\index{\-Command\-Base@{\-Command\-Base}}
+}
+
+
+\-The base for all commands. \-All atomic commands should subclass \hyperlink{class_command_base}{\-Command\-Base}. \hyperlink{class_command_base}{\-Command\-Base} stores creates and stores each control system. \-To access a subsystem elsewhere in your code in your code use \-Command\-Base.\-examplesubsystem.  
+
+
+
+
+{\ttfamily \#include $<$\-Command\-Base.\-h$>$}
+
+\-Inheritance diagram for \-Command\-Base\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_command_base}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_command_base_a329ddd4c5a6ffd6c9d775a08c361823b}{\-Command\-Base} (const char $\ast$name)
+\item 
+\hyperlink{class_command_base_af42de9fe79dc64fce99580ee1e2f678f}{\-Command\-Base} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_command_base_a4dbfcd3b6ae92d752bc36a29dd1e1a5a}{init} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_drive}{\-Drive} $\ast$ \hyperlink{class_command_base_ad3e30f2241b0fc05c2dde2f20c1110c8}{s\-\_\-drive} = \-N\-U\-L\-L
+\item 
+static \hyperlink{class_ball_pickup}{\-Ball\-Pickup} $\ast$ \hyperlink{class_command_base_a06014394e7c262f1ef010dc2fe1b17a9}{s\-\_\-ball\-Pickup} = \-N\-U\-L\-L
+\item 
+static \hyperlink{class_ball_shooter}{\-Ball\-Shooter} $\ast$ \hyperlink{class_command_base_ac48c9220b0d3a09b0b058875eff8c650}{s\-\_\-ball\-Shooter} = \-N\-U\-L\-L
+\item 
+static \hyperlink{class_ball_storage}{\-Ball\-Storage} $\ast$ \hyperlink{class_command_base_a6e7f4b4c66e09b1d1d2e9496d0b018da}{s\-\_\-ball\-Storage} = \-N\-U\-L\-L
+\item 
+static \hyperlink{class_camera}{\-Camera} $\ast$ \hyperlink{class_command_base_a9586e8acac30698641eddb49066e1d47}{s\-\_\-camera} = \-N\-U\-L\-L
+\item 
+static \hyperlink{class_camera_mount}{\-Camera\-Mount} $\ast$ \hyperlink{class_command_base_a73790b416a401faa311259bd45f7aa47}{s\-\_\-camera\-Mount} = \-N\-U\-L\-L
+\item 
+static \hyperlink{class_gyro_subsystem}{\-Gyro\-Subsystem} $\ast$ \hyperlink{class_command_base_ab41fbac4795141797607460fedd04181}{s\-\_\-gyro} = \-N\-U\-L\-L
+\item 
+static \hyperlink{class_ultrasonic_sensor}{\-Ultrasonic\-Sensor} $\ast$ \hyperlink{class_command_base_a668786f77a2e65cd4f6beef52ba1538b}{s\-\_\-ultrasonic\-Sensor} = \-N\-U\-L\-L
+\item 
+static \hyperlink{class_accelerometer_subsystem}{\-Accelerometer\-Subsystem} $\ast$ \hyperlink{class_command_base_a2fd849df3b42d41c784179506228e841}{s\-\_\-accelerometer} = \-N\-U\-L\-L
+\item 
+static \hyperlink{class_o_i}{\-O\-I} $\ast$ \hyperlink{class_command_base_ae6807501159925367f8008fc0534eda5}{oi} = \-N\-U\-L\-L
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-The base for all commands. \-All atomic commands should subclass \hyperlink{class_command_base}{\-Command\-Base}. \hyperlink{class_command_base}{\-Command\-Base} stores creates and stores each control system. \-To access a subsystem elsewhere in your code in your code use \-Command\-Base.\-examplesubsystem. 
+
+\begin{DoxyAuthor}{\-Author}
+\-Arthur \-Lockman 
+\end{DoxyAuthor}
+
+
+\-Definition at line 24 of file \-Command\-Base.\-h.
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{class_command_base_a329ddd4c5a6ffd6c9d775a08c361823b}{\index{\-Command\-Base@{\-Command\-Base}!\-Command\-Base@{\-Command\-Base}}
+\index{\-Command\-Base@{\-Command\-Base}!CommandBase@{\-Command\-Base}}
+\subsubsection[{\-Command\-Base}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Command\-Base\-::\-Command\-Base} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{class_command_base_a329ddd4c5a6ffd6c9d775a08c361823b}
+
+
+\-Definition at line 4 of file \-Command\-Base.\-cpp.
+
+\hypertarget{class_command_base_af42de9fe79dc64fce99580ee1e2f678f}{\index{\-Command\-Base@{\-Command\-Base}!\-Command\-Base@{\-Command\-Base}}
+\index{\-Command\-Base@{\-Command\-Base}!CommandBase@{\-Command\-Base}}
+\subsubsection[{\-Command\-Base}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Command\-Base\-::\-Command\-Base} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_command_base_af42de9fe79dc64fce99580ee1e2f678f}
+
+
+\-Definition at line 9 of file \-Command\-Base.\-cpp.
+
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_command_base_a4dbfcd3b6ae92d752bc36a29dd1e1a5a}{\index{\-Command\-Base@{\-Command\-Base}!init@{init}}
+\index{init@{init}!CommandBase@{\-Command\-Base}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Command\-Base\-::init} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_a4dbfcd3b6ae92d752bc36a29dd1e1a5a}
+
+
+\-Definition at line 27 of file \-Command\-Base.\-cpp.
+
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{class_command_base_ae6807501159925367f8008fc0534eda5}{\index{\-Command\-Base@{\-Command\-Base}!oi@{oi}}
+\index{oi@{oi}!CommandBase@{\-Command\-Base}}
+\subsubsection[{oi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-O\-I} $\ast$ {\bf \-Command\-Base\-::oi} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_ae6807501159925367f8008fc0534eda5}
+
+
+\-Definition at line 43 of file \-Command\-Base.\-h.
+
+\hypertarget{class_command_base_a2fd849df3b42d41c784179506228e841}{\index{\-Command\-Base@{\-Command\-Base}!s\-\_\-accelerometer@{s\-\_\-accelerometer}}
+\index{s\-\_\-accelerometer@{s\-\_\-accelerometer}!CommandBase@{\-Command\-Base}}
+\subsubsection[{s\-\_\-accelerometer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Accelerometer\-Subsystem} $\ast$ {\bf \-Command\-Base\-::s\-\_\-accelerometer} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_a2fd849df3b42d41c784179506228e841}
+
+
+\-Definition at line 40 of file \-Command\-Base.\-h.
+
+\hypertarget{class_command_base_a06014394e7c262f1ef010dc2fe1b17a9}{\index{\-Command\-Base@{\-Command\-Base}!s\-\_\-ball\-Pickup@{s\-\_\-ball\-Pickup}}
+\index{s\-\_\-ball\-Pickup@{s\-\_\-ball\-Pickup}!CommandBase@{\-Command\-Base}}
+\subsubsection[{s\-\_\-ball\-Pickup}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Ball\-Pickup} $\ast$ {\bf \-Command\-Base\-::s\-\_\-ball\-Pickup} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_a06014394e7c262f1ef010dc2fe1b17a9}
+
+
+\-Definition at line 33 of file \-Command\-Base.\-h.
+
+\hypertarget{class_command_base_ac48c9220b0d3a09b0b058875eff8c650}{\index{\-Command\-Base@{\-Command\-Base}!s\-\_\-ball\-Shooter@{s\-\_\-ball\-Shooter}}
+\index{s\-\_\-ball\-Shooter@{s\-\_\-ball\-Shooter}!CommandBase@{\-Command\-Base}}
+\subsubsection[{s\-\_\-ball\-Shooter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Ball\-Shooter} $\ast$ {\bf \-Command\-Base\-::s\-\_\-ball\-Shooter} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_ac48c9220b0d3a09b0b058875eff8c650}
+
+
+\-Definition at line 34 of file \-Command\-Base.\-h.
+
+\hypertarget{class_command_base_a6e7f4b4c66e09b1d1d2e9496d0b018da}{\index{\-Command\-Base@{\-Command\-Base}!s\-\_\-ball\-Storage@{s\-\_\-ball\-Storage}}
+\index{s\-\_\-ball\-Storage@{s\-\_\-ball\-Storage}!CommandBase@{\-Command\-Base}}
+\subsubsection[{s\-\_\-ball\-Storage}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Ball\-Storage} $\ast$ {\bf \-Command\-Base\-::s\-\_\-ball\-Storage} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_a6e7f4b4c66e09b1d1d2e9496d0b018da}
+
+
+\-Definition at line 35 of file \-Command\-Base.\-h.
+
+\hypertarget{class_command_base_a9586e8acac30698641eddb49066e1d47}{\index{\-Command\-Base@{\-Command\-Base}!s\-\_\-camera@{s\-\_\-camera}}
+\index{s\-\_\-camera@{s\-\_\-camera}!CommandBase@{\-Command\-Base}}
+\subsubsection[{s\-\_\-camera}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Camera} $\ast$ {\bf \-Command\-Base\-::s\-\_\-camera} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_a9586e8acac30698641eddb49066e1d47}
+
+
+\-Definition at line 36 of file \-Command\-Base.\-h.
+
+\hypertarget{class_command_base_a73790b416a401faa311259bd45f7aa47}{\index{\-Command\-Base@{\-Command\-Base}!s\-\_\-camera\-Mount@{s\-\_\-camera\-Mount}}
+\index{s\-\_\-camera\-Mount@{s\-\_\-camera\-Mount}!CommandBase@{\-Command\-Base}}
+\subsubsection[{s\-\_\-camera\-Mount}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Camera\-Mount} $\ast$ {\bf \-Command\-Base\-::s\-\_\-camera\-Mount} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_a73790b416a401faa311259bd45f7aa47}
+
+
+\-Definition at line 37 of file \-Command\-Base.\-h.
+
+\hypertarget{class_command_base_ad3e30f2241b0fc05c2dde2f20c1110c8}{\index{\-Command\-Base@{\-Command\-Base}!s\-\_\-drive@{s\-\_\-drive}}
+\index{s\-\_\-drive@{s\-\_\-drive}!CommandBase@{\-Command\-Base}}
+\subsubsection[{s\-\_\-drive}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Drive} $\ast$ {\bf \-Command\-Base\-::s\-\_\-drive} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_ad3e30f2241b0fc05c2dde2f20c1110c8}
+
+
+\-Definition at line 32 of file \-Command\-Base.\-h.
+
+\hypertarget{class_command_base_ab41fbac4795141797607460fedd04181}{\index{\-Command\-Base@{\-Command\-Base}!s\-\_\-gyro@{s\-\_\-gyro}}
+\index{s\-\_\-gyro@{s\-\_\-gyro}!CommandBase@{\-Command\-Base}}
+\subsubsection[{s\-\_\-gyro}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Gyro\-Subsystem} $\ast$ {\bf \-Command\-Base\-::s\-\_\-gyro} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_ab41fbac4795141797607460fedd04181}
+
+
+\-Definition at line 38 of file \-Command\-Base.\-h.
+
+\hypertarget{class_command_base_a668786f77a2e65cd4f6beef52ba1538b}{\index{\-Command\-Base@{\-Command\-Base}!s\-\_\-ultrasonic\-Sensor@{s\-\_\-ultrasonic\-Sensor}}
+\index{s\-\_\-ultrasonic\-Sensor@{s\-\_\-ultrasonic\-Sensor}!CommandBase@{\-Command\-Base}}
+\subsubsection[{s\-\_\-ultrasonic\-Sensor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Ultrasonic\-Sensor} $\ast$ {\bf \-Command\-Base\-::s\-\_\-ultrasonic\-Sensor} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_command_base_a668786f77a2e65cd4f6beef52ba1538b}
+
+
+\-Definition at line 39 of file \-Command\-Base.\-h.
+
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+\-Y\-:/\-Rebound\-Rumble-\/\-Trunk/\-Project/\hyperlink{_command_base_8h}{\-Command\-Base.\-h}\item 
+\-Y\-:/\-Rebound\-Rumble-\/\-Trunk/\-Project/\hyperlink{_command_base_8cpp}{\-Command\-Base.\-cpp}\end{DoxyCompactItemize}
