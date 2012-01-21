@@ -10,7 +10,7 @@
 #include "Subsystems/CameraMount.h"
 #include "Subsystems/GyroSubsystem.h"
 #include "Subsystems/UltrasonicSensor.h"
-#include "Subsystems/Accelerometer.h"
+#include "Subsystems/AccelerometerSubsystem.h"
 #include "OI.h"
 
 
@@ -37,7 +37,7 @@ public:
 	static CameraMount *s_cameraMount;
 	static GyroSubsystem *s_gyro;
 	static UltrasonicSensor *s_ultrasonicSensor;
-	static Accelerometer *s_accelerometer;
+	static AccelerometerSubsystem *s_accelerometer;
 	
 	//Create operator interface.
 	static OI *oi;

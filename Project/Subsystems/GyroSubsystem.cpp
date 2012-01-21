@@ -1,7 +1,7 @@
 #include "GyroSubsystem.h"
 #include "../Robotmap.h"
 
-GyroSubsystem::Gyro() : Subsystem("Gyro") {
+GyroSubsystem::GyroSubsystem() : Subsystem("Gyro") {
 	
 }
     

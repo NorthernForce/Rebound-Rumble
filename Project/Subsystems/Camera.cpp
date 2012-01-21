@@ -32,7 +32,7 @@ void Camera::InitCamera()
  */
 double Camera::GetDistanceToTarget()
 {
-	
+    return 0.0; // Not implemented yet	
 }
 
 // Put methods for controlling this subsystem

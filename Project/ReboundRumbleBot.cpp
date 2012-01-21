@@ -3,6 +3,13 @@
 #include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
 
+/**
+ * @brief This class controls the entire robot,
+ * everything it does, and all of its interactions
+ * with the field, itself, and the operators.
+ * 
+ * @author Arthur Lockman
+ */
 class ReboundRumbleBot : public IterativeRobot 
 {
 private:

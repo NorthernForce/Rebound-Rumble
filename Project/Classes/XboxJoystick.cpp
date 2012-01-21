@@ -1,11 +1,3 @@
-/*
- * XboxJoystick.cpp
- *
- *  Created on: Jan 10, 2012
- *      Author: Joseph Martin
- *
- */
-
 #include "XboxJoystick.h"
 #include "Joystick.h"
 
