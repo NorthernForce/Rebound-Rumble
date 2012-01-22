@@ -21,6 +21,7 @@ CameraMount* CommandBase::s_cameraMount = NULL;
 GyroSubsystem* CommandBase::s_gyro = NULL;
 UltrasonicSensor* CommandBase::s_ultrasonicSensor = NULL;
 AccelerometerSubsystem* CommandBase::s_accelerometer = NULL;
+Motors* CommandBase::s_motors = NULL;
 
 OI* CommandBase::oi = NULL;
 
@@ -36,6 +37,7 @@ void CommandBase::init()
 	s_gyro = new GyroSubsystem();
 	s_ultrasonicSensor = new UltrasonicSensor();
 	s_accelerometer = new AccelerometerSubsystem();
+	s_motors = new Motors();
 	
 	oi = new OI();
 }

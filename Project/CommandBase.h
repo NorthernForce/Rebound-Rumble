@@ -11,6 +11,7 @@
 #include "Subsystems/GyroSubsystem.h"
 #include "Subsystems/UltrasonicSensor.h"
 #include "Subsystems/AccelerometerSubsystem.h"
+#include "Subsystems/Motors.h"
 #include "OI.h"
 
 
@@ -38,6 +39,7 @@ public:
 	static GyroSubsystem *s_gyro;
 	static UltrasonicSensor *s_ultrasonicSensor;
 	static AccelerometerSubsystem *s_accelerometer;
+	static Motors *s_motors;
 	
 	//Create operator interface.
 	static OI *oi;
