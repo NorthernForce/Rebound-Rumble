@@ -10,6 +10,7 @@ var annotated =
     [ "Drive", "class_drive.html", "class_drive" ],
     [ "ExampleCommand", "class_example_command.html", "class_example_command" ],
     [ "GyroSubsystem", "class_gyro_subsystem.html", "class_gyro_subsystem" ],
+    [ "Motors", "class_motors.html", "class_motors" ],
     [ "OI", "class_o_i.html", "class_o_i" ],
     [ "ReboundRumbleBot", "class_rebound_rumble_bot.html", null ],
     [ "UltrasonicSensor", "class_ultrasonic_sensor.html", "class_ultrasonic_sensor" ],

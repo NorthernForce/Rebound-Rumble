@@ -11,6 +11,7 @@ var hierarchy =
     ] ],
     [ "Drive", "class_drive.html", null ],
     [ "GyroSubsystem", "class_gyro_subsystem.html", null ],
+    [ "Motors", "class_motors.html", null ],
     [ "OI", "class_o_i.html", null ],
     [ "ReboundRumbleBot", "class_rebound_rumble_bot.html", null ],
     [ "UltrasonicSensor", "class_ultrasonic_sensor.html", null ],

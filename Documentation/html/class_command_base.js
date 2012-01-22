@@ -12,5 +12,6 @@ var class_command_base =
     [ "s_cameraMount", "class_command_base.html#a73790b416a401faa311259bd45f7aa47", null ],
     [ "s_drive", "class_command_base.html#ad3e30f2241b0fc05c2dde2f20c1110c8", null ],
     [ "s_gyro", "class_command_base.html#ab41fbac4795141797607460fedd04181", null ],
+    [ "s_motors", "class_command_base.html#a91c4ad7885c787e1c306cfc49d2703ec", null ],
     [ "s_ultrasonicSensor", "class_command_base.html#a668786f77a2e65cd4f6beef52ba1538b", null ]
 ];

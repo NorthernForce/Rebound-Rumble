@@ -12,6 +12,7 @@ var files =
     [ "Y:/ReboundRumble-Trunk/Project/Commands/ExampleCommand.h", "_example_command_8h.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBasedRobotTemplate/Debug/ctdt.c", "ctdt_8c.html", "ctdt_8c" ],
     [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/CommandBase.d", "_command_base_8d.html", null ],
+    [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/CommandBasedRobot.d", "_command_based_robot_8d.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/OI.d", "_o_i_8d.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/ReboundRumbleBot.d", "_rebound_rumble_bot_8d.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/Classes/XboxJoystick.d", "_xbox_joystick_8d.html", null ],
@@ -23,6 +24,7 @@ var files =
     [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/Subsystems/Camera.d", "_camera_8d.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/Subsystems/CameraMount.d", "_camera_mount_8d.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/Subsystems/Drive.d", "_drive_8d.html", null ],
+    [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/Subsystems/ExampleSubsystem.d", "_example_subsystem_8d.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/Subsystems/GyroSubsystem.d", "_gyro_subsystem_8d.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/PPC603gnu/CommandBassedRobotTemplate_partialImage/Debug/Objects/ReboundRumbleBot/Subsystems/UltrasonicSensor.d", "_ultrasonic_sensor_8d.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/Subsystems/AccelerometerSubsystem.cpp", "_accelerometer_subsystem_8cpp.html", null ],
@@ -41,6 +43,8 @@ var files =
     [ "Y:/ReboundRumble-Trunk/Project/Subsystems/Drive.h", "_drive_8h.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/Subsystems/GyroSubsystem.cpp", "_gyro_subsystem_8cpp.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/Subsystems/GyroSubsystem.h", "_gyro_subsystem_8h.html", null ],
+    [ "Y:/ReboundRumble-Trunk/Project/Subsystems/Motors.cpp", "_motors_8cpp.html", null ],
+    [ "Y:/ReboundRumble-Trunk/Project/Subsystems/Motors.h", "_motors_8h.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/Subsystems/UltrasonicSensor.cpp", "_ultrasonic_sensor_8cpp.html", null ],
     [ "Y:/ReboundRumble-Trunk/Project/Subsystems/UltrasonicSensor.h", "_ultrasonic_sensor_8h.html", null ]
 ];
