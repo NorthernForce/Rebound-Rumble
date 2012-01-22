@@ -2,7 +2,7 @@
 #define OI_H
 
 #include "WPILib.h"
-#include "Classes/XBoxJoystick.h"
+#include "Classes/XboxJoystick.h"
 
 /**
  * @brief All of the classes for interacting

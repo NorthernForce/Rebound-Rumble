@@ -214,6 +214,10 @@ CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Sub
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/Motors.o : $(PRJ_ROOT_DIR)/Subsystems/Motors.cpp $(FORCE_FILE_BUILD)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/UltrasonicSensor.o : $(PRJ_ROOT_DIR)/Subsystems/UltrasonicSensor.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
@@ -231,6 +235,7 @@ OBJECTS_CommandBassedRobotTemplate_partialImage = CommandBassedRobotTemplate_par
 	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/CameraMount.o \
 	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/Drive.o \
 	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/GyroSubsystem.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/Motors.o \
 	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/UltrasonicSensor.o
 
 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/CommandBassedRobotTemplate_partialImage.o : $(OBJECTS_CommandBassedRobotTemplate_partialImage)
@@ -249,7 +254,7 @@ DEP_FILES := CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Rebound
 	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/OI.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/ReboundRumbleBot.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/AccelerometerSubsystem.d \
 	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/BallPickup.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/BallShooter.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/BallStorage.d \
 	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/Camera.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/CameraMount.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/Drive.d \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/GyroSubsystem.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/UltrasonicSensor.d
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/GyroSubsystem.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/Motors.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/ReboundRumbleBot/Subsystems/UltrasonicSensor.d
 -include $(DEP_FILES)
 
 
