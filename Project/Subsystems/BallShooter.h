@@ -16,7 +16,11 @@ private:
 	// for methods that implement subsystem capabilities
 public:
 	BallShooter();
+	void Spinup(float speed);
 	void InitDefaultCommand();
+	void AdjustVerticalAngle(float angle);
+	void AdjustPitcherSpeed(float speed);
+	void Fire();
 };
 
 #endif

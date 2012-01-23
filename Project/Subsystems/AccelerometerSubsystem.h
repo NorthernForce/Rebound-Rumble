@@ -17,6 +17,7 @@ private:
 public:
 	AccelerometerSubsystem();
 	void InitDefaultCommand();
+	float GetAccelValue();
 };
 
 #endif

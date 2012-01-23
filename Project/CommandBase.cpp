@@ -22,6 +22,7 @@ GyroSubsystem* CommandBase::s_gyro = NULL;
 UltrasonicSensor* CommandBase::s_ultrasonicSensor = NULL;
 AccelerometerSubsystem* CommandBase::s_accelerometer = NULL;
 Motors* CommandBase::s_motors = NULL;
+Targeting* CommandBase::s_targeting = NULL;
 
 OI* CommandBase::oi = NULL;
 
@@ -38,6 +39,7 @@ void CommandBase::init()
 	s_ultrasonicSensor = new UltrasonicSensor();
 	s_accelerometer = new AccelerometerSubsystem();
 	s_motors = new Motors();
+	s_targeting = new Targeting();
 	
 	oi = new OI();
 }

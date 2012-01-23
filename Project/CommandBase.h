@@ -12,6 +12,7 @@
 #include "Subsystems/UltrasonicSensor.h"
 #include "Subsystems/AccelerometerSubsystem.h"
 #include "Subsystems/Motors.h"
+#include "Subsystems/Targeting.h"
 #include "OI.h"
 
 
@@ -40,6 +41,7 @@ public:
 	static UltrasonicSensor *s_ultrasonicSensor;
 	static AccelerometerSubsystem *s_accelerometer;
 	static Motors *s_motors;
+	static Targeting *s_targeting;
 	
 	//Create operator interface.
 	static OI *oi;

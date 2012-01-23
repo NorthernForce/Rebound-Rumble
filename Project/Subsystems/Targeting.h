@@ -1,25 +1,24 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#ifndef TARGETING_H
+#define TARGETING_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
 /**
- * @brief Controls the camera and does the tracking
- * and vision analysis.
+ * @brief Handles the targeting math for the
+ * shooter on the robot.
  *
  * @author Arthur Lockman
  */
-class Camera: public Subsystem {
+class Targeting: public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	void InitCamera();
 public:
-	Camera();
+	Targeting();
+	float ShotVAngle();
+	float ShotHAngle();
+	float MuzzleSpeed();
 	void InitDefaultCommand();
-	void Search();
-	float GetDistanceToTarget();
-	float GetAngleToTarget();
 };
 
 #endif

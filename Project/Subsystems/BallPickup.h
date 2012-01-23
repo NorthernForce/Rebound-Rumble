@@ -17,6 +17,9 @@ private:
 	// for methods that implement subsystem capabilities
 public:
 	BallPickup();
+	void Spinup();
+	void Stop();
+	bool HasBall();
 	void InitDefaultCommand();
 };
 

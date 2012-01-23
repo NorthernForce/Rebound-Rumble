@@ -16,6 +16,10 @@ private:
 	// for methods that implement subsystem capabilities
 public:
 	CameraMount();
+	void Pan(float angle);
+	void Tilt(float angle);
+	float GetPanAngle();
+	float GetTiltAngle();
 	void InitDefaultCommand();
 };
 

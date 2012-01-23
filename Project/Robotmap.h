@@ -34,4 +34,9 @@
 #define	k_XBoxButtonRightJoystick 10
 #define k_XBoxJoystickPort 1
 
+//Ball positions.
+#define k_ballPosition1 1
+#define k_ballPosition2 2
+#define k_ballPosition3 3
+
 #endif
