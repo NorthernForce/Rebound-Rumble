@@ -16,6 +16,9 @@ private:
 	// for methods that implement subsystem capabilities
 public:
 	GyroSubsystem();
+	float GetAngle();
+	void Reset();
+	float GetRotationalSpeed();
 	void InitDefaultCommand();
 };
 

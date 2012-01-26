@@ -17,7 +17,9 @@ private:
 public:
 	Camera();
 	void InitDefaultCommand();
-	double GetDistanceToTarget();
+	void Search();
+	float GetDistanceToTarget();
+	float GetAngleToTarget();
 };
 
 #endif

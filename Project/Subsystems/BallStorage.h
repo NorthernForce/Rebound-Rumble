@@ -19,6 +19,10 @@ private:
 	// for methods that implement subsystem capabilities
 public:
 	BallStorage();
+	int CountBalls();
+	void Stop();
+	void AdvanceBall(int position);
+	void Clear();
 	void InitDefaultCommand();
 };
 

@@ -2,6 +2,7 @@
 #define OI_H
 
 #include "WPILib.h"
+#include "Classes/XboxJoystick.h"
 
 /**
  * @brief All of the classes for interacting
@@ -14,6 +15,8 @@ private:
 
 public:
 	OI();
+	//The XBox Joystick we're using to control the robot.
+	XboxJoystick stick;
 };
 
 #endif

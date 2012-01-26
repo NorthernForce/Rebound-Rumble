@@ -21,4 +21,26 @@
 // #define RANGE_FINDER_PORT 1
 // #define RANGE_FINDER_MODULE 1
 
+//Xbox Controller Ports
+#define k_XBoxButtonA 1
+#define	k_XBoxButtonB 2
+#define	k_XBoxButtonX 3
+#define	k_XBoxButtonY 4
+#define	k_XBoxButtonLeft 5
+#define	k_XBoxButtonRight 6
+#define	k_XBoxButtonBack 7
+#define	k_XBoxButtonStart 8
+#define	k_XBoxButtonLeftJoystick 9
+#define	k_XBoxButtonRightJoystick 10
+#define k_XBoxJoystickPort 1
+
+//Ball positions.
+#define k_ballPosition1 1
+#define k_ballPosition2 2
+#define k_ballPosition3 3
+
+//Acceleration of Gravity (meters per second)
+#define k_GravityAccel 9.8
+#define k_ArrivalAngle 45.0
+
 #endif

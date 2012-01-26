@@ -16,6 +16,7 @@ private:
 	// for methods that implement subsystem capabilities
 public:
 	UltrasonicSensor();
+	float GetDistance();
 	void InitDefaultCommand();
 };
 
