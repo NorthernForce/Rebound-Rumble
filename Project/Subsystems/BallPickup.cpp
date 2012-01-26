@@ -49,5 +49,5 @@ void BallPickup::Stop()
  */
 bool BallPickup::HasBall()
 {
-	
+	return false;
 }

@@ -39,4 +39,8 @@
 #define k_ballPosition2 2
 #define k_ballPosition3 3
 
+//Acceleration of Gravity (meters per second)
+#define k_GravityAccel 9.8
+#define k_ArrivalAngle 45.0
+
 #endif

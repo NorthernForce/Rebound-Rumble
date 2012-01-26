@@ -25,5 +25,5 @@ void UltrasonicSensor::InitDefaultCommand() {
  */
 float UltrasonicSensor::GetDistance()
 {
-	
+	return 0.0;
 }

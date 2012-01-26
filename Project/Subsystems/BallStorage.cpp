@@ -24,7 +24,7 @@ void BallStorage::InitDefaultCommand() {
  */
 int CountBalls()
 {
-	
+    return 0;
 }
 
 /**
