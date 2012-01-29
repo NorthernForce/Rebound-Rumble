@@ -18,8 +18,6 @@ private:
 public:
 	Drive();
 	void InitDefaultCommand();
-	void DriveRobot(GenericHID& controller);
-	FootballDrive robotDrive;
 };
 
 #endif

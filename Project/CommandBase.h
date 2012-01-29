@@ -31,7 +31,7 @@ public:
 	
 	// Create instances of subsystems.
 	// The "S" prefix denotes a subsystem.
-	static Drive *s_drive;
+	//static Drive *s_drive;
 	static BallPickup *s_ballPickup;
 	static BallShooter *s_ballShooter;
 	static BallStorage *s_ballStorage;

@@ -12,7 +12,7 @@ CommandBase::CommandBase() : Command()
 }
 
 // Initialize a single static instance of all subsystems to NULL
-Drive* CommandBase::s_drive = NULL;
+//Drive* CommandBase::s_drive = NULL;
 BallPickup* CommandBase::s_ballPickup = NULL;
 BallShooter* CommandBase::s_ballShooter = NULL;
 BallStorage* CommandBase::s_ballStorage = NULL;
@@ -29,7 +29,7 @@ OI* CommandBase::oi = NULL;
 void CommandBase::init() 
 {
     // Create a single static instance of all of your subsystems.
-	s_drive = new Drive();
+	//s_drive = new Drive();
 	s_ballPickup = new BallPickup();
 	s_ballShooter = new BallShooter();
 	s_ballStorage = new BallStorage();

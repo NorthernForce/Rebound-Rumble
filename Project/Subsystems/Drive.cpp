@@ -4,8 +4,8 @@
 /**
  * @brief The constructor for the Drive subsystem.
  */
-Drive::Drive() : Subsystem("Drive"),
-	robotDrive()
+Drive::Drive() : Subsystem("Drive")
+	//robotDrive()
 {
 	
 }
@@ -17,9 +17,4 @@ void Drive::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
-}
-
-void Drive::DriveRobot(GenericHID &controller)
-{
-
 }

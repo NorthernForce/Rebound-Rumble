@@ -1,3 +1,5 @@
+#ifndef FOOTBALLDRIVE_H
+#define FOOTBALLDRIVE_H
 #include "WPILib.h"
 #include "../CommandBase.h"
 
@@ -7,7 +9,7 @@
  */
 class FootballDrive :
 	public RobotDrive
-{
+	{
 public:
 	FootballDrive (float sensitivity = 0.5);
 
@@ -31,10 +33,9 @@ private:
 
 	void PowerMotors (float frontLeft, float rearLeft, float frontRight, float rearRight);
 
-private:
-
 	bool m_useEncoders;
 	
 	float m_eSum;
-
-};
+	}
+;
+#endif
