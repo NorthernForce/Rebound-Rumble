@@ -2,6 +2,7 @@
 #define DRIVE_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "../Classes/FootballDrive.h"
 
 /**
  * @brief The drive object for the robot. All
@@ -14,10 +15,11 @@ class Drive: public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	void InitDrive();
 public:
 	Drive();
 	void InitDefaultCommand();
+	void DriveRobot(GenericHID& controller);
+	FootballDrive robotDrive;
 };
 
 #endif

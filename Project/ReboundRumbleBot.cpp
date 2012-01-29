@@ -2,6 +2,7 @@
 #include "Commands/Command.h"
 #include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
+#include "Classes/FootballDrive.h"
 
 /**
  * @brief This class controls the entire robot,
@@ -14,11 +15,13 @@ class ReboundRumbleBot : public IterativeRobot
 {
 private:
 	Command *autonomousCommand;
+	FootballDrive *roboDrive;
 	
 	virtual void RobotInit() 
 	{
 		CommandBase::init();
 		autonomousCommand = new ExampleCommand();
+		roboDrive = new FootballDrive();
 	}
 	
 	virtual void AutonomousInit() 
@@ -43,6 +46,7 @@ private:
 	virtual void TeleopPeriodic() 
 	{
 		Scheduler::GetInstance()->Run();
+		roboDrive->ArcadeDrive(CommandBase::oi->stick);
 	}
 };
 

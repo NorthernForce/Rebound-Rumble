@@ -1,5 +1,6 @@
 #include "Motors.h"
 #include "../Robotmap.h"
+#include "CANJaguar.h"
 
 /**
  * @brief The constructor for the motors. This method
@@ -8,7 +9,12 @@
  * 
  * @author Arthur Lockman
  */
-Motors::Motors() : Subsystem("Motors") {
+Motors::Motors() : Subsystem("Motors"),
+	frontLeftMotor(k_frontLeftJaguar),
+	frontRightMotor(k_frontRightJaguar),
+	rearLeftMotor(k_rearLeftJaguar),
+	rearRightMotor(k_rearRightJaguar)
+{
 	
 }
     
