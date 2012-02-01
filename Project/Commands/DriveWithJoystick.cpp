@@ -1,31 +1,32 @@
-#include "ExampleCommand.h"
+#include "DriveWithJoystick.h"
 
-ExampleCommand::ExampleCommand() {
+DriveWithJoystick::DriveWithJoystick() {
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
+	Requires(s_drive);
 }
 
 // Called just before this Command runs the first time
-void ExampleCommand::Initialize() {
+void DriveWithJoystick::Initialize() {
 	
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ExampleCommand::Execute() {
-	
+void DriveWithJoystick::Execute() {
+	s_drive->DriveRobot(oi->stick);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ExampleCommand::IsFinished() {
+bool DriveWithJoystick::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void ExampleCommand::End() {
+void DriveWithJoystick::End() {
 	
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ExampleCommand::Interrupted() {
+void DriveWithJoystick::Interrupted() {
 }

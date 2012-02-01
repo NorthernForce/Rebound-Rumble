@@ -1,6 +1,5 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
-#include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
 
 /**
@@ -18,12 +17,11 @@ private:
 	virtual void RobotInit() 
 	{
 		CommandBase::init();
-		autonomousCommand = new ExampleCommand();
 	}
 	
 	virtual void AutonomousInit() 
 	{
-		autonomousCommand->Start();
+		
 	}
 	
 	virtual void AutonomousPeriodic() 

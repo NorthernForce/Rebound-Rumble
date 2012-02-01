@@ -21,6 +21,13 @@
 // #define RANGE_FINDER_PORT 1
 // #define RANGE_FINDER_MODULE 1
 
+//CAN Jaguars
+#define k_frontLeftJaguar 1
+#define k_frontRightJaguar 3
+#define k_rearLeftJaguar 2
+#define k_rearRightJaguar 4
+#define k_rampValue 0.4
+
 //Xbox Controller Ports
 #define k_XBoxButtonA 1
 #define	k_XBoxButtonB 2
@@ -42,5 +49,13 @@
 //Acceleration of Gravity (meters per second)
 #define k_GravityAccel 9.8
 #define k_ArrivalAngle 45.0
+
+//PID Values and encoder references
+#define k_driveP -0.3
+#define k_driveI 0.0
+#define k_driveD 0.0
+#define k_encoderPulsesPerRev 256
+#define k_driveMaxOutputVoltage 12
+#define k_useEncoders false
 
 #endif

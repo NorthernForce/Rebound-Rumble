@@ -23,6 +23,7 @@
  * 
  * @author Arthur Lockman
  */
+class Drive;
 class CommandBase: public Command {
 public:
 	CommandBase(const char *name);

@@ -5,8 +5,8 @@
  * Interface classes for interacting with
  * the robot.
  */
-OI::OI():
-	stick()
+OI::OI()
 {
 	// Process operator interface input here.
+	stick = new XboxJoystick();
 }

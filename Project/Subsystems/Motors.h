@@ -2,6 +2,7 @@
 #define MOTORS_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "CANJaguar.h"
 
 /**
  * @brief This class will be used to instantiate all of the
@@ -17,6 +18,10 @@ private:
 public:
 	Motors();
 	void InitDefaultCommand();
+	CANJaguar *frontLeftMotor;
+	CANJaguar *frontRightMotor;
+	CANJaguar *rearLeftMotor;
+	CANJaguar *rearRightMotor;
 	//All of the individual motors will go here.
 };
 
