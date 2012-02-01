@@ -1,11 +1,17 @@
 #include "Drive.h"
 #include "../Robotmap.h"
+<<<<<<< .working
 #include "../CommandBase.h"
 #include <Math.h>
 #include "../Classes/XboxJoystick.h"
 #include "../Commands/DriveWithJoystick.h"
 #include "CANJaguar.h"
 #define M_PI 3.1415926535897932384626433832795
+=======
+#include "../CommandBase.h"
+#include "../Commands/DriveWithJoystick.h"
+#include "../Classes/BSBotDrive.h"
+>>>>>>> .merge-right.r423
 
 namespace
 {
@@ -39,9 +45,13 @@ inline float SignedSquare (float val)
  */
 Drive::Drive() : Subsystem("Drive")
 {
+<<<<<<< .working
 	drive = new RobotDrive (CommandBase::s_motors->rearRightMotor, CommandBase::s_motors->rearLeftMotor, 
 			CommandBase::s_motors->frontRightMotor, CommandBase::s_motors->frontLeftMotor);
 	drive->SetSafetyEnabled(false);
+=======
+	drive = new BSBotDrive();
+>>>>>>> .merge-right.r423
 }
     
 /**
@@ -54,13 +64,18 @@ void Drive::InitDefaultCommand()
 	SetDefaultCommand(new DriveWithJoystick());
 }
 
+<<<<<<< .working
 /**
  * @brief Drives the robot, with a given joystick input. 
  * 
  * @param joystick The joystick to read input from.
  */
 void Drive::DriveRobot(XboxJoystick* joystick)
+=======
+void Drive::DriveWithStick(XboxJoystick& stick)
+>>>>>>> .merge-right.r423
 {
+<<<<<<< .working
 	const float x = joystick->GetRawAxis (4);
 	const float y = - joystick->GetRawAxis (Joystick::kDefaultYAxis);
 	this->_DriveRobot (y, x, true);
@@ -136,6 +151,9 @@ void Drive::PowerMotors(float frontLeft, float frontRight)
 		rearRight /= maxSpeed;
 	}
 	
+=======
+	drive->ArcadeDrive(stick);
+>>>>>>> .merge-right.r423
 	//Power the motors.
 	//@TODO: figure out if these motor values are correct (positive and negatives).
 	CommandBase::s_motors->frontLeftMotor->Set(-frontRight);
