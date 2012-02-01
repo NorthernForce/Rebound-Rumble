@@ -12,15 +12,16 @@
  *
  * @author Arthur Lockman
  */
-class Drive: public Subsystem, public RobotDrive {
+class Drive: public Subsystem{
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	void PowerMotors(float frontLeft, float frontRight);
+	RobotDrive *drive;
 public:
 	Drive();
 	void InitDefaultCommand();
-	void DriveRobot(GenericHID& joystick);
+	void DriveRobot(XboxJoystick* joystick);
 	void _DriveRobot(float moveValue, float rotateValue, bool squaredInputs);
 	void Stop();
 };

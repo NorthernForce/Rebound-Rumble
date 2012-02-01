@@ -12,11 +12,11 @@
  */
 class OI {
 private:
-
+	
 public:
 	OI();
 	//The XBox Joystick we're using to control the robot.
-	XboxJoystick stick;
+	XboxJoystick *stick;
 };
 
 #endif

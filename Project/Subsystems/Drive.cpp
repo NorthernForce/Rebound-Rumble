@@ -4,6 +4,7 @@
 #include <Math.h>
 #include "../Classes/XboxJoystick.h"
 #include "../Commands/DriveWithJoystick.h"
+#include "CANJaguar.h"
 #define M_PI 3.1415926535897932384626433832795
 
 namespace
@@ -36,11 +37,11 @@ inline float SignedSquare (float val)
 /**
  * @brief The constructor for the Drive subsystem.
  */
-Drive::Drive() : Subsystem("Drive"),
-		RobotDrive (&CommandBase::s_motors->rearRightMotor, &CommandBase::s_motors->rearLeftMotor, 
-						&CommandBase::s_motors->frontRightMotor, &CommandBase::s_motors->frontLeftMotor)
+Drive::Drive() : Subsystem("Drive")
 {
-	
+	drive = new RobotDrive (CommandBase::s_motors->rearRightMotor, CommandBase::s_motors->rearLeftMotor, 
+			CommandBase::s_motors->frontRightMotor, CommandBase::s_motors->frontLeftMotor);
+	drive->SetSafetyEnabled(false);
 }
     
 /**
@@ -58,10 +59,10 @@ void Drive::InitDefaultCommand()
  * 
  * @param joystick The joystick to read input from.
  */
-void Drive::DriveRobot(GenericHID& joystick)
+void Drive::DriveRobot(XboxJoystick* joystick)
 {
-	const float x = joystick.GetRawAxis (4);
-	const float y = - joystick.GetRawAxis (Joystick::kDefaultYAxis);
+	const float x = joystick->GetRawAxis (4);
+	const float y = - joystick->GetRawAxis (Joystick::kDefaultYAxis);
 	this->_DriveRobot (y, x, true);
 }
 
@@ -74,8 +75,8 @@ void Drive::_DriveRobot(float moveValue, float rotateValue, bool squaredInputs)
 		float left;
 		float right;
 
-		moveValue   = Limit (moveValue);
-		rotateValue = Limit (rotateValue);
+		//moveValue   = drive->Limit (moveValue);
+		//rotateValue = drive->Limit (rotateValue);
 
 		if (squaredInputs)
 		{
@@ -137,8 +138,8 @@ void Drive::PowerMotors(float frontLeft, float frontRight)
 	
 	//Power the motors.
 	//@TODO: figure out if these motor values are correct (positive and negatives).
-	CommandBase::s_motors->frontLeftMotor.Set (-frontRight);
-	CommandBase::s_motors->rearLeftMotor.Set (rearLeft);
-	CommandBase::s_motors->frontRightMotor.Set (-frontLeft);
-	CommandBase::s_motors->rearRightMotor.Set (rearRight);
+	CommandBase::s_motors->frontLeftMotor->Set(-frontRight);
+	CommandBase::s_motors->rearLeftMotor->Set (rearLeft);
+	CommandBase::s_motors->frontRightMotor->Set (-frontLeft);
+	CommandBase::s_motors->rearRightMotor->Set (rearRight);
 }

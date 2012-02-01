@@ -50,4 +50,12 @@
 #define k_GravityAccel 9.8
 #define k_ArrivalAngle 45.0
 
+//PID Values and encoder references
+#define k_driveP -0.3
+#define k_driveI 0.0
+#define k_driveD 0.0
+#define k_encoderPulsesPerRev 256
+#define k_driveMaxOutputVoltage 12
+#define k_useEncoders false
+
 #endif
