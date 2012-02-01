@@ -4,6 +4,7 @@
 #include "WPILib.h"
 #include "../Classes/XboxJoystick.h"
 #include "../CommandBase.h"
+#include "../Classes/BSBotDrive.h"
 
 /**
  * @brief The drive object for the robot. All
@@ -12,18 +13,16 @@
  *
  * @author Arthur Lockman
  */
+class BSBotDrive;
 class Drive: public Subsystem{
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	void PowerMotors(float frontLeft, float frontRight);
-	RobotDrive *drive;
+	BSBotDrive* drive;
 public:
 	Drive();
 	void InitDefaultCommand();
-	void DriveRobot(XboxJoystick* joystick);
-	void _DriveRobot(float moveValue, float rotateValue, bool squaredInputs);
-	void Stop();
+	void DriveWithStick(XboxJoystick stick);
 };
 
 #endif

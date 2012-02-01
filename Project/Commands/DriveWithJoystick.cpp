@@ -13,7 +13,7 @@ void DriveWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystick::Execute() {
-	s_drive->DriveRobot(oi->stick);
+	s_drive->DriveWithStick(oi->GetStick());
 }
 
 // Make this return true when this Command no longer needs to run execute()
