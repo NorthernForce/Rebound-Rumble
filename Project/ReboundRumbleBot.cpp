@@ -1,5 +1,4 @@
-#include "WPILib.h"
-#include "Commands/Command.h"
+#include <WPILib.h>
 #include "CommandBase.h"
 
 /**

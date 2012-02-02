@@ -1,7 +1,6 @@
 #ifndef CAMERA_H
 #define CAMERA_H
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
+#include <WPILib.h>
 
 /**
  * @brief Controls the camera and does the tracking

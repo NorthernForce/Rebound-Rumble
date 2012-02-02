@@ -1,7 +1,6 @@
 #ifndef ACCELEROMETER_H
 #define ACCELEROMETER_H
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
+#include <WPILib.h>
 
 /**
  * @brief This class controls the Accelerometer.

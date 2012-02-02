@@ -1,7 +1,6 @@
 #ifndef TARGETING_H
 #define TARGETING_H
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
+#include <WPILib.h>
 #include "../Classes/Vector2D.h"
 
 /**

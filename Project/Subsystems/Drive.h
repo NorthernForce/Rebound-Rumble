@@ -1,9 +1,6 @@
 #ifndef DRIVE_H
 #define DRIVE_H
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
-#include "../Classes/XboxJoystick.h"
-#include "../CommandBase.h"
+#include <WPILib.h>
 #include "../Classes/BSBotDrive.h"
 
 /**
@@ -13,7 +10,6 @@
  *
  * @author Arthur Lockman
  */
-class BSBotDrive;
 class Drive: public Subsystem{
 private:
 	// It's desirable that everything possible under private except
@@ -22,7 +18,7 @@ private:
 public:
 	Drive();
 	void InitDefaultCommand();
-	void DriveWithStick(XboxJoystick stick);
+	void DriveWithStick(XboxJoystick& stick);
 };
 
 #endif

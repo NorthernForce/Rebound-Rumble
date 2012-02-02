@@ -1,7 +1,6 @@
 #ifndef BALLSHOOTER_H
 #define BALLSHOOTER_H
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
+#include <WPILib.h>
 
 /**
  * @brief This class contains all methods

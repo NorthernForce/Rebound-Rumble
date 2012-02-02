@@ -8,10 +8,9 @@
 OI::OI()
 {
 	// Process operator interface input here.
-	stick = new XboxJoystick();
 }
 
-XboxJoystick OI::GetStick()
+XboxJoystick& OI::GetStick()
 {
-	return stick;
+	return m_stick;
 }

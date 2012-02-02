@@ -1,7 +1,6 @@
 #ifndef GYRO_H
 #define GYRO_H
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
+#include <WPILib.h>
 
 /**
  * @brief This controls the gyro sensor

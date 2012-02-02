@@ -1,7 +1,6 @@
 #ifndef BALLPICKUP_H
 #define BALLPICKUP_H
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
+#include <WPILib.h>
 
 /**
  * @brief This class controls the ball

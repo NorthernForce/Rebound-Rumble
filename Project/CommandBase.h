@@ -1,7 +1,6 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
-#include "Commands/Command.h"
 #include "Subsystems/Drive.h"
 #include "Subsystems/BallPickup.h"
 #include "Subsystems/BallShooter.h"
@@ -13,6 +12,7 @@
 #include "Subsystems/AccelerometerSubsystem.h"
 #include "Subsystems/Motors.h"
 #include "Subsystems/Targeting.h"
+#include "Subsystems/Drive.h"
 #include "OI.h"
 
 
@@ -23,7 +23,6 @@
  * 
  * @author Arthur Lockman
  */
-class Drive;
 class CommandBase: public Command {
 public:
 	CommandBase(const char *name);

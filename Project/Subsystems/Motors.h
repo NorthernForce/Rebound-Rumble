@@ -1,8 +1,7 @@
 #ifndef MOTORS_H
 #define MOTORS_H
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
-#include "CANJaguar.h"
+#include <WPILib.h>
+#include <CANJaguar.h>
 
 /**
  * @brief This class will be used to instantiate all of the
