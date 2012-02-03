@@ -1,7 +1,8 @@
 #ifndef TARGETING_H
 #define TARGETING_H
 #include <WPILib.h>
-#include "../Classes/Vector2D.h"
+#include "../Classes/Vector3D.h"
+#include "../Classes/Aim.h"
 
 /**
  * @brief Handles the targeting math for the
@@ -13,12 +14,10 @@ class Targeting: public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-    Vector2D GetTargetDisp();
+    Vector3D GetTargetDisp();
 public:
 	Targeting();
-	float ShotVAngle();
-	float ShotHAngle();
-	float MuzzleSpeed();
+    Aim GetAim();
 	void InitDefaultCommand();
 };
 
