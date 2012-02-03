@@ -52,6 +52,7 @@ BSBotDrive::BSBotDrive():
 
 void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
 {
+	m_safetyHelper->Feed();
 	const float x = controller.GetRawAxis (4);
 	const float y = - controller.GetRawAxis (Joystick::kDefaultYAxis);
 	this->ArcadeDrive (y, x, true);
@@ -140,13 +141,8 @@ void BSBotDrive::PowerMotors (
 		float frontRight,
 		float rearRight)
 {
-//	frontLeft  *= m_invertedMotors[kFrontLeftMotor];
-//	rearLeft   *= m_invertedMotors[kRearLeftMotor];
-//	frontRight *= m_invertedMotors[kFrontRightMotor];
-//	rearRight  *= m_invertedMotors[kRearRightMotor];
-
-	CommandBase::s_motors->rearRightMotor->Set(rearRight); 
-	CommandBase::s_motors->rearLeftMotor->Set(rearLeft);
-	CommandBase::s_motors->frontRightMotor->Set(frontLeft);
-	CommandBase::s_motors->frontLeftMotor->Set(frontRight);
+	CommandBase::s_motors->rearRightMotor->Set(-rearRight * 0.5); 
+	CommandBase::s_motors->rearLeftMotor->Set(rearLeft * 0.5);
+	CommandBase::s_motors->frontRightMotor->Set(-frontRight * 0.5);
+	CommandBase::s_motors->frontLeftMotor->Set(frontLeft * 0.5);
 }

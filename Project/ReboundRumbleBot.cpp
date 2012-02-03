@@ -10,10 +10,14 @@
  */
 class ReboundRumbleBot : public IterativeRobot 
 {
-private:
-	Command *autonomousCommand;
-	
-	virtual void RobotInit() 
+public:
+	ReboundRumbleBot() :
+		m_autonomousCommand (0)
+	{
+	}
+
+protected:
+	virtual void RobotInit()
 	{
 		CommandBase::init();
 	}
@@ -30,17 +34,23 @@ private:
 	
 	virtual void TeleopInit() 
 	{
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to 
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		autonomousCommand->Cancel();
+		if (m_autonomousCommand)
+		{
+			// This makes sure that the autonomous stops running when
+			// teleop starts running. If you want the autonomous to 
+			// continue until interrupted by another command, remove
+			// this line or comment it out.
+			m_autonomousCommand->Cancel();
+		}
 	}
 	
 	virtual void TeleopPeriodic() 
 	{
 		Scheduler::GetInstance()->Run();
 	}
+
+private:
+	Command *m_autonomousCommand;
 };
 
 START_ROBOT_CLASS(ReboundRumbleBot);
