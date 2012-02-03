@@ -44,8 +44,8 @@ inline float SignedSquare (float val)
  * @author Arthur Lockman
  */
 BSBotDrive::BSBotDrive():
-	RobotDrive(CommandBase::s_motors->rearRightMotor, CommandBase::s_motors->rearLeftMotor, 
-			CommandBase::s_motors->frontRightMotor, CommandBase::s_motors->frontLeftMotor)
+	RobotDrive(&CommandBase::s_motors->rearRightMotor, &CommandBase::s_motors->rearLeftMotor, 
+			&CommandBase::s_motors->frontRightMotor, &CommandBase::s_motors->frontLeftMotor)
 {
  	//Do nothing, as the whole class is set up.
 }
@@ -110,10 +110,10 @@ void BSBotDrive::ArcadeDrive (
 void BSBotDrive::Stop()
 {
 	// Don't ramp the PWM, actuall stop them!
-	CommandBase::s_motors->rearRightMotor->Set(0.0); 
-	CommandBase::s_motors->rearLeftMotor->Set(0.0);
-	CommandBase::s_motors->frontRightMotor->Set(0.0);
-	CommandBase::s_motors->frontLeftMotor->Set(0.0);
+	CommandBase::s_motors->rearRightMotor.Set(0.0); 
+	CommandBase::s_motors->rearLeftMotor.Set(0.0);
+	CommandBase::s_motors->frontRightMotor.Set(0.0);
+	CommandBase::s_motors->frontLeftMotor.Set(0.0);
 }
 
 void BSBotDrive::PowerMotors (
@@ -141,8 +141,8 @@ void BSBotDrive::PowerMotors (
 		float frontRight,
 		float rearRight)
 {
-	CommandBase::s_motors->rearRightMotor->Set(-rearRight * 0.5); 
-	CommandBase::s_motors->rearLeftMotor->Set(rearLeft * 0.5);
-	CommandBase::s_motors->frontRightMotor->Set(-frontRight * 0.5);
-	CommandBase::s_motors->frontLeftMotor->Set(frontLeft * 0.5);
+	CommandBase::s_motors->rearRightMotor.Set(-rearRight * 0.5); 
+	CommandBase::s_motors->rearLeftMotor.Set(rearLeft * 0.5);
+	CommandBase::s_motors->frontRightMotor.Set(-frontRight * 0.5);
+	CommandBase::s_motors->frontLeftMotor.Set(frontLeft * 0.5);
 }

@@ -17,10 +17,10 @@ private:
 public:
 	Motors();
 	void InitDefaultCommand();
-	CANJaguar *frontLeftMotor;
-	CANJaguar *frontRightMotor;
-	CANJaguar *rearLeftMotor;
-	CANJaguar *rearRightMotor;
+	CANJaguar frontLeftMotor;
+	CANJaguar frontRightMotor;
+	CANJaguar rearLeftMotor;
+	CANJaguar rearRightMotor;
 	//All of the individual motors will go here.
 };
 
