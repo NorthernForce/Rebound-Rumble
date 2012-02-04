@@ -44,6 +44,7 @@ enum JaguarsAddress
 #define	k_XBoxButtonLeftJoystick 9
 #define	k_XBoxButtonRightJoystick 10
 #define k_XBoxJoystickPort 1
+#define k_manipulatorJoystickPort 2
 
 //Ball positions.
 #define k_ballPosition1 1
@@ -59,7 +60,7 @@ enum JaguarsAddress
 #define k_driveI 0.0
 #define k_driveD 0.0
 #define k_encoderPulsesPerRev 256
-#define k_driveMaxOutputVoltage 12
+#define k_driveMaxOutputVoltage 6
 #define k_useEncoders false
 
 #endif

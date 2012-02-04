@@ -10,6 +10,8 @@
 Drive::Drive() : Subsystem("Drive")
 {
 	drive = new BSBotDrive();
+	//@TODO: Determine an appropriate timeout.
+	drive->SetSafetyEnabled(false);
 }
     
 /**

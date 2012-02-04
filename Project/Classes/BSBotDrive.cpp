@@ -50,6 +50,11 @@ BSBotDrive::BSBotDrive():
  	//Do nothing, as the whole class is set up.
 }
 
+/**
+ * @brief Used to drive the robot with a joystick.
+ * 
+ * @param controller The XBoxJoystick to use to control the robot.
+ */
 void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
 {
 	m_safetyHelper->Feed();
@@ -58,6 +63,14 @@ void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
 	this->ArcadeDrive (y, x, true);
 }
 
+/**
+ * @brief Actually computes the values that the wheels need to 
+ * turn to make the robot go.
+ * 
+ * @param moveValue The speed to move the robot N,S,E, or W.
+ * @param rotateValue The rotational speed of the robot.
+ * @param squaredInputs Whether or not the inputs are squared.
+ */
 void BSBotDrive::ArcadeDrive (
 	float moveValue,
 	float rotateValue,
@@ -107,6 +120,9 @@ void BSBotDrive::ArcadeDrive (
 	this->PowerMotors (left, right);
 }
 
+/**
+ * @brief Stops the robot.
+ */
 void BSBotDrive::Stop()
 {
 	// Don't ramp the PWM, actuall stop them!
@@ -116,6 +132,15 @@ void BSBotDrive::Stop()
 	CommandBase::s_motors->frontLeftMotor.Set(0.0);
 }
 
+/**
+ * @brief Powers the motors, given the speed of the front wheels. It
+ * calculates the speed of the rear wheels, and passes it to the 
+ * other PowerMotors method to actually power the motors to drive
+ * the wheels.
+ * 
+ * @param frontLeft The speed of the front left motor.
+ * @param frontRight The speed of the front right motor.
+ */
 void BSBotDrive::PowerMotors (
 	float frontLeft,
 	float frontRight)
@@ -135,14 +160,23 @@ void BSBotDrive::PowerMotors (
 	this->PowerMotors (frontLeft, rearLeft, frontRight, rearRight);
 }
 
+/**
+ * @brief Powers the motors, given the speed of the front and rear wheels.
+ * This actually does the powering of the motors.
+ * 
+ * @param frontLeft The speed of the front left motor.
+ * @param frontRight The speed of the front right motor.
+ * @param rearLeft The speed of the rear left motor.
+ * @param rearRight The speed of the rear right motor.
+ */
 void BSBotDrive::PowerMotors (
 		float frontLeft,
 		float rearLeft,
 		float frontRight,
 		float rearRight)
 {
-	CommandBase::s_motors->rearRightMotor.Set(-rearRight * 0.5); 
-	CommandBase::s_motors->rearLeftMotor.Set(rearLeft * 0.5);
-	CommandBase::s_motors->frontRightMotor.Set(-frontRight * 0.5);
-	CommandBase::s_motors->frontLeftMotor.Set(frontLeft * 0.5);
+	CommandBase::s_motors->rearRightMotor.Set(-rearRight); 
+	CommandBase::s_motors->rearLeftMotor.Set(rearLeft);
+	CommandBase::s_motors->frontRightMotor.Set(-frontRight);
+	CommandBase::s_motors->frontLeftMotor.Set(frontLeft);
 }

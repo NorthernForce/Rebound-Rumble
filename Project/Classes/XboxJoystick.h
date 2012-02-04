@@ -2,7 +2,7 @@
 #define XBOXJOYSTICK_H
 #include <WPILib.h>
 #include "../Robotmap.h"
-
+#include "Joystick.h"
 /*
  * @brief This class is the driver for the XBox Joystick
  * that we use at competition to control the robot.

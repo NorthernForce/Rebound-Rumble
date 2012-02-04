@@ -17,9 +17,11 @@ public:
 	OI();
 	//The XBox Joystick we're using to control the robot.
 	XboxJoystick& GetStick();
+	Joystick& GetManipulatorJoystick();
 
 private:
 	XboxJoystick m_stick;
+	Joystick m_manipulatorStick;
 };
 
 #endif
