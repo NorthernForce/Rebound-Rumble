@@ -1,15 +1,9 @@
 #ifndef TARGETING_H
 #define TARGETING_H
-<<<<<<< .working
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "../Classes/Vector3D.h"
 #include "../Classes/Aim.h"
-=======
-#include <WPILib.h>
-#include "../Classes/Vector3D.h"
-#include "../Classes/Aim.h"
->>>>>>> .merge-right.r433
 
 /**
  * @brief Handles the targeting math for the
