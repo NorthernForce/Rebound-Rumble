@@ -39,6 +39,44 @@ inline float SignedSquare (float val)
 }
 };
 
+/** @brief Initializes the drive motors.
+ *
+ * Note the use of the comma operator (see http://en.wikipedia.org/wiki/Comma_operator)
+ * which is used to print the initialization prior to the CANJaguar construction
+ * which can be helpful when a device on the can bus does not respond
+ *
+ * @author Stephen Nutt
+ */
+DriveMotors::DriveMotors() try :
+	m_frontLeftMotor ((printf("Initializing front left jaguar. \n"), k_frontLeftJaguar)),
+	m_frontRightMotor ((printf("Initializing front right jaguar. \n"), k_frontRightJaguar)),
+	m_rearLeftMotor ((printf("Initializing rear left jaguar. \n"), k_rearLeftJaguar)),
+	m_rearRightMotor ((printf("Initializing rear right jaguar. \n"), k_rearRightJaguar))
+{
+	m_frontLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	m_frontLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_frontLeftMotor.EnableControl();
+
+	m_frontRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	m_frontRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_frontRightMotor.EnableControl();
+
+	m_rearLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	m_rearLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_rearLeftMotor.EnableControl();
+
+	m_rearRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	m_rearRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_rearRightMotor.EnableControl();
+
+	printf("Drive jaguars successfully created. \n");
+}
+catch (exception e)
+{
+	printf("Error creating jaguars.");
+	printf(e.what());
+}
+
 /**
  * @brief This class constructs the instance
  * of the Robot Drive that we use on the robot.
@@ -46,8 +84,8 @@ inline float SignedSquare (float val)
  * @author Arthur Lockman
  */
 BSBotDrive::BSBotDrive():
-	RobotDrive(&CommandBase::s_motors->rearRightMotor, &CommandBase::s_motors->rearLeftMotor, 
-			&CommandBase::s_motors->frontRightMotor, &CommandBase::s_motors->frontLeftMotor)
+	RobotDrive(DriveMotors::m_rearRightMotor, DriveMotors::m_rearLeftMotor, 
+			DriveMotors::m_frontRightMotor, DriveMotors::m_frontLeftMotor)
 {
  	//Do nothing, as the whole class is set up.
 }
@@ -127,11 +165,11 @@ void BSBotDrive::ArcadeDrive (
  */
 void BSBotDrive::Stop()
 {
-	// Don't ramp the PWM, actuall stop them!
-	CommandBase::s_motors->rearRightMotor.Set(0.0); 
-	CommandBase::s_motors->rearLeftMotor.Set(0.0);
-	CommandBase::s_motors->frontRightMotor.Set(0.0);
-	CommandBase::s_motors->frontLeftMotor.Set(0.0);
+	// Don't ramp the PWM, actually stop them!
+	DriveMotors::m_rearRightMotor.Set(0.0); 
+	DriveMotors::m_rearLeftMotor.Set(0.0);
+	DriveMotors::m_frontRightMotor.Set(0.0);
+	DriveMotors::m_frontLeftMotor.Set(0.0);
 }
 
 /**
@@ -177,8 +215,8 @@ void BSBotDrive::PowerMotors (
 		float frontRight,
 		float rearRight)
 {
-	CommandBase::s_motors->rearRightMotor.Set(-rearRight); 
-	CommandBase::s_motors->rearLeftMotor.Set(rearLeft);
-	CommandBase::s_motors->frontRightMotor.Set(-frontRight);
-	CommandBase::s_motors->frontLeftMotor.Set(frontLeft);
+	DriveMotors::m_rearRightMotor.Set(-rearRight); 
+	DriveMotors::m_rearLeftMotor.Set(rearLeft);
+	DriveMotors::m_frontRightMotor.Set(-frontRight);
+	DriveMotors::m_frontLeftMotor.Set(frontLeft);
 }
