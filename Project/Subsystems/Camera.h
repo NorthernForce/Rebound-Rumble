@@ -19,6 +19,23 @@ public:
 	void Search();
 	float GetDistanceToTarget();
 	float GetAngleToTarget();
+	void SaveImageToFTP();
+	
+private:
+	//! Main image processing function
+	void ProcessImages();
+
+	//! Static function called to run the image processing task
+	static void ImageProcessingTask(Camera& camera);
+
+	//! The axis camera instance
+	AxisCamera& m_cam;
+
+	//! The current camera image
+	HSLImage m_image;
+	
+	//! The task object used to process camera images
+	Task m_imageProcessingTask;
 };
 
 #endif
