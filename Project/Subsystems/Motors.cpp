@@ -9,19 +9,19 @@ namespace
 		switch (addr)
 		{
 		case k_frontLeftJaguar:
-			printf("Initializing front left jaguar.");
+			printf("Initializing front left jaguar. \n");
 			break;
 		case k_frontRightJaguar:
-			printf("Initializing front right jaguar.");
+			printf("Initializing front right jaguar. \n");
 			break;
 		case k_rearLeftJaguar:
-			printf("Initializing rear left jaguar.");
+			printf("Initializing rear left jaguar. \n");
 			break;
 		case k_rearRightJaguar:
-			printf("Initializing rear right jaguar.");
+			printf("Initializing rear right jaguar. \n");
 			break;
 		default:
-			printf("Unknown Jaguar address.");
+			printf("Unknown Jaguar address. \n");
 			break;
 		}
 
@@ -60,7 +60,7 @@ Motors::Motors() try :
 	rearRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
 	rearRightMotor.EnableControl();
 
-	printf("Drive jaguars successfully created.");
+	printf("Drive jaguars successfully created. \n");
 } 
 catch (exception e)
 {
