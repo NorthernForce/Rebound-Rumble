@@ -13,7 +13,7 @@
 class Vector3D {
 public:
     Vector3D();
-    Vector3D(float, float, float);
+    Vector3D(float x_init, float y_init, float z_init);
     float GetMagnitude();
     float x;
     float y;
