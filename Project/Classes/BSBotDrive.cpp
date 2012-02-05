@@ -26,6 +26,8 @@ const float mecanumWheelDistancePerPulse = mecanumWheelDiameter * M_PI / encoder
 
 const float ramp = 0.2;
 
+const float rotateReduce = 1.5;
+
 /**
  * @brief Returns the square of the val preserving the sign of val
  *
@@ -59,7 +61,7 @@ void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
 {
 	m_safetyHelper->Feed();
 	const float x = controller.GetRawAxis (4);
-	const float y = - controller.GetRawAxis (Joystick::kDefaultYAxis);
+	const float y = -controller.GetRawAxis (Joystick::kDefaultYAxis);
 	this->ArcadeDrive (y, x, true);
 }
 
@@ -81,7 +83,7 @@ void BSBotDrive::ArcadeDrive (
 	float right;
 
 	moveValue   = Limit (moveValue);
-	rotateValue = Limit (rotateValue);
+	rotateValue = Limit (rotateValue) / rotateReduce;
 
 	if (squaredInputs)
 	{
