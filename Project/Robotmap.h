@@ -60,7 +60,7 @@ enum JaguarsAddress
 #define k_driveI 0.0
 #define k_driveD 0.0
 #define k_encoderPulsesPerRev 256
-#define k_driveMaxOutputVoltage 6
+#define k_driveMaxOutputVoltage 12
 #define k_useEncoders false
 
 #endif
