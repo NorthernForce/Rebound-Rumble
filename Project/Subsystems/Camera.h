@@ -20,7 +20,8 @@ public:
 	float GetDistanceToTarget();
 	float GetAngleToTarget();
 	void SaveImageToFTP();
-	
+	bool HasTarget() const;
+
 private:
 	//! Main image processing function
 	void ProcessImages();
@@ -33,9 +34,15 @@ private:
 
 	//! The current camera image
 	HSLImage m_image;
-	
+
 	//! The task object used to process camera images
 	Task m_imageProcessingTask;
+
+	//! A semaphore to provide mutual exclusion to the particle array
+	SEM_ID m_particleSemaphore;
+
+	//! The visible particles, protected by m_particleSemaphore
+	vector<ParticleAnalysisReport> m_particles;
 };
 
 #endif
