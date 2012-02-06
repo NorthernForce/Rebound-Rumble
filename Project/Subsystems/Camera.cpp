@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "../Robotmap.h"
+#include "Vision/BinaryImage.h"
 
 /**
  * @brief Creates the camera object.
@@ -94,9 +95,31 @@ void Camera::ProcessImages()
 
 	while (true)
 	{
-		// Fill me in
 		taskDelay (1000);
 		SaveImageToFTP();
+		
+		//@TODO correct HSL thresholds.
+		Threshold violetThreshold(226, 255, 28, 255, 96, 255);
+		BinaryImage *violetPixels = m_image.ThresholdHSL(violetThreshold);
+		BinaryImage *bigObjectsImage = violetPixels->RemoveSmallObjects(false, 2);
+		BinaryImage *convexHullImage = bigObjectsImage->ConvexHull(false);
+		vector<ParticleAnalysisReport> *reports = convexHullImage->GetOrderedParticleAnalysisReports();
+		
+		//For testing purposes, prints the particle reports to the Console.
+		for (unsigned i = 0; i < reports->size(); i++) {
+			ParticleAnalysisReport *r = &(reports->at(i));
+			printf("particle: %d  center_mass_x: %d\n", i, r->center_mass_x);
+		}
+		printf("\n");
+
+		//@TODO Verify these.
+		delete reports;
+		delete violetPixels;
+		delete convexHullImage;
+		delete bigObjectsImage;
+		//@TODO Verify that this works.
+		delete &m_image;
+					
 		Wait (10);
 	}
 }
