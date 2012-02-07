@@ -1,18 +1,35 @@
 #include <vxWorks.h>
+#include <usrLib.h>
 #include "Camera.h"
 #include "../Robotmap.h"
 #include "Vision/BinaryImage.h"
 
 /**
  * @brief Creates the camera object.
+ *
+ * By specifying the IP address of the camera we initialize without the
+ * driver station being present
+ *
  */
 Camera::Camera() :
 	Subsystem("Camera"),
-	m_cam (AxisCamera::GetInstance()),
-	m_imageProcessingTask ("ImageProcessing", (FUNCPTR)Camera::ImageProcessingTask, Task::kDefaultPriority + 10)
+	m_cam (AxisCamera::GetInstance("10.1.72.11")),
+	m_imageProcessingTask ("ImageProcessing", (FUNCPTR)Camera::ImageProcessingTask, Task::kDefaultPriority + 10),
+	m_cameraSemaphore (semBCreate (SEM_Q_PRIORITY, SEM_FULL)),
+	m_saveSourceImage (true),
+	m_saveProcessedImages (true)
 {
+	SetDirectory ("/tmp/Images");
 	m_imageProcessingTask.Start (reinterpret_cast<UINT32> (this));
-	m_particleSemaphore = semBCreate (SEM_Q_PRIORITY, SEM_EMPTY);
+}
+
+/** @brief Destroys the camera object.
+ *
+ * @author Stephen Nutt
+ */
+Camera::~Camera()
+{
+	semDelete (m_cameraSemaphore);
 }
 
 void Camera::InitDefaultCommand()
@@ -55,10 +72,8 @@ void Camera::Search()
  */
 bool Camera::HasTarget() const
 {
-	semTake(m_particleSemaphore, WAIT_FOREVER);
-	const bool hasTarget = !m_particles.empty();
-	semGive(m_particleSemaphore);
-	return hasTarget;
+	const Synchronized sync (m_cameraSemaphore);
+	return !m_particles.empty();
 }
 
 /**
@@ -77,18 +92,19 @@ float Camera::GetAngleToTarget()
 	Rect topTarget;
 	topTarget.top = INT_MAX;
 
-	// We need to lock m_particleSemaphore to protect access
+	// We need to lock m_cameraSemaphore to protect access
 	// to m_particles
-	semTake(m_particleSemaphore, WAIT_FOREVER);
-	for (size_t i = 0; i < m_particles.size(); ++i)
 	{
-		Rect& r = m_particles[i].boundingRect;
-		if (r.top < topTarget.top)
+		const Synchronized sync (m_cameraSemaphore);
+		for (size_t i = 0; i < m_particles.size(); ++i)
 		{
-			topTarget = r;
+			Rect& r = m_particles[i].boundingRect;
+			if (r.top < topTarget.top)
+			{
+				topTarget = r;
+			}
 		}
 	}
-	semGive(m_particleSemaphore);
 
 	// Calculate an approximate angle to the target
 	// This is very imprecise, but the precision does
@@ -111,15 +127,28 @@ float Camera::GetAngleToTarget()
 	}
 }
 
+/** @brief Sets the directory within which to write the camera images
+ *
+ * @author Stephen Nutt
+ */
+void Camera::SetDirectory (
+	const char* directory,
+	unsigned nextImage)
+{
+	const Synchronized sync (m_cameraSemaphore);
+	strcpy (m_directory, directory);
+	mkdir (m_directory);
+	m_imageNo = nextImage - 1;
+}
+
 /*
  * @brief Grabs a frame from the camera and saves it to the file system
  */
 void Camera::SaveImageToFTP()
 {
-	m_cam.GetImage(&m_image);
 	printf("the width of the image is: %i\n",m_image.GetWidth());
 	printf("the height of the image is: %i\n",m_image.GetHeight());
-	m_image.Write("/tmp/t.jpg");
+	m_image.Write("/tmp/raw.jpg");
 	printf("image successfully written");
 }
 
@@ -139,7 +168,7 @@ void Camera::ImageProcessingTask(Camera& camera)
 void Camera::ProcessImages()
 {
 	// Wait for the camera to initialize
-	Wait(8.0);
+	Wait(2.0);
 	printf("Setting camera parameters\n");
 	m_cam.WriteResolution(AxisCamera::kResolution_320x240);
 	m_cam.WriteCompression(20);
@@ -155,38 +184,59 @@ void Camera::ProcessImages()
 			continue;
 		}
 
-		// TESTING ONLY - Delete this line
-		SaveImageToFTP();
+		m_cam.GetImage (&m_image);
+		if (m_saveSourceImage || m_saveProcessedImages) ++m_imageNo;
+		if (m_saveSourceImage) SaveImage(m_image, "src.jpg");
 
 		//@TODO correct HSL thresholds.
-		Threshold violetThreshold(226, 255, 28, 255, 96, 255);
-		BinaryImage *violetPixels = m_image.ThresholdHSL(violetThreshold);
-		BinaryImage *bigObjectsImage = violetPixels->RemoveSmallObjects(false, 2);
-		BinaryImage *convexHullImage = bigObjectsImage->ConvexHull(false);
+//		Threshold violetThreshold (226, 255, 28, 255, 96, 255);
+		Threshold violetThreshold (160, 220, 20, 80, 80, 225);
+		const std::auto_ptr<BinaryImage> violetPixels (m_image.ThresholdHSL(violetThreshold));
+		if (violetPixels.get() == 0) continue;
+		if (m_saveProcessedImages) SaveImage (*violetPixels, "violet.png");
+
+		const std::auto_ptr<BinaryImage> bigObjectsImage (violetPixels->RemoveSmallObjects (false, 2));
+		if (bigObjectsImage.get() == 0) continue;
+		if (m_saveProcessedImages) SaveImage (*bigObjectsImage, "big.png");
+
+		const std::auto_ptr<BinaryImage> convexHullImage (bigObjectsImage->ConvexHull (false));
+		if (convexHullImage.get() == 0) continue;
+		if (m_saveProcessedImages) SaveImage (*convexHullImage, "hull.png");
+
 		const int particleCount = convexHullImage->GetNumberParticles();
 
 		// Save the particle analysis for use by the main thread.
-		// We need to lock m_particleSemaphore to protect access
+		// We need to lock m_cameraSemaphore to protect access
 		// to m_particles
-		semTake(m_particleSemaphore, WAIT_FOREVER);
-		m_particles.resize(particleCount);
-		for (int i = 0; i < particleCount; ++i)
 		{
-			ParticleAnalysisReport& particle = m_particles[i];
-			particle = convexHullImage->GetParticleAnalysisReport(i);
+			const Synchronized sync (m_cameraSemaphore);
+			m_particles.resize (particleCount);
+			for (int i = 0; i < particleCount; ++i)
+			{
+				ParticleAnalysisReport& particle = m_particles[i];
+				particle = convexHullImage->GetParticleAnalysisReport(i);
 
-			// TESTING ONLY - Delete this line
-			//For testing purposes, prints the particle reports to the Console.
-			printf("particle: %d  center_mass_x: %d\n", i, particle.center_mass_x);
+				// TESTING ONLY - Delete this line
+				//For testing purposes, prints the particle reports to the Console.
+				printf("particle: %d center_mass_x: %d\n", i, particle.center_mass_x);
+			}
 		}
-		semGive(m_particleSemaphore);
 
 		// TESTING ONLY - Delete this line
 		printf("\n");
-
-		//@TODO Verify these.
-		delete violetPixels;
-		delete convexHullImage;
-		delete bigObjectsImage;
 	}
+}
+
+/** @brief Writes the image to the file system
+ *
+ * @author Stephen Nutt
+ */
+void Camera::SaveImage (
+	ImageBase& image,
+	const char* name)
+{
+	const Synchronized sync (m_cameraSemaphore);
+	char path[60];
+	printf (path, "/tmp/%s/Img%d_%s", m_directory, m_imageNo, name);
+	image.Write(path);
 }
