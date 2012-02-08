@@ -27,6 +27,9 @@ public:
 	//! Sets the directory within which to save the images
 	void SetDirectory (const char* directory, unsigned nextImage = 1);
 
+	//! Captures the next n images
+	void CaptureImages (unsigned count);
+
 private:
 	//! Main image processing function
 	void ProcessImages();
@@ -57,6 +60,9 @@ private:
 
 	//! The unique image number used to generate the image file name
 	unsigned m_imageNo;
+
+	//! The last image number to capture
+	unsigned m_lastImageNo;
 
 	//! Controls the saving of the source images
 	bool m_saveSourceImage;

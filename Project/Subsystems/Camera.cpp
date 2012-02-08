@@ -4,6 +4,9 @@
 #include "../Robotmap.h"
 #include "Vision/BinaryImage.h"
 
+/** Private NI function needed to write to the VxWorks target */
+IMAQ_FUNC int Priv_SetWriteFileAllowed(UINT32 enable); 
+
 /**
  * @brief Creates the camera object.
  *
@@ -20,6 +23,7 @@ Camera::Camera() :
 	m_saveProcessedImages (true)
 {
 	SetDirectory ("/tmp/Images");
+	CaptureImages (20);
 	m_imageProcessingTask.Start (reinterpret_cast<UINT32> (this));
 }
 
@@ -137,8 +141,19 @@ void Camera::SetDirectory (
 {
 	const Synchronized sync (m_cameraSemaphore);
 	strcpy (m_directory, directory);
+	Priv_SetWriteFileAllowed(1);
 	mkdir (m_directory);
-	m_imageNo = nextImage - 1;
+	m_lastImageNo = m_imageNo = nextImage - 1;
+}
+
+/** @brief Captures the next n images from the camera
+ *
+ * @author Stephen Nutt
+ */
+void Camera::CaptureImages (unsigned count)
+{
+	const Synchronized sync (m_cameraSemaphore);
+	m_lastImageNo = std::min (m_imageNo + count, m_lastImageNo + count);
 }
 
 /*
@@ -184,24 +199,31 @@ void Camera::ProcessImages()
 			continue;
 		}
 
+		bool saveSourceImage = false;
+		bool saveProcessedImages = false;
+		if (m_imageNo < m_lastImageNo)
+		{
+			saveSourceImage = m_saveSourceImage;
+			saveProcessedImages = m_saveProcessedImages;
+			if (saveSourceImage || saveProcessedImages) ++m_imageNo;
+		}
+
 		m_cam.GetImage (&m_image);
-		if (m_saveSourceImage || m_saveProcessedImages) ++m_imageNo;
-		if (m_saveSourceImage) SaveImage(m_image, "src.jpg");
+		if (saveSourceImage ) SaveImage(m_image, "src.jpg");
 
 		//@TODO correct HSL thresholds.
-//		Threshold violetThreshold (226, 255, 28, 255, 96, 255);
-		Threshold violetThreshold (160, 220, 20, 80, 80, 225);
+		Threshold violetThreshold (168, 205, 22, 255, 65, 255);
 		const std::auto_ptr<BinaryImage> violetPixels (m_image.ThresholdHSL(violetThreshold));
 		if (violetPixels.get() == 0) continue;
-		if (m_saveProcessedImages) SaveImage (*violetPixels, "violet.png");
+		if (saveProcessedImages) SaveImage (*violetPixels, "violet.png");
 
 		const std::auto_ptr<BinaryImage> bigObjectsImage (violetPixels->RemoveSmallObjects (false, 2));
 		if (bigObjectsImage.get() == 0) continue;
-		if (m_saveProcessedImages) SaveImage (*bigObjectsImage, "big.png");
+		if (saveProcessedImages) SaveImage (*bigObjectsImage, "big.png");
 
 		const std::auto_ptr<BinaryImage> convexHullImage (bigObjectsImage->ConvexHull (false));
 		if (convexHullImage.get() == 0) continue;
-		if (m_saveProcessedImages) SaveImage (*convexHullImage, "hull.png");
+		if (saveProcessedImages) SaveImage (*convexHullImage, "hull.png");
 
 		const int particleCount = convexHullImage->GetNumberParticles();
 
@@ -216,14 +238,20 @@ void Camera::ProcessImages()
 				ParticleAnalysisReport& particle = m_particles[i];
 				particle = convexHullImage->GetParticleAnalysisReport(i);
 
-				// TESTING ONLY - Delete this line
-				//For testing purposes, prints the particle reports to the Console.
-				printf("particle: %d center_mass_x: %d\n", i, particle.center_mass_x);
+				if (saveProcessedImages)
+				{
+					// TESTING ONLY - Delete this line
+					//For testing purposes, prints the particle reports to the Console.
+					printf("particle: %d center_mass_x: %d\n", i, particle.center_mass_x);
+				}
 			}
 		}
 
-		// TESTING ONLY - Delete this line
-		printf("\n");
+		if (saveProcessedImages)
+		{
+			// TESTING ONLY - Delete this line
+			printf("\n");
+		}
 	}
 }
 
@@ -237,6 +265,6 @@ void Camera::SaveImage (
 {
 	const Synchronized sync (m_cameraSemaphore);
 	char path[60];
-	printf (path, "/tmp/%s/Img%d_%s", m_directory, m_imageNo, name);
+	sprintf (path, "%s/Img%04d_%s", m_directory, m_imageNo, name);
 	image.Write(path);
 }
