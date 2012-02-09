@@ -64,24 +64,38 @@ protected:
 	 */
 	void UpdateDashboard()
 	{
-		// Only update every 50 cycles (approx every 1 second)
-		if ((++m_dashboardCounter % 50) == 0) return;
-		
-		SmartDashboard& dashboard = *SmartDashboard::GetInstance();
-		if (Camera* pCamera = CommandBase::s_camera)
+		// Only update every 25 cycles (approx every 1/2 second)
+		if ((++m_dashboardCounter % 25) != 0) return;
+
+//		SmartDashboard& dashboard = *SmartDashboard::GetInstance();
+		if (const Camera* const pCamera = CommandBase::s_camera)
 		{
 			const UINT32 time = pCamera->GetLastFrameProcessingTime();
-			dashboard.PutDouble ("FPS", time ? 1000.0 / time : 0.0);
-			dashboard.PutInt ("Target Angle", static_cast<int> (pCamera->GetAngleToTarget()));
+			SetSmartDashboardDouble ("FPS", time ? 1000.0 / time : 0.0);
+			SetSmartDashboardDouble ("Target Angle", pCamera->GetAngleToTarget());
 		}
 		
-		if (MaxbotixUltrasonic* pUltrasonic = CommandBase::s_ultrasonicSensor)
+		if (const MaxbotixUltrasonic* const pUltrasonic = CommandBase::s_ultrasonicSensor)
 		{
-			dashboard.PutInt ("Target Distance", static_cast<int> (pUltrasonic->GetRangeInInches() / 12.0));
+			SetSmartDashboardDouble ("Target Distance", pUltrasonic->GetRangeInInches() / 12.0);
 		}
 	}
 
 private:
+
+	/** @brief Updates a single double value on the dashboard, formatting
+	 * the double nicely
+	 *
+	 * @author Stephen Nutt
+	 */
+	static void SetSmartDashboardDouble (const char* name, const double value)
+	{
+		SmartDashboard& dashboard = *SmartDashboard::GetInstance();
+		char buffer[20];
+		sprintf (buffer, "% 2.1f", value);
+		dashboard.PutString (name, buffer);
+	}
+
 	Command *m_autonomousCommand;
 	
 	//! A counter to ensure the smart dashboard is updated frequently but

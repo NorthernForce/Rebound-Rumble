@@ -19,9 +19,9 @@ public:
 
 	void InitDefaultCommand();
 	void Search();
-	float GetDistanceToTarget();
-	float GetAngleToTarget();
-	void SaveImageToFTP();
+	float GetDistanceToTarget() const;
+	float GetAngleToTarget() const;
+	void SaveImageToFTP() const;
 	bool HasTarget() const;
 
 	//! Sets the directory within which to save the images
@@ -44,13 +44,13 @@ private:
 	static void ImageProcessingTask(Camera& camera);
 
 	//! Saves the image
-	void SaveImage(ImageBase& image, const char* name);
+	void SaveImage(ImageBase& image, const char* name) const;
 
 	//! The axis camera instance
 	AxisCamera& m_cam;
 
 	//! The current camera image
-	HSLImage m_image;
+	mutable HSLImage m_image;
 
 	//! The task object used to process camera images
 	Task m_imageProcessingTask;

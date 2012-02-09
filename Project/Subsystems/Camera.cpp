@@ -57,7 +57,7 @@ void Camera::InitCamera()
  * @brief Returns the distance to the target.
  * @return float Distance, in feet.
  */
-float Camera::GetDistanceToTarget()
+float Camera::GetDistanceToTarget() const
 {
     return 0.0; // Not implemented yet
 }
@@ -92,7 +92,7 @@ bool Camera::HasTarget() const
  *
  * @return A float, the angle in degrees of deviation.
  */
-float Camera::GetAngleToTarget()
+float Camera::GetAngleToTarget() const
 {
 	Rect topTarget;
 	topTarget.top = INT_MAX;
@@ -103,7 +103,7 @@ float Camera::GetAngleToTarget()
 		const Synchronized sync (m_cameraSemaphore);
 		for (size_t i = 0; i < m_particles.size(); ++i)
 		{
-			Rect& r = m_particles[i].boundingRect;
+			const Rect& r = m_particles[i].boundingRect;
 			if (r.top < topTarget.top)
 			{
 				topTarget = r;
@@ -160,7 +160,7 @@ void Camera::CaptureImages (unsigned count)
 /*
  * @brief Grabs a frame from the camera and saves it to the file system
  */
-void Camera::SaveImageToFTP()
+void Camera::SaveImageToFTP() const
 {
 	printf("the width of the image is: %i\n",m_image.GetWidth());
 	printf("the height of the image is: %i\n",m_image.GetHeight());
@@ -267,7 +267,7 @@ void Camera::ProcessImages()
  */
 void Camera::SaveImage (
 	ImageBase& image,
-	const char* name)
+	const char* name) const
 {
 	const Synchronized sync (m_cameraSemaphore);
 	char path[60];
