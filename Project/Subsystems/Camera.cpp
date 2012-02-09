@@ -20,7 +20,8 @@ Camera::Camera() :
 	m_imageProcessingTask ("ImageProcessing", (FUNCPTR)Camera::ImageProcessingTask, Task::kDefaultPriority + 10),
 	m_cameraSemaphore (semBCreate (SEM_Q_PRIORITY, SEM_FULL)),
 	m_saveSourceImage (true),
-	m_saveProcessedImages (true)
+	m_saveProcessedImages (true),
+	m_frameProcessingTime (0)
 {
 	SetDirectory ("/tmp/Images");
 	CaptureImages (20);
@@ -190,6 +191,7 @@ void Camera::ProcessImages()
 	m_cam.WriteBrightness(50);
 	printf("Camera parameters set./n");
 
+	UINT32 frameStart = GetFPGATime();
 	while (true)
 	{
 		// Wait for a new image to be available
@@ -252,6 +254,10 @@ void Camera::ProcessImages()
 			// TESTING ONLY - Delete this line
 			printf("\n");
 		}
+
+		const UINT32 now = GetFPGATime();
+		m_frameProcessingTime = frameStart - now;
+		frameStart = now;
 	}
 }
 

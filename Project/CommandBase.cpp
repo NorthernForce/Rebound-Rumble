@@ -19,7 +19,7 @@ BallStorage* CommandBase::s_ballStorage = NULL;
 Camera* CommandBase::s_camera = NULL;
 CameraMount* CommandBase::s_cameraMount = NULL;
 GyroSubsystem* CommandBase::s_gyro = NULL;
-UltrasonicSensor* CommandBase::s_ultrasonicSensor = NULL;
+MaxbotixUltrasonic* CommandBase::s_ultrasonicSensor = NULL;
 AccelerometerSubsystem* CommandBase::s_accelerometer = NULL;
 Targeting* CommandBase::s_targeting = NULL;
 
@@ -35,7 +35,7 @@ void CommandBase::init()
 	s_camera = new Camera();
 	s_cameraMount = new CameraMount();
 	s_gyro = new GyroSubsystem();
-	s_ultrasonicSensor = new UltrasonicSensor();
+	s_ultrasonicSensor = new MaxbotixUltrasonic (k_MaxbotixUltrasonic, k_MaxbotixSerialMode, k_MaxbotixOn);
 	s_accelerometer = new AccelerometerSubsystem();
 	s_targeting = new Targeting();
 	

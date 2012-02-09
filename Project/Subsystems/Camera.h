@@ -30,6 +30,12 @@ public:
 	//! Captures the next n images
 	void CaptureImages (unsigned count);
 
+	//! Returns the time taken to process the last frame
+	UINT32 GetLastFrameProcessingTime() const
+	{
+		return m_frameProcessingTime;
+	}
+
 private:
 	//! Main image processing function
 	void ProcessImages();
@@ -69,6 +75,9 @@ private:
 
 	//! Controls the saving of the processed images
 	bool m_saveProcessedImages;
+	
+	//! The time it took to process the last frame in ms
+	UINT32 m_frameProcessingTime;
 };
 
 #endif

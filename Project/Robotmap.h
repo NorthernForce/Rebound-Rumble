@@ -27,7 +27,18 @@ enum JaguarsAddress
 	k_frontLeftJaguar = 1,
 	k_frontRightJaguar = 3,
 	k_rearLeftJaguar = 2,
-	k_rearRightJaguar = 4
+	k_rearRightJaguar = 4,
+};
+
+enum AnalogAddress
+{
+	k_MaxbotixUltrasonic = 1,
+};
+	
+enum DigitlaAddress
+{
+	k_MaxbotixSerialMode = 1,
+	k_MaxbotixOn = 2,
 };
 
 #define k_rampValue 0.4
