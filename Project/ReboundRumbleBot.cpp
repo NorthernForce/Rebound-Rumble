@@ -17,11 +17,11 @@ public:
 	{
 	}
 
-protected:
+protected:	
 	virtual void RobotInit()
 	{
 		CommandBase::init();
-		SmartDashboard::GetInstance()->init();
+		SmartDashboard::GetInstance()->init();		
 	}
 	
 	virtual void AutonomousInit() 
@@ -51,6 +51,23 @@ protected:
 	{
 		Scheduler::GetInstance()->Run();
 		this->UpdateDashboard();
+		
+		//Capture images.
+		//@TODO test this.
+		bool buttonIsPressed = false;
+		if (CommandBase::oi->GetCameraButton())
+		{
+			if (buttonIsPressed)
+			{
+				//Do nothing. Only capture once per press.
+			}
+			CommandBase::s_camera->CaptureImages(10);
+			buttonIsPressed = true;
+		} 
+		else
+		{
+			buttonIsPressed = false;
+		}
 	}
 
 	virtual void DisabledPeriodic()

@@ -74,4 +74,10 @@ enum DigitlaAddress
 #define k_driveMaxOutputVoltage 12
 #define k_useEncoders false
 
+//Enhanced IO module keys
+#define k_fireLowerTarget 1
+#define k_fireMiddleLeftTarget 2
+#define k_fireMiddleRightTarget 3
+#define k_fireTopTarget 4
+
 #endif
