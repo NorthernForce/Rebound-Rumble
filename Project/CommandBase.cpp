@@ -22,6 +22,7 @@ GyroSubsystem* CommandBase::s_gyro = NULL;
 MaxbotixUltrasonic* CommandBase::s_ultrasonicSensor = NULL;
 AccelerometerSubsystem* CommandBase::s_accelerometer = NULL;
 Targeting* CommandBase::s_targeting = NULL;
+Turret* CommandBase::s_turret = NULL;
 
 OI* CommandBase::oi = NULL;
 
@@ -38,6 +39,7 @@ void CommandBase::init()
 	s_ultrasonicSensor = new MaxbotixUltrasonic (k_MaxbotixUltrasonic, k_MaxbotixSerialMode, k_MaxbotixOn);
 	s_accelerometer = new AccelerometerSubsystem();
 	s_targeting = new Targeting();
+	s_turret = new Turret();
 	
 	oi = new OI();
 }

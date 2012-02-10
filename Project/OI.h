@@ -22,6 +22,7 @@ public:
 	bool OI::GetFireButton();
 	int OI::GetSelectedTarget();
 	bool OI::GetCameraButton();
+	
 private:
 	Joystick m_manipulatorStick;
 	XboxJoystick m_stick;
