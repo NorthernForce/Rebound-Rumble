@@ -28,6 +28,8 @@ enum JaguarsAddress
 	k_frontRightJaguar = 3,
 	k_rearLeftJaguar = 2,
 	k_rearRightJaguar = 4,
+    k_pickupMotorJaguar = 5,
+    k_storageMotorJaguar = 6,
 };
 
 enum AnalogAddress
@@ -72,6 +74,8 @@ enum DigitlaAddress
 #define k_driveD 0.0
 #define k_encoderPulsesPerRev 256
 #define k_driveMaxOutputVoltage 12
+#define k_pickupMaxOutputVoltage 12
+#define k_storageMaxOutputVoltage 12
 #define k_useEncoders false
 
 // Number of Images to capture when the image capture button
@@ -83,5 +87,9 @@ enum DigitlaAddress
 #define k_fireMiddleLeftTarget 2
 #define k_fireMiddleRightTarget 3
 #define k_fireTopTarget 4
+
+// Pickup motor speed
+#define k_pickupMotorSpeed 0
+#define k_storageMotorSpeed 0
 
 #endif
