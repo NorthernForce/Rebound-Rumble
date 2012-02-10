@@ -54,7 +54,7 @@ private:
 	};
 
 	//! The physical accelerometer
-	ADXL345_I2C m_accelerometer;
+	mutable ADXL345_I2C m_accelerometer;
 
 	//! Alpha-beta filters are used to reduce the noise from the sensor
 	//! providing a more accurate calibration.

@@ -107,6 +107,7 @@ void AccelerometerSubsystem::EndCalibrartion()
  */
 Vector3D AccelerometerSubsystem::GetAccelerations() const
 {
-	const Vector3D current (m_x.GetValue(), m_y.GetValue(), m_z.GetValue());
+	const ADXL345_I2C::AllAxes axes = m_accelerometer.GetAccelerations();
+	const Vector3D current (axes.XAxis, axes.YAxis, axes.ZAxis);
 	return Vector3D (m_xAxis.DotProduct (current), m_yAxis.DotProduct (current), m_zAxis.DotProduct (current));
 }
