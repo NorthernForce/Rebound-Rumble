@@ -17,16 +17,15 @@ public:
 	{
 	}
 
-protected:	
+protected:
 	virtual void RobotInit()
 	{
 		CommandBase::init();
-		SmartDashboard::GetInstance()->init();		
+		SmartDashboard::GetInstance()->init();
 	}
 	
 	virtual void AutonomousInit() 
 	{
-		
 	}
 	
 	virtual void AutonomousPeriodic() 
@@ -51,6 +50,7 @@ protected:
 	{
 		Scheduler::GetInstance()->Run();
 		this->UpdateDashboard();
+		CommandBase::s_accelerometer->PerformCalibrartion();
 		
 		//Capture images.
 		//@TODO test this.
@@ -73,6 +73,7 @@ protected:
 	virtual void DisabledPeriodic()
 	{
 		this->UpdateDashboard();
+		CommandBase::s_accelerometer->PerformCalibrartion();
 	}
 
 	/** @brief Updates the values on the dashboard
