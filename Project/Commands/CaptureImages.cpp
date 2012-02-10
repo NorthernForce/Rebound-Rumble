@@ -16,7 +16,7 @@ void CaptureImages::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void CaptureImages::Execute() {
 	s_camera->CaptureImages(k_ImageCaptureCount);
-    printf("Capturing 10 images . . .");
+    printf("Capturing %i images . . .",k_ImageCaptureCount);
 }
 
 // Make this return true when this Command no longer needs to run execute()
