@@ -265,8 +265,10 @@ void Camera::ProcessImages()
 			printf("\n");
 		}
 
+		// Update the processing time.  We add 1 to ensure the time
+		// is never 0
 		const UINT32 now = GetFPGATime();
-		m_frameProcessingTime = frameStart - now;
+		m_frameProcessingTime = (now - frameStart) + 1;
 		frameStart = now;
 	}
 }

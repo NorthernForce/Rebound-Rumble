@@ -14,7 +14,12 @@ class Vector3D {
 public:
     Vector3D();
     Vector3D(float x_init, float y_init, float z_init);
-    float GetMagnitude();
+    float Magnitude() const;
+	float DotProduct (const Vector3D& v) const;
+	Vector3D CrossProduct (const Vector3D& v) const;
+	void Normalize();
+	friend Vector3D operator - (const Vector3D& lhs, const Vector3D& rhs);
+
     float x;
     float y;
     float z;
