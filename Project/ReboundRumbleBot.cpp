@@ -1,4 +1,6 @@
 #include <WPILib.h>
+#include <Math.h>
+#define M_PI 3.1415926535897932384626433832795
 #include "CommandBase.h"
 
 /**
@@ -85,7 +87,7 @@ protected:
 		// Only update every 25 cycles (approx every 1/2 second)
 		if ((++m_dashboardCounter % 25) != 0) return;
 
-//		SmartDashboard& dashboard = *SmartDashboard::GetInstance();
+		SmartDashboard& dashboard = *SmartDashboard::GetInstance();
 		if (const Camera* const pCamera = CommandBase::s_camera)
 		{
 			const UINT32 time = pCamera->GetLastFrameProcessingTime();
@@ -96,6 +98,26 @@ protected:
 		if (const MaxbotixUltrasonic* const pUltrasonic = CommandBase::s_ultrasonicSensor)
 		{
 			SetSmartDashboardDouble ("Target Distance", pUltrasonic->GetRangeInInches() / 12.0);
+		}
+		
+		if (const AccelerometerSubsystem* const pAccelerometer = CommandBase::s_accelerometer)
+		{
+			if (pAccelerometer->IsCalibrated() == false)
+			{
+				dashboard.PutString ("Accelerometer X", "Uncalibrated");
+				dashboard.PutString ("Accelerometer Y", "Uncalibrated");
+				dashboard.PutString ("Accelerometer Z", "Uncalibrated");
+				dashboard.PutString ("Level", "Uncalibrated");
+			}
+			else
+			{
+				Vector3D val = pAccelerometer->GetAccelerations();
+				SetSmartDashboardDouble ("Accelerometer X", val.x);
+				SetSmartDashboardDouble ("Accelerometer Y", val.y);
+				SetSmartDashboardDouble ("Accelerometer Z", val.z);
+				val.Normalize();
+				SetSmartDashboardDouble ("Level", acos (val.z) * 180 / M_PI);
+			}
 		}
 	}
 

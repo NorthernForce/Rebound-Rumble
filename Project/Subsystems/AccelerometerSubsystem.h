@@ -24,7 +24,8 @@ public:
 	//! Call to begin the stationary calibration process
 	void BeginStationaryCalibrartion();
 
-	//! Call to begin the stationary calibration process
+	//! Call to begin the dynamic calibration process while the robot
+	//! is moving straight either forwards or backwards
 	void BeginActiveCalibrartion (bool forward);
 
 	//! Call frequently to calibrate the accelerometer
@@ -32,6 +33,12 @@ public:
 
 	//! Call to end calibration
 	void EndCalibrartion();
+
+	//! Return true if the accelerometer has been calibrated
+	inline bool IsCalibrated() const
+	{
+		return m_currentState == eCalibrated;
+	}
 
 	//! Returns the current acceleration vector
 	Vector3D GetAccelerations() const;
@@ -49,6 +56,8 @@ private:
 	//! The physical accelerometer
 	ADXL345_I2C m_accelerometer;
 
+	//! Alpha-beta filters are used to reduce the noise from the sensor
+	//! providing a more accurate calibration.
 	AlphaBetaFilter<double> m_x;
 	AlphaBetaFilter<double> m_y;
 	AlphaBetaFilter<double> m_z;

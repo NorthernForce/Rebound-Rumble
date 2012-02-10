@@ -50,6 +50,14 @@ void AccelerometerSubsystem::BeginActiveCalibrartion (
 		m_zAxis.Normalize();
 		m_currentState = forward ? eInForwardCalibration : eInReverseCalibration;
 	}
+	else if (m_currentState == (forward ? eInForwardCalibration : eInReverseCalibration))
+	{
+		// When called a subsequent time, reset the the filters.  This provides
+		// a faster method for the dynamic portion of the calibration process
+		m_x.Clear();
+		m_y.Clear();
+		m_z.Clear();
+	}
 }
 
 /** @brief Executes the basic calibration routines.
