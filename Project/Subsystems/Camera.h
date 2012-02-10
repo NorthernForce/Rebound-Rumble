@@ -23,6 +23,7 @@ public:
 	float GetAngleToTarget() const;
 	void SaveImageToFTP() const;
 	bool HasTarget() const;
+	int GetNumberOfTargets() const;
 
 	//! Sets the directory within which to save the images
 	void SetDirectory (const char* directory, unsigned nextImage = 1);

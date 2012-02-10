@@ -82,6 +82,16 @@ bool Camera::HasTarget() const
 }
 
 /**
+ * @brief Gets the number of targets the camera can see
+ * @return The number of targets the camera can see
+ */
+int Camera::GetNumberOfTargets() const
+{
+	const Synchronized sync (m_cameraSemaphore);
+	return m_particles.size();
+}
+
+/**
  * @brief Gets the apparent angle that the robot lies
  * on relative to a line perpendicular to the targets.
  *

@@ -74,6 +74,10 @@ enum DigitlaAddress
 #define k_driveMaxOutputVoltage 12
 #define k_useEncoders false
 
+// Number of Images to capture when the image capture button
+// is held down
+#define k_ImageCaptureCount 10
+
 //Enhanced IO module keys
 #define k_fireLowerTarget 1
 #define k_fireMiddleLeftTarget 2

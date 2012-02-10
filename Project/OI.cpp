@@ -1,4 +1,5 @@
 #include "OI.h"
+#include "Commands/CaptureImages.h"
 #include "Robotmap.h"
 
 /** 
@@ -8,9 +9,12 @@
  */
 OI::OI():
 	m_manipulatorStick(k_manipulatorJoystickPort),
+    m_stick(),
+    m_ImageButton(&m_stick, k_XBoxButtonA),
 	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO())
 {
 	// Process operator interface input here.
+    m_ImageButton.WhenPressed(new CaptureImages());
 }
 
 /**
@@ -21,6 +25,16 @@ OI::OI():
 XboxJoystick& OI::GetStick()
 {
 	return m_stick;
+}
+
+/**
+ * @brief Returns the button used to capture images
+ * 
+ * @return The capture image button
+ */
+JoystickButton OI::GetImageButton()
+{
+	return m_ImageButton;
 }
 
 /**
