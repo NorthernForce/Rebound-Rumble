@@ -53,23 +53,6 @@ protected:
 		Scheduler::GetInstance()->Run();
 		this->UpdateDashboard();
 		CommandBase::s_accelerometer->PerformCalibrartion();
-		
-		//Capture images.
-		//@TODO test this.
-		bool buttonIsPressed = false;
-		if (CommandBase::oi->GetCameraButton())
-		{
-			if (buttonIsPressed)
-			{
-				//Do nothing. Only capture once per press.
-			}
-			CommandBase::s_camera->CaptureImages(10);
-			buttonIsPressed = true;
-		} 
-		else
-		{
-			buttonIsPressed = false;
-		}
 	}
 
 	virtual void DisabledPeriodic()
