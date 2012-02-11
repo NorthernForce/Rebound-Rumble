@@ -199,6 +199,7 @@ void Camera::ProcessImages()
 	m_cam.WriteResolution(AxisCamera::kResolution_320x240);
 	m_cam.WriteCompression(20);
 	m_cam.WriteBrightness(50);
+    m_cam.WriteMaxFPS(8);
 	printf("Camera parameters set./n");
 
 	UINT32 frameStart = GetFPGATime();
