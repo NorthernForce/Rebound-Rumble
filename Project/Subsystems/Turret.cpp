@@ -9,11 +9,11 @@ void Turret::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
 }
-void SetAngle(float Angle)
+void Turret::SetAngle(float Angle)
 {
 	
 }
-void TurnTurret(float Angle)
+void Turret::TurnTurret(float Angle)
 {
 	
 }

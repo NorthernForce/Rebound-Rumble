@@ -75,7 +75,14 @@ protected:
 		{
 			const UINT32 time = pCamera->GetLastFrameProcessingTime();
 			SetSmartDashboardDouble ("FPS", time ? 1000.0 / time : 0.0);
-			SetSmartDashboardDouble ("Target Angle", pCamera->GetAngleToTarget());
+			if (pCamera->HasTarget())
+			{
+				SetSmartDashboardDouble ("Target Angle", pCamera->GetAngleToTarget());
+			}
+			else
+			{
+				dashboard.PutString ("Target Angle", "No target found.");
+			}
 		}
 		
 		if (const MaxbotixUltrasonic* const pUltrasonic = CommandBase::s_ultrasonicSensor)
