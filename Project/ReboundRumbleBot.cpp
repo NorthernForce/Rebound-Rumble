@@ -2,6 +2,7 @@
 #include <Math.h>
 #define M_PI 3.1415926535897932384626433832795
 #include "CommandBase.h"
+#include "Commands/CalibrateAccelerometer.h"
 
 /**
  * @brief This class controls the entire robot,
@@ -23,11 +24,18 @@ protected:
 	virtual void RobotInit()
 	{
 		CommandBase::init();
-		SmartDashboard::GetInstance()->init();
+		m_pCalibrationCommand = new CalibrateAccelerometer();
 	}
-	
+
+	virtual void DisabledInit()
+	{
+		CommandBase::s_accelerometer->BeginStationaryCalibrartion();
+	}
+
 	virtual void AutonomousInit() 
 	{
+		Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
+		m_autonomousCommand = m_pCalibrationCommand;
 	}
 	
 	virtual void AutonomousPeriodic() 
@@ -74,7 +82,7 @@ protected:
 		if (const Camera* const pCamera = CommandBase::s_camera)
 		{
 			const UINT32 time = pCamera->GetLastFrameProcessingTime();
-			SetSmartDashboardDouble ("FPS", time ? 1000.0 / time : 0.0);
+			SetSmartDashboardDouble ("FPS", time ? 1000000.0 / time : 0.0);
 			if (pCamera->HasTarget())
 			{
 				SetSmartDashboardDouble ("Target Angle", pCamera->GetAngleToTarget());
@@ -87,12 +95,20 @@ protected:
 		
 		if (const MaxbotixUltrasonic* const pUltrasonic = CommandBase::s_ultrasonicSensor)
 		{
-			SetSmartDashboardDouble ("Target Distance", pUltrasonic->GetRangeInInches() / 12.0);
+			SetSmartDashboardDouble ("Target Distance (feet)", pUltrasonic->GetRangeInInches() / 12.0);
+			SetSmartDashboardDouble ("Target Voltage", pUltrasonic->GetVoltage());
 		}
 		
 		if (const AccelerometerSubsystem* const pAccelerometer = CommandBase::s_accelerometer)
 		{
-			if (pAccelerometer->IsCalibrated() == false)
+			if (pAccelerometer->IsPresent() == false)
+			{
+				dashboard.PutString ("Accelerometer X", "Not connected");
+				dashboard.PutString ("Accelerometer Y", "Not connected");
+				dashboard.PutString ("Accelerometer Z", "Not connected");
+				dashboard.PutString ("Level", "Not connected");
+			}
+			else if (pAccelerometer->IsCalibrated() == false)
 			{
 				dashboard.PutString ("Accelerometer X", "Uncalibrated");
 				dashboard.PutString ("Accelerometer Y", "Uncalibrated");
@@ -131,6 +147,8 @@ private:
 	//! A counter to ensure the smart dashboard is updated frequently but
 	//! not continuously
 	unsigned m_dashboardCounter;
+	
+	CalibrateAccelerometer* m_pCalibrationCommand;
 };
 
 START_ROBOT_CLASS(ReboundRumbleBot);

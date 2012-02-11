@@ -1,6 +1,8 @@
 #include "LockTarget.h"
 
-LockTarget::LockTarget() {
+LockTarget::LockTarget() :
+	CommandBase ("LockTarget")
+{
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
 	Requires(s_turret);

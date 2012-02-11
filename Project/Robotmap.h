@@ -41,8 +41,12 @@ enum AnalogAddress
 	
 enum DigitlaAddress
 {
-	k_MaxbotixSerialMode = 1,
-	k_MaxbotixOn = 2,
+	k_Accl_SPI_CK = 1,
+	k_Accl_SPI_DI = 2,
+	k_Accl_SPI_DO = 3,
+	k_Accl_SPI_CS = 4,
+	k_MaxbotixSerialMode = 5,
+	k_MaxbotixOn = 6,
 };
 
 #define k_rampValue 0.4

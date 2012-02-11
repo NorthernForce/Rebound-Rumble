@@ -1,6 +1,8 @@
 #include "CaptureImages.h"
 
-CaptureImages::CaptureImages() {
+CaptureImages::CaptureImages() :
+	CommandBase ("CaptureImages")
+{
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
     // We don't want to require the camera subsystem because

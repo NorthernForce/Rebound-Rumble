@@ -45,7 +45,7 @@ void AccelerometerSubsystem::InitializeSensor()
 		// No I2C device found - check SPI
 		delete m_i2c;
 		m_i2c = 0;
-//		m_spi = new ADXL345_SPI (1, 0, 1, 2, 3);
+//		m_spi = new ADXL345_SPI (1, k_Accl_SPI_CK, k_Accl_SPI_DI, k_Accl_SPI_DO, k_Accl_SPI_CS);
 		if (GetRawVector().Magnitude() == 0.0)
 		{
 			delete m_spi;

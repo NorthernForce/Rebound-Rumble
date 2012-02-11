@@ -221,23 +221,28 @@ void Camera::ProcessImages()
 			if (saveSourceImage || saveProcessedImages) ++m_imageNo;
 		}
 
+		printf ("Capturing frame");
 		m_cam.GetImage (&m_image);
 		if (saveSourceImage ) SaveImage(m_image, "src.jpg");
 
 		//@TODO correct HSL thresholds.
+		printf ("Performing HSL");
 		Threshold violetThreshold (168, 205, 22, 255, 65, 255);
 		const std::auto_ptr<BinaryImage> violetPixels (m_image.ThresholdHSL(violetThreshold));
 		if (violetPixels.get() == 0) continue;
 		if (saveProcessedImages) SaveImage (*violetPixels, "violet.png");
 
+		printf ("Performing Remove Small objects");
 		const std::auto_ptr<BinaryImage> bigObjectsImage (violetPixels->RemoveSmallObjects (false, 2));
 		if (bigObjectsImage.get() == 0) continue;
 		if (saveProcessedImages) SaveImage (*bigObjectsImage, "big.png");
 
+		printf ("Performing Convex Hull");
 		const std::auto_ptr<BinaryImage> convexHullImage (bigObjectsImage->ConvexHull (false));
 		if (convexHullImage.get() == 0) continue;
 		if (saveProcessedImages) SaveImage (*convexHullImage, "hull.png");
 
+		printf ("Performing Particle Analysis");
 		const int particleCount = convexHullImage->GetNumberParticles();
 
 		// Save the particle analysis for use by the main thread.
@@ -271,6 +276,7 @@ void Camera::ProcessImages()
 		const UINT32 now = GetFPGATime();
 		m_frameProcessingTime = (now - frameStart) + 1;
 		frameStart = now;
+		printf ("Frame complete");
 	}
 }
 

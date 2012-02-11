@@ -5,6 +5,7 @@
  * @author Stephen Nutt
  */
 CalibrateAccelerometer::CalibrateAccelerometer() :
+	CommandBase ("CalibrateAccelerometer"),
 	m_executeCount (0)
 {
 	Requires (s_accelerometer);

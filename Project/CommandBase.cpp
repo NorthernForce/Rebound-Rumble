@@ -3,12 +3,6 @@
 
 CommandBase::CommandBase(const char *name) : Command(name) 
 {
-	
-}
-
-CommandBase::CommandBase() : Command() 
-{
-	
 }
 
 // Initialize a single static instance of all subsystems to NULL
