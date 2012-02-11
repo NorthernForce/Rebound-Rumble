@@ -16,7 +16,7 @@ class AquisitionScan: public CommandBase {
 private:
 	int m_rateOfChange;
 	float m_angleToTarget;
-	float m_initAngle;
+	float m_camAngle;
 	bool m_finished;
 public:
 	AquisitionScan();

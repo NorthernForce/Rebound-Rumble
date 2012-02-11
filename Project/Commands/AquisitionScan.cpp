@@ -5,7 +5,7 @@ AquisitionScan::AquisitionScan() :
 	CommandBase("AquisitionScan"),
 	m_rateOfChange(0),
 	m_angleToTarget(0),
-	m_initAngle(0),
+	m_camAngle(0),
 	m_finished(false)
 {
 	// Use requires() here to declare subsystem dependencies
@@ -25,16 +25,18 @@ void AquisitionScan::Execute()
 		s_cameraMount->Tilt(22.0/28.0); //in radians pi/4 = 45 degrees
 		if (m_rateOfChange == 0){
 			
-			m_initAngle = m_initAngle + (22.0/1260.0); // in radians pi/180  = 1 degrees
+			m_camAngle = m_camAngle + (22.0/1260.0); // in radians pi/180  = 1 degrees
+			
+			Wait(.1);
 			
 			if(s_camera->HasTarget()){
-				Wait(.05);
+				
 				m_angleToTarget = s_camera->GetAngleToTarget();
-				Wait(.05);
-				s_cameraMount->Pan(m_angleToTarget);
+				
+				s_cameraMount->Pan((m_angleToTarget)+(m_camAngle));
 				m_finished = true;
 			}
-			if(m_initAngle == 1){
+			if(m_camAngle == 1){
 				m_rateOfChange = 1;
 			}
 			
@@ -42,16 +44,18 @@ void AquisitionScan::Execute()
 		
 		else {
 			
-			m_initAngle = m_initAngle - (22/1260); // in radians pi/180  = 1 degrees
+			
+			
+			m_camAngle = m_camAngle - (22/1260); // in radians pi/180  = 1 degrees
 						
+			Wait(.1);
 						if(s_camera->HasTarget()){
-							Wait(.05);
+							
 							m_angleToTarget = s_camera->GetAngleToTarget();
-							s_cameraMount->Pan(m_angleToTarget);
-							Wait(.05);
+							s_cameraMount->Pan((m_angleToTarget)+(m_camAngle));						
 							m_finished = true;
 						}
-						if(m_initAngle == 0){
+						if(m_camAngle == 0){
 							m_rateOfChange = 0;
 						}
 			
