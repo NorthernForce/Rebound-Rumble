@@ -24,7 +24,6 @@ Camera::Camera() :
 	m_frameProcessingTime (0)
 {
 	SetDirectory ("/tmp/Images");
-	CaptureImages (20);
 	m_imageProcessingTask.Start (reinterpret_cast<UINT32> (this));
 }
 
@@ -288,8 +287,10 @@ void Camera::SaveImage (
 	ImageBase& image,
 	const char* name) const
 {
-	const Synchronized sync (m_cameraSemaphore);
 	char path[60];
-	sprintf (path, "%s/Img%04d_%s", m_directory, m_imageNo, name);
+	{
+		const Synchronized sync (m_cameraSemaphore);
+		sprintf (path, "%s/Img%04d_%s", m_directory, m_imageNo, name);
+	}
 	image.Write(path);
 }
