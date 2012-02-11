@@ -19,6 +19,7 @@ public:
 	Drive();
 	void InitDefaultCommand();
 	void DriveWithStick(XboxJoystick& stick);
+	void DriveRobot (float speed, float direction);
 };
 
 #endif

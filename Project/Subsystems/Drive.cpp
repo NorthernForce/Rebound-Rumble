@@ -28,3 +28,14 @@ void Drive::DriveWithStick(XboxJoystick& stick)
 {
 	drive->ArcadeDrive(stick);
 }
+
+/** @brief Drives the robot the specified 
+ *
+ * @author Stephen Nutt
+ */
+void Drive::DriveRobot (
+	float speed,
+	float direction)
+{
+	drive->ArcadeDrive (speed, direction, false);
+}
