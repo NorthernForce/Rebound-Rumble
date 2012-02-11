@@ -13,6 +13,11 @@
  * Description: Scans the Camera Mount until the Image is Found & Centered
  */
 class AquisitionScan: public CommandBase {
+private:
+	int m_rateOfChange;
+	float m_angleToTarget;
+	float m_initAngle;
+	bool m_finished;
 public:
 	AquisitionScan();
 	virtual void Initialize();
