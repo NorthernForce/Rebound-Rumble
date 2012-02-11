@@ -21,6 +21,9 @@ public:
 	AccelerometerSubsystem();
 	void InitDefaultCommand();
 
+	// Initializes the sensor by connecting to the physical device
+	void InitializeSensor();
+	
 	//! Call to begin the stationary calibration process
 	void BeginStationaryCalibrartion();
 
@@ -34,6 +37,12 @@ public:
 	//! Call to end calibration
 	void EndCalibrartion();
 
+	//! Returns true if an accelerometer is present
+	inline bool IsPresent() const
+	{
+		return m_currentState != eNotPresent;
+	}
+
 	//! Return true if the accelerometer has been calibrated
 	inline bool IsCalibrated() const
 	{
@@ -44,8 +53,11 @@ public:
 	Vector3D GetAccelerations() const;
 
 private:
+	Vector3D GetRawVector() const;
+
 	enum State
 	{
+		eNotPresent,				//!< No sensor is present
 		eNotCalibrated,
 		eInStationaryCalibration,
 		eInForwardCalibration,
@@ -53,8 +65,11 @@ private:
 		eCalibrated
 	};
 
-	//! The physical accelerometer
-	mutable ADXL345_I2C m_accelerometer;
+	//! The physical accelerometer connected via I2C
+	ADXL345_I2C* m_i2c;
+
+	//! The physical accelerometer connected via SPI	
+	ADXL345_SPI* m_spi;
 
 	//! Alpha-beta filters are used to reduce the noise from the sensor
 	//! providing a more accurate calibration.

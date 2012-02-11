@@ -9,20 +9,57 @@
  */
 AccelerometerSubsystem::AccelerometerSubsystem() :
 	Subsystem("AccelerometerSubsystem"),
-	m_accelerometer (1),
+	m_i2c (0),
+	m_spi (0),
 	m_x (0.01, 0.005),
 	m_y (0.01, 0.005),
 	m_z (0.01, 0.005),
-	m_currentState (eNotCalibrated)
+	m_currentState (eNotPresent)
 {
+	InitializeSensor();
 }
 
 /**
  * @brief Sets the default command for the subsystem.
  */
-void AccelerometerSubsystem::InitDefaultCommand() {
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
+void AccelerometerSubsystem::InitDefaultCommand()
+{
+}
+
+/** @brief Initializes the sensor by connecting to the physical device
+ *
+ * @author Stephen Nutt
+ */
+void AccelerometerSubsystem::InitializeSensor()
+{
+	// Delete any previous physical devices
+	delete m_i2c;
+	m_i2c = 0;
+	delete m_spi;
+	m_spi = 0;
+
+	// First try I2C
+	m_i2c = new ADXL345_I2C (1);
+	if (GetRawVector().Magnitude() == 0.0)
+	{
+		// No I2C device found - check SPI
+		delete m_i2c;
+		m_i2c = 0;
+//		m_spi = new ADXL345_SPI (1, 0, 1, 2, 3);
+		if (GetRawVector().Magnitude() == 0.0)
+		{
+			delete m_spi;
+			m_spi = 0;
+			return;
+		}
+	}
+
+	// If the sensor was not previously calibrated, begin the process now
+	if (m_currentState == eNotPresent)
+	{
+		m_currentState = eNotCalibrated;
+		BeginStationaryCalibrartion();
+	}
 }
 
 /** @brief Begins the stationary calibration process
@@ -50,7 +87,8 @@ void AccelerometerSubsystem::BeginActiveCalibrartion (
 		m_zAxis.Normalize();
 		m_currentState = forward ? eInForwardCalibration : eInReverseCalibration;
 	}
-	else if (m_currentState == (forward ? eInForwardCalibration : eInReverseCalibration))
+	else if (m_currentState == eInForwardCalibration ||
+			 m_currentState == eInReverseCalibration)
 	{
 		// When called a subsequent time, reset the the filters.  This provides
 		// a faster method for the dynamic portion of the calibration process
@@ -66,14 +104,21 @@ void AccelerometerSubsystem::BeginActiveCalibrartion (
  */
 void AccelerometerSubsystem::PerformCalibrartion()
 {
-	if (m_currentState == eNotCalibrated || m_currentState == eCalibrated)
+	if (m_currentState == eCalibrated)
 		return;
 
-	const UINT32 now = GetFPGATime();
-	const ADXL345_I2C::AllAxes axes = m_accelerometer.GetAccelerations();
-	m_x.Update (axes.XAxis, now);
-	m_y.Update (axes.YAxis, now);
-	m_z.Update (axes.ZAxis, now);
+	const Vector3D v = GetRawVector();
+	if (v.Magnitude())
+	{
+		const UINT32 now = GetFPGATime();
+		m_x.Update (v.x, now);
+		m_y.Update (v.y, now);
+		m_z.Update (v.z, now);
+	}
+	else
+	{
+		InitializeSensor();
+	}
 }
 
 /** @brief Terminates the calibration routines
@@ -107,7 +152,29 @@ void AccelerometerSubsystem::EndCalibrartion()
  */
 Vector3D AccelerometerSubsystem::GetAccelerations() const
 {
-	const ADXL345_I2C::AllAxes axes = m_accelerometer.GetAccelerations();
-	const Vector3D current (axes.XAxis, axes.YAxis, axes.ZAxis);
+	const Vector3D current (GetRawVector());
 	return Vector3D (m_xAxis.DotProduct (current), m_yAxis.DotProduct (current), m_zAxis.DotProduct (current));
+}
+
+/** @brief Obtains the raw uncalibrated acceleration vector from the
+ * physical accelerometer device
+ *
+ * @author Stephen Nutt
+ */
+Vector3D AccelerometerSubsystem::GetRawVector() const
+{
+	if (m_i2c)
+	{
+		const ADXL345_I2C::AllAxes axes = m_i2c->GetAccelerations();
+		return Vector3D (axes.XAxis, axes.YAxis, axes.ZAxis);
+	}
+	else if (m_spi)
+	{
+		const ADXL345_SPI::AllAxes axes = m_spi->GetAccelerations();
+		return Vector3D (axes.XAxis, axes.YAxis, axes.ZAxis);
+	}
+	else
+	{
+		return Vector3D (0, 0, 0);
+	}
 }
