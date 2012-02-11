@@ -28,8 +28,10 @@ enum JaguarsAddress
 	k_frontRightJaguar = 3,
 	k_rearLeftJaguar = 2,
 	k_rearRightJaguar = 4,
-    k_pickupMotorJaguar = 5,
-    k_storageMotorJaguar = 6,
+    	k_pickupMotorJaguar = 5,
+   	k_storageMotorJaguar = 6,
+	k_flywheelFront = 7,
+	k_flywheelBack = 8,
 };
 
 enum AnalogAddress
