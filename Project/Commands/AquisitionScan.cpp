@@ -46,7 +46,7 @@ void AquisitionScan::Execute()
 			
 			
 			
-			m_camAngle = m_camAngle - (22/1260); // in radians pi/180  = 1 degrees
+			m_camAngle = m_camAngle - (22.0/1260.0); // in radians pi/180  = 1 degrees
 						
 			Wait(.1);
 						if(s_camera->HasTarget()){
