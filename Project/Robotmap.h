@@ -49,6 +49,13 @@ enum DigitlaAddress
 	k_MaxbotixOn = 6,
 };
 
+// PWM Assigments
+enum PWMAddress
+{
+	k_pwmCameraPan = 1,
+	k_pwmCameraTilt = 2,
+};
+
 #define k_rampValue 0.4
 
 //Xbox Controller Ports
