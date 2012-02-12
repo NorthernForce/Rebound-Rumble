@@ -1,6 +1,8 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
+#define M_PI 3.1415926535897932384626433832795
+
 
 /**
  * @brief The RobotMap is a mapping from the ports sensors and actuators are wired into
