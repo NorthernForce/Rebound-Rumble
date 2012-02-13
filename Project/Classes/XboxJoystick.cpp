@@ -90,7 +90,7 @@ float XboxJoystick::GetRotation()
  */
 void XboxJoystick::CalculateDeadband()
 {
-    Deadband = 0.1;
+    Deadband = 0.01;
 }
 
 /**
