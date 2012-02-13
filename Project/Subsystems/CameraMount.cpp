@@ -27,8 +27,7 @@ void CameraMount::InitDefaultCommand() {
 /**
  * @brief Sets the camera to a certain angle on
  * its horizontal axis.
- *
- * @param angle A float, the angle to set it to.
+\ *`o set it to.
  */
 void CameraMount::Pan(float angle)
 {
@@ -70,7 +69,7 @@ void CameraMount::Tilt(float angle)
  */
 float CameraMount::GetPanAngle()
 {
-	return m_panPos;
+	return (m_panPos / mk_stepPerRad);
 }
 
 /**
@@ -81,5 +80,5 @@ float CameraMount::GetPanAngle()
  */
 float CameraMount::GetTiltAngle()
 {
-	return m_tiltPos;
+	return (m_tiltPos / mk_stepPerRad);
 }
