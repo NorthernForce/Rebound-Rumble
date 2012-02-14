@@ -24,7 +24,13 @@ RampedCANJaguar::RampedCANJaguar(int deviceNumber,
     m_prevVelocity(0.0),
     m_prevAccel(0.0)
 {
-    ; // do nothing, all initialization is done above
+    m_prevVelocity = 0; // do nothing, all initialization is done above
+}
+
+void RampedCANJaguar::PrintLimits()
+{
+    printf("max Velocity: %f",m_maxVelocity);
+    printf("max Acceleration: %f",m_maxAcceleration);
 }
 
 void RampedCANJaguar::SetTolerance(float tolerance, float thereTolerance)
@@ -60,31 +66,31 @@ void RampedCANJaguar::EnableControl()
     CANJaguar::EnableControl(m_prevPosition);
 }
 
-void RampedCANJaguar::Set(float outputValue, UINT8 syncGroup = 0)
+void RampedCANJaguar::SetOutput(float outputValue)
 {
-    float curTime = GetTime();
-    float deltaT = curTime - m_prevTime;
+    //float curTime = GetTime();
+    float deltaT = 0.02;//curTime - m_prevTime;
     float position = m_prevPosition;
     float velocity = m_prevVelocity;
     float accel = m_prevAccel;
     switch(GetControlMode()) 
     {
-
+        case kPercentVbus:
         case kSpeed:
             accel = Limit( (outputValue - m_prevVelocity)/deltaT, m_maxAcceleration );
             velocity = Limit( m_prevVelocity + (accel * deltaT), m_maxVelocity );
-            CANJaguar::Set(velocity, syncGroup);
+            CANJaguar::Set(velocity);
             break;
         case kPosition:
             float deltaP = outputValue - m_prevPosition;
-            if ( fabs(deltaP) < m_thereTolerance )
+            if ( fabs(deltaP) <= m_thereTolerance )
             {
-                CANJaguar::Set(outputValue, syncGroup);
+                CANJaguar::Set(outputValue);
                 break;
             }
-            else if ( fabs(deltaP) < m_tolerance )
+            else if ( fabs(deltaP) <= m_tolerance )
             {
-                CANJaguar::Set(m_prevPosition + 0.4*(deltaP), syncGroup);
+                CANJaguar::Set(m_prevPosition + 0.4*(deltaP));
                 break;
             }
             velocity = Limit( deltaP/deltaT, m_maxVelocity );
@@ -108,13 +114,13 @@ void RampedCANJaguar::Set(float outputValue, UINT8 syncGroup = 0)
                 velocity = m_prevVelocity + accel * deltaT;
                 position = m_prevPosition + m_prevVelocity * deltaT + 0.5 * accel * deltaT * deltaT;
             }
-            CANJaguar::Set(position, syncGroup);
+            CANJaguar::Set(position);
             break;
         default:
-            CANJaguar::Set(outputValue, syncGroup);
+            CANJaguar::Set(outputValue);
             break;
     }
-    m_prevTime = curTime;
+    //m_prevTime = curTime;
     m_prevVelocity = velocity;
     m_prevAccel = accel;
 }
