@@ -47,11 +47,12 @@ inline float SignedSquare (float val)
  * @author Stephen Nutt
  */
 DriveMotors::DriveMotors() try :
-	m_frontLeftMotor ((printf("Initializing front left jaguar. \n"), k_frontLeftJaguar)),
-	m_frontRightMotor ((printf("Initializing front right jaguar. \n"), k_frontRightJaguar)),
-	m_rearLeftMotor ((printf("Initializing rear left jaguar. \n"), k_rearLeftJaguar)),
-	m_rearRightMotor ((printf("Initializing rear right jaguar. \n"), k_rearRightJaguar))
+	m_frontLeftMotor ((printf("Initializing front left jaguar. \n"), k_frontLeftJaguar), 20.0, 1.0, 0.2, 0.1),
+	m_frontRightMotor((printf("Initializing front right jaguar. \n"), k_frontRightJaguar), 20.0, 1.0, 0.2, 0.1),
+	m_rearLeftMotor  ((printf("Initializing rear left jaguar. \n"), k_rearLeftJaguar), 20.0, 1.0, 0.2, 0.1),
+	m_rearRightMotor ((printf("Initializing rear right jaguar. \n"), k_rearRightJaguar), 20.0, 1.0, 0.2, 0.1)
 {
+    printf("Drive jaguars successfully instantiated\n\r");
 	m_frontLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
 	m_frontLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
 	m_frontLeftMotor.EnableControl();
@@ -68,7 +69,7 @@ DriveMotors::DriveMotors() try :
 	m_rearRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
 	m_rearRightMotor.EnableControl();
 
-	printf("Drive jaguars successfully created. \n");
+	printf("Drive jaguars successfully created. \n\r");
 }
 catch (exception e)
 {
@@ -83,10 +84,12 @@ catch (exception e)
  * @author Arthur Lockman
  */
 BSBotDrive::BSBotDrive():
+    DriveMotors(),
 	RobotDrive(DriveMotors::m_rearRightMotor, DriveMotors::m_rearLeftMotor, 
 			DriveMotors::m_frontRightMotor, DriveMotors::m_frontLeftMotor)
 {
  	//Do nothing, as the whole class is set up.
+    DriveMotors::m_frontLeftMotor.PrintLimits();
 }
 
 /**
@@ -165,10 +168,10 @@ void BSBotDrive::ArcadeDrive (
 void BSBotDrive::Stop()
 {
 	// Don't ramp the PWM, actually stop them!
-	DriveMotors::m_rearRightMotor.Set(0.0); 
-	DriveMotors::m_rearLeftMotor.Set(0.0);
-	DriveMotors::m_frontRightMotor.Set(0.0);
-	DriveMotors::m_frontLeftMotor.Set(0.0);
+	DriveMotors::m_rearRightMotor.SetOutput(0.0); 
+	DriveMotors::m_rearLeftMotor.SetOutput(0.0);
+	DriveMotors::m_frontRightMotor.SetOutput(0.0);
+	DriveMotors::m_frontLeftMotor.SetOutput(0.0);
 }
 
 /**
@@ -214,8 +217,8 @@ void BSBotDrive::PowerMotors (
 		float frontRight,
 		float rearRight)
 {
-	DriveMotors::m_rearRightMotor.Set(-rearRight); 
-	DriveMotors::m_rearLeftMotor.Set(rearLeft);
-	DriveMotors::m_frontRightMotor.Set(-frontRight);
-	DriveMotors::m_frontLeftMotor.Set(frontLeft);
+	DriveMotors::m_rearRightMotor.SetOutput(-rearRight); 
+	DriveMotors::m_rearLeftMotor.SetOutput(rearLeft);
+	DriveMotors::m_frontRightMotor.SetOutput(-frontRight);
+	DriveMotors::m_frontLeftMotor.SetOutput(frontLeft);
 }

@@ -3,6 +3,7 @@
 #include <WPILib.h>
 #include "../Robotmap.h"
 #include "XboxJoystick.h"
+#include "RampedCanJaguar.h"
 
 /** @brief Initializes the drive motors
  *
@@ -12,10 +13,10 @@ class DriveMotors
 {
 protected:
 	DriveMotors();
-	CANJaguar m_frontLeftMotor;
-	CANJaguar m_frontRightMotor;
-	CANJaguar m_rearLeftMotor;
-	CANJaguar m_rearRightMotor;
+	RampedCANJaguar m_frontLeftMotor;
+	RampedCANJaguar m_frontRightMotor;
+	RampedCANJaguar m_rearLeftMotor;
+	RampedCANJaguar m_rearRightMotor;
 };
 
 /*
