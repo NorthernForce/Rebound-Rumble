@@ -23,7 +23,10 @@ const float bigWheelDistancePerPulse = bigWheelDiameter * M_PI / encoderPulsesPe
 
 const float mecanumWheelDistancePerPulse = mecanumWheelDiameter * M_PI / encoderPulsesPerRevolution;
 
-const float ramp = 0.2;
+const float ramp = 40.0;
+const float velocityLimit = 1.0;
+const float tolerance = 0.2;
+const float thereTolerance = 0.1;
 
 const float rotateReduce = 1.5;
 
@@ -47,10 +50,10 @@ inline float SignedSquare (float val)
  * @author Stephen Nutt
  */
 DriveMotors::DriveMotors() try :
-	m_frontLeftMotor ((printf("Initializing front left jaguar. \n"), k_frontLeftJaguar), 20.0, 1.0, 0.2, 0.1),
-	m_frontRightMotor((printf("Initializing front right jaguar. \n"), k_frontRightJaguar), 20.0, 1.0, 0.2, 0.1),
-	m_rearLeftMotor  ((printf("Initializing rear left jaguar. \n"), k_rearLeftJaguar), 20.0, 1.0, 0.2, 0.1),
-	m_rearRightMotor ((printf("Initializing rear right jaguar. \n"), k_rearRightJaguar), 20.0, 1.0, 0.2, 0.1)
+	m_frontLeftMotor ((printf("Initializing front left jaguar. \n"), k_frontLeftJaguar), ramp, velocityLimit, tolerance, thereTolerance),
+	m_frontRightMotor((printf("Initializing front right jaguar. \n"), k_frontRightJaguar), ramp, velocityLimit, tolerance, thereTolerance),
+	m_rearLeftMotor  ((printf("Initializing rear left jaguar. \n"), k_rearLeftJaguar), ramp, velocityLimit, tolerance, thereTolerance),
+	m_rearRightMotor ((printf("Initializing rear right jaguar. \n"), k_rearRightJaguar), ramp, velocityLimit, tolerance, thereTolerance)
 {
     printf("Drive jaguars successfully instantiated\n\r");
 	m_frontLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
@@ -100,7 +103,8 @@ BSBotDrive::BSBotDrive():
 void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
 {
 	m_safetyHelper->Feed();
-	const float x = controller.GetRawAxis (4);
+	//Switching turning
+	const float x = -controller.GetRawAxis (4);
 	const float y = -controller.GetRawAxis (Joystick::kDefaultYAxis);
 	this->ArcadeDrive (y, x, true);
 }
