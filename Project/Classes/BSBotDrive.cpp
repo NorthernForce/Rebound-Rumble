@@ -23,7 +23,7 @@ const float bigWheelDistancePerPulse = bigWheelDiameter * M_PI / encoderPulsesPe
 
 const float mecanumWheelDistancePerPulse = mecanumWheelDiameter * M_PI / encoderPulsesPerRevolution;
 
-const float ramp = 40.0;
+const float ramp = .4;
 const float velocityLimit = 1.0;
 const float tolerance = 0.2;
 const float thereTolerance = 0.1;
@@ -103,17 +103,16 @@ BSBotDrive::BSBotDrive():
 void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
 {
 	m_safetyHelper->Feed();
-	//Switching turning
-	const float x = -controller.GetRawAxis (4);
-	const float y = -controller.GetRawAxis (Joystick::kDefaultYAxis);
-	this->ArcadeDrive (y, x, true);
+	const float rotateValue = -controller.GetRawAxis (4);
+	const float moveValue = -controller.GetRawAxis (Joystick::kDefaultYAxis);
+	this->ArcadeDrive (moveValue, rotateValue, true);
 }
 
 /**
  * @brief Actually computes the values that the wheels need to 
  * turn to make the robot go.
  * 
- * @param moveValue The speed to move the robot N,S,E, or W.
+ * @param moveValue The speed to move the robot N, or S.
  * @param rotateValue The rotational speed of the robot.
  * @param squaredInputs Whether or not the inputs are squared.
  */
@@ -172,10 +171,10 @@ void BSBotDrive::ArcadeDrive (
 void BSBotDrive::Stop()
 {
 	// Don't ramp the PWM, actually stop them!
-	DriveMotors::m_rearRightMotor.SetOutput(0.0); 
-	DriveMotors::m_rearLeftMotor.SetOutput(0.0);
-	DriveMotors::m_frontRightMotor.SetOutput(0.0);
-	DriveMotors::m_frontLeftMotor.SetOutput(0.0);
+	DriveMotors::m_rearRightMotor.StopMotor();
+	DriveMotors::m_rearLeftMotor.StopMotor();
+	DriveMotors::m_frontRightMotor.StopMotor();
+	DriveMotors::m_frontLeftMotor.StopMotor();
 }
 
 /**

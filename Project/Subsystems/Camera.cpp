@@ -275,7 +275,7 @@ void Camera::ProcessImages()
 		const UINT32 now = GetFPGATime();
 		m_frameProcessingTime = (now - frameStart) + 1;
 		frameStart = now;
-		printf ("Frame complete");
+		//printf ("Frame complete");
 	}
 }
 

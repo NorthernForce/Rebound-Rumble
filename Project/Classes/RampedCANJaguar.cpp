@@ -10,13 +10,13 @@
 #include <math.h>
 
 RampedCANJaguar::RampedCANJaguar(int deviceNumber,
-                                 float maxVelocity,
+                                 float ramp,
                                  float maxAcceleration,
                                  float tolerance = 0,
                                  float thereTolerance = 0) :
     CANJaguar(deviceNumber),
     m_maxAcceleration(maxAcceleration),
-    m_maxVelocity(maxVelocity),
+    m_maxVelocity(ramp),
     m_tolerance(tolerance),
     m_thereTolerance(thereTolerance),
     m_prevTime(0.0),
@@ -77,8 +77,9 @@ void RampedCANJaguar::SetOutput(float outputValue)
     {
         case kPercentVbus:
         case kSpeed:
-            accel = Limit( (outputValue - m_prevVelocity)/deltaT, m_maxAcceleration );
-            velocity = Limit( m_prevVelocity + (accel * deltaT), m_maxVelocity );
+            //accel = Limit( (outputValue - m_prevVelocity)/deltaT, m_maxAcceleration );
+            //velocity = Limit( m_prevVelocity + (accel * deltaT), m_maxVelocity );
+        	velocity = m_prevVelocity + (outputValue-m_prevVelocity) * m_maxVelocity;
             CANJaguar::Set(velocity);
             break;
         case kPosition:

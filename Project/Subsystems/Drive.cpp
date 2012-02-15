@@ -10,8 +10,6 @@
 Drive::Drive() : Subsystem("Drive")
 {
 	drive = new BSBotDrive();
-	drive->SetSafetyEnabled(true);
-	drive->SetExpiration(2.5);
 }
     
 /**
