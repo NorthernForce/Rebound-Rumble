@@ -12,19 +12,20 @@
 RampedCANJaguar::RampedCANJaguar(int deviceNumber,
                                  float ramp,
                                  float maxAcceleration,
-                                 float tolerance = 0,
+								 float tolerance = 0,
                                  float thereTolerance = 0) :
     CANJaguar(deviceNumber),
     m_maxAcceleration(maxAcceleration),
     m_maxVelocity(ramp),
     m_tolerance(tolerance),
     m_thereTolerance(thereTolerance),
+    m_ramp(ramp),
     m_prevTime(0.0),
     m_prevPosition(0.0),
     m_prevVelocity(0.0),
     m_prevAccel(0.0)
 {
-    m_prevVelocity = 0; // do nothing, all initialization is done above
+	; // do nothing, all initialization is done above
 }
 
 void RampedCANJaguar::PrintLimits()
@@ -69,7 +70,6 @@ void RampedCANJaguar::EnableControl()
 void RampedCANJaguar::SetOutput(float outputValue)
 {
     //float curTime = GetTime();
-    float deltaT = 0.02;//curTime - m_prevTime;
     float position = m_prevPosition;
     float velocity = m_prevVelocity;
     float accel = m_prevAccel;
@@ -79,6 +79,10 @@ void RampedCANJaguar::SetOutput(float outputValue)
         case kSpeed:
             //accel = Limit( (outputValue - m_prevVelocity)/deltaT, m_maxAcceleration );
             //velocity = Limit( m_prevVelocity + (accel * deltaT), m_maxVelocity );
+        	
+        	//accel = Limit( (outputValue - m_prevVelocity), m_maxVelocity /* 0.2 works*/ );
+        	//velocity = Limit( m_prevVelocity + accel, 1 );
+
         	velocity = m_prevVelocity + (outputValue-m_prevVelocity) * m_maxVelocity;
             CANJaguar::Set(velocity);
             break;

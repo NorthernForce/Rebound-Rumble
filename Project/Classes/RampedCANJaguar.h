@@ -24,6 +24,7 @@ private:
     float m_prevPosition;
     float m_prevVelocity;
     float m_prevAccel;
+    static const float deltaT = 0.02;
     float Limit(float in, float max);
 public:
     RampedCANJaguar(int deviceNumber, float maxVelocity, float maxAcceleration, float m_tolerance, float m_thereTolerance);
