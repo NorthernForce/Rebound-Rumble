@@ -31,15 +31,14 @@ const int k_aI5 = 5;
  * Interface classes for interacting with
  * the robot.
  */
-OI::OI():
+OI::OI() try :
 	m_ImageButton(&m_stick, k_XBoxButtonA),
-    m_fireButton(k_fireButton, DriverStationEnhancedIO::kOutput),
-    m_rejectbutton(k_rejectbutton, DriverStationEnhancedIO::kOutput),
-    m_manualSwitch(k_manualSwitch, DriverStationEnhancedIO::kOutput),
-    m_openChuteButton(k_openChuteButton, DriverStationEnhancedIO::kOutput),
-    m_closeChuteButton(k_closeChuteButton, DriverStationEnhancedIO::kOutput),
-    m_feederSwitch(k_feederSwitch, DriverStationEnhancedIO::kOutput),
-    m_lowerRampButton(k_lowerRampButton, DriverStationEnhancedIO::kOutput),
+    m_fireButton(k_fireButton, DriverStationEnhancedIO::kInputPullUp),
+    m_manualSwitch(k_manualSwitch, DriverStationEnhancedIO::kInputPullUpt),
+    m_openChuteButton(k_openChuteButton, DriverStationEnhancedIO::kInputPullUp),
+    m_closeChuteButton(k_closeChuteButton, DriverStationEnhancedIO::kInputPullUp),
+    m_feederSwitch(k_feederSwitch, DriverStationEnhancedIO::kInputPullUp),
+    m_lowerRampButton(k_lowerRampButton, DriverStationEnhancedIO::kInputPullUp),
 	m_noTargetLED(k_noTargetLED),
 	m_hasTargetLED(k_hasTargetLED),
 	m_autoLED(k_autoLED),
@@ -51,8 +50,14 @@ OI::OI():
 	// Process operator interface input here.
     m_ImageButton.WhenPressed(new CaptureImages());
     m_fireButton.WhenPressed(new Fire());
+    
+    printf("All OI elements created successfully.");
+    printf("\n");
 }
-
+catch (exception e)
+{
+	printf("Operator Interface failed to initialize.");
+}
 /**
  * @brief Sets the LED's on the operator console.
  * 
