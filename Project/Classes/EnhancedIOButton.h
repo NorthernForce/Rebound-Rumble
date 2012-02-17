@@ -1,6 +1,7 @@
 #ifndef ENHANCEDIOBUTTON_H
 #define ENHANCEDIOBUTTON_H
 #include <WPILib.h>
+#include <Buttons/Button.h>
 #include "../Robotmap.h"
 
 /**
@@ -9,7 +10,7 @@
  * 
  * @author Arthur Lockman
  */
-class EnhancedIOButton: Button
+class EnhancedIOButton: public Button
 {
 public:
 	EnhancedIOButton(int port, DriverStationEnhancedIO::tDigitalConfig mode);

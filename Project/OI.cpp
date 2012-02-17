@@ -1,5 +1,6 @@
 #include "OI.h"
 #include "Commands/CaptureImages.h"
+#include "Commands/Fire.h"
 #include "Robotmap.h"
 
 namespace
@@ -31,8 +32,7 @@ const int k_aI5 = 5;
  * the robot.
  */
 OI::OI():
-	m_manipulatorStick(k_manipulatorJoystickPort),
-    m_ImageButton(&m_stick, k_XBoxButtonA),
+	m_ImageButton(&m_stick, k_XBoxButtonA),
     m_fireButton(k_fireButton, DriverStationEnhancedIO::kOutput),
     m_rejectbutton(k_rejectbutton, DriverStationEnhancedIO::kOutput),
     m_manualSwitch(k_manualSwitch, DriverStationEnhancedIO::kOutput),
@@ -40,15 +40,17 @@ OI::OI():
     m_closeChuteButton(k_closeChuteButton, DriverStationEnhancedIO::kOutput),
     m_feederSwitch(k_feederSwitch, DriverStationEnhancedIO::kOutput),
     m_lowerRampButton(k_lowerRampButton, DriverStationEnhancedIO::kOutput),
-	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO()),
 	m_noTargetLED(k_noTargetLED),
 	m_hasTargetLED(k_hasTargetLED),
 	m_autoLED(k_autoLED),
 	m_manualLED(k_manualLED),
-    m_stick()
+	m_manipulatorStick(k_manipulatorJoystickPort),
+    m_stick(),
+	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO())
 {
 	// Process operator interface input here.
     m_ImageButton.WhenPressed(new CaptureImages());
+    m_fireButton.WhenPressed(new Fire());
 }
 
 /**

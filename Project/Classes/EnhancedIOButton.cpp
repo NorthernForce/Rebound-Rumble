@@ -1,6 +1,8 @@
 #include <WPILib.h>
 #include "../Robotmap.h"
 #include "../Classes/EnhancedIOButton.h"
+#include "Buttons/Button.h"
+#include "Buttons/PressedButtonScheduler.h"
 
 /**
  * @brief Constructs the Enhanced IO button.
