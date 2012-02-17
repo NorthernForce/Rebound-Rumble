@@ -1,6 +1,7 @@
 #include "OI.h"
 #include "Commands/CaptureImages.h"
 #include "Commands/Fire.h"
+#include "Classes/EnhancedIOButton.h"
 #include "Robotmap.h"
 
 namespace
@@ -33,12 +34,12 @@ const int k_aI5 = 5;
  */
 OI::OI() try :
 	m_ImageButton(&m_stick, k_XBoxButtonA),
-    m_fireButton(k_fireButton, DriverStationEnhancedIO::kInputPullUp),
-    m_manualSwitch(k_manualSwitch, DriverStationEnhancedIO::kInputPullUpt),
-    m_openChuteButton(k_openChuteButton, DriverStationEnhancedIO::kInputPullUp),
-    m_closeChuteButton(k_closeChuteButton, DriverStationEnhancedIO::kInputPullUp),
-    m_feederSwitch(k_feederSwitch, DriverStationEnhancedIO::kInputPullUp),
-    m_lowerRampButton(k_lowerRampButton, DriverStationEnhancedIO::kInputPullUp),
+    m_fireButton(k_fireButton),
+    m_manualSwitch(k_manualSwitch),
+    m_openChuteButton(k_openChuteButton),
+    m_closeChuteButton(k_closeChuteButton),
+    m_feederSwitch(k_feederSwitch),
+    m_lowerRampButton(k_lowerRampButton),
 	m_noTargetLED(k_noTargetLED),
 	m_hasTargetLED(k_hasTargetLED),
 	m_autoLED(k_autoLED),

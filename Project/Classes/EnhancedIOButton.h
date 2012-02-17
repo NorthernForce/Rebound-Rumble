@@ -1,8 +1,8 @@
 #ifndef ENHANCEDIOBUTTON_H
 #define ENHANCEDIOBUTTON_H
-#include <WPILib.h>
-#include <Buttons/Button.h>
-#include "../Robotmap.h"
+
+#include "Buttons/Button.h"
+#include "DriverStationEnhancedIO.h"
 
 /**
  * @brief A controller for an EnhancedIO button.
@@ -10,11 +10,11 @@
  * 
  * @author Arthur Lockman
  */
-class EnhancedIOButton: public Button
-{
+class EnhancedIOButton: public Button {
 public:
-	EnhancedIOButton(int port, DriverStationEnhancedIO::tDigitalConfig mode);
-	bool Get();
+	EnhancedIOButton(const int port);
+	virtual ~EnhancedIOButton() {}
+	virtual bool Get();
 private:
 	DriverStationEnhancedIO& m_dsIO;
 	int m_port;

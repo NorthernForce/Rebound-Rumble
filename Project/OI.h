@@ -3,9 +3,9 @@
 
 #include <WPILib.h>
 #include "Classes/XboxJoystick.h"
-#include "DriverStationEnhancedIO.h"
-#include "Classes/EnhancedIOButton.h"
+#include <DriverStationEnhancedIO.h>
 #include "Classes/DriverStationLED.h"
+#include "Classes/EnhancedIOButton.h"
 
 /**
  * @brief All of the classes for interacting
