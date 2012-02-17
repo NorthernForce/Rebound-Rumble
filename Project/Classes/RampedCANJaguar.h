@@ -24,6 +24,7 @@ private:
     float m_prevPosition;
     float m_prevVelocity;
     float m_prevAccel;
+    float m_ramp;
     static const float deltaT = 0.02;
     float Limit(float in, float max);
 public:
