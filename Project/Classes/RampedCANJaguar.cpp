@@ -19,11 +19,11 @@ RampedCANJaguar::RampedCANJaguar(int deviceNumber,
     m_maxVelocity(ramp),
     m_tolerance(tolerance),
     m_thereTolerance(thereTolerance),
-    m_ramp(ramp),
     m_prevTime(0.0),
     m_prevPosition(0.0),
     m_prevVelocity(0.0),
-    m_prevAccel(0.0)
+    m_prevAccel(0.0),
+    m_ramp(ramp)
 {
 	; // do nothing, all initialization is done above
 }
