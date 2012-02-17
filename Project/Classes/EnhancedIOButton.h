@@ -12,7 +12,8 @@
  */
 class EnhancedIOButton: public Button {
 public:
-	EnhancedIOButton(const int port);
+	EnhancedIOButton();
+	EnhancedIOButton(int port);
 	virtual ~EnhancedIOButton() {}
 	virtual bool Get();
 private:
