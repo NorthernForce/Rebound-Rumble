@@ -103,9 +103,10 @@ BSBotDrive::BSBotDrive():
 void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
 {
 	m_safetyHelper->Feed();
-	const float rotateValue = -controller.GetRawAxis (4);
+	float rotateValue = controller.GetRawAxis (4);
 	const float moveValue = -controller.GetRawAxis (Joystick::kDefaultYAxis);
-	this->ArcadeDrive (moveValue, rotateValue, true);
+	this->ArcadeDrive (moveValue, -rotateValue, true);
+	
 }
 
 /**

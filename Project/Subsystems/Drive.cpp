@@ -11,7 +11,7 @@ Drive::Drive() : Subsystem("Drive")
 {
 	drive = new BSBotDrive();
 }
-    
+
 /**
  * @brief Sets up the default command for the subsystem.
  */

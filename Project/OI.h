@@ -3,6 +3,9 @@
 
 #include <WPILib.h>
 #include "Classes/XboxJoystick.h"
+#include "DriverStationEnhancedIO.h"
+#include "Classes/EnhancedIOButton.h"
+#include "Classes/DriverStationLED.h"
 
 /**
  * @brief All of the classes for interacting
@@ -15,18 +18,24 @@ private:
 	
 public:
 	OI();
-	//The XBox Joystick we're using to control the robot.
 	XboxJoystick& GetStick();
-	Joystick& GetManipulatorJoystick();
-    JoystickButton GetImageButton();
-	bool OI::GetFireButton();
-	int OI::GetSelectedTarget();
-	bool OI::GetCameraButton();
+	void OI::SetTargetLEDs(bool target);
+    JoystickButton m_ImageButton;
+	EnhancedIOButton m_fireButton;
+	EnhancedIOButton m_rejectbutton;
+	EnhancedIOButton m_manualSwitch;
+	EnhancedIOButton m_openChuteButton;
+	EnhancedIOButton m_closeChuteButton;
+	EnhancedIOButton m_feederSwitch;
+	EnhancedIOButton m_lowerRampButton;
+	DriverStationLED m_noTargetLED;
+	DriverStationLED m_hasTargetLED;
+	DriverStationLED m_autoLED;
+	DriverStationLED m_manualLED;
 	
 private:
 	Joystick m_manipulatorStick;
 	XboxJoystick m_stick;
-    JoystickButton m_ImageButton;
 	DriverStationEnhancedIO& m_driverstationEnhancedIO;
 };
 

@@ -41,6 +41,9 @@ protected:
 	{
 		Scheduler::GetInstance()->Run();
 		this->UpdateDashboard();
+		//Update the LED on the driver station to say if it has a target or not.
+		//@TODO test this.
+		CommandBase::oi->SetTargetLEDs(CommandBase::s_camera->HasTarget());
 	}
 	
 	virtual void TeleopInit() 
@@ -60,6 +63,10 @@ protected:
 		Scheduler::GetInstance()->Run();
 		this->UpdateDashboard();
 		CommandBase::s_accelerometer->PerformCalibrartion();
+		
+		//Update the LED on the driver station to say if it has a target or not.
+		//@TODO test this.
+		CommandBase::oi->SetTargetLEDs(CommandBase::s_camera->HasTarget());
 	}
 
 	virtual void DisabledPeriodic()
