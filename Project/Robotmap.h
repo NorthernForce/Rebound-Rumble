@@ -51,6 +51,30 @@ enum DigitlaAddress
 	k_MaxbotixOn = 6,
 };
 
+enum EnhancedIOAddresses
+{
+	//! Digital inputs/outputs on the PSoC
+	k_fireButton = 1,
+	k_rejectbutton = 2,
+	k_manualSwitch = 3,
+	k_openChuteButton = 4,
+	k_closeChuteButton = 5,
+	k_feederSwitch = 6,
+	k_noTargetLED = 7,
+	k_hasTargetLED = 8,
+	k_autoLED = 9,
+	k_manualLED = 10,
+	k_lowerRampButton = 11,
+	k_dIO12 = 12,
+
+	//!Analog inputs on the PSoC modules.
+	k_turretAngle = 1,
+	k_velocitySlider = 2,
+	k_aI3 = 3,
+	k_aI4 = 4,
+	k_aI5 = 5,
+};
+
 // PWM Assigments
 enum PWMAddress
 {

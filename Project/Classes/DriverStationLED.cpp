@@ -1,18 +1,18 @@
 #include <WPILib.h>
 #include "../Robotmap.h"
 #include "DriverStationLED.h"
+#include "DriverStation.h"
 
 /**
  * @brief Constructs the DriverStation LED.
  * 
  * @param port The LED port.
  */
-DriverStationLED::DriverStationLED(int port):
-	m_dsIO(DriverStation::GetInstance()->GetEnhancedIO())
+DriverStationLED::DriverStationLED(int port)
 {
 	m_port = port;
-	m_dsIO.SetDigitalConfig(port, DriverStationEnhancedIO::kOutput);
-	m_dsIO.SetDigitalOutput(m_port,false);
+	DriverStation::GetInstance()->GetEnhancedIO().SetDigitalConfig(port, DriverStationEnhancedIO::kOutput);
+	DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(m_port,false);
 	m_state = false;
 }
 
@@ -31,7 +31,7 @@ bool DriverStationLED::Get()
  */
 void DriverStationLED::TurnOn()
 {
-	m_dsIO.SetDigitalOutput(m_port,true);
+	DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(m_port,true);
 	m_state = true;
 }
 
@@ -40,7 +40,7 @@ void DriverStationLED::TurnOn()
  */
 void DriverStationLED::TurnOff()
 {
-	m_dsIO.SetDigitalOutput(m_port,false);
+	DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(m_port,false);
 	m_state = false;
 }
 
