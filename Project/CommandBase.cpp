@@ -27,7 +27,7 @@ void CommandBase::init()
 	s_ballPickup = new BallPickup();
 	s_ballShooter = new BallShooter();
 	s_ballStorage = new BallStorage();
-	s_camera = new Camera();
+//	s_camera = new Camera();
 	s_cameraMount = new CameraMount();
 	s_gyro = new GyroSubsystem();
 	s_ultrasonicSensor = new MaxbotixUltrasonic (k_MaxbotixUltrasonic, k_MaxbotixSerialMode, k_MaxbotixOn);

@@ -20,9 +20,6 @@ private:
 public:
 	AccelerometerSubsystem();
 	void InitDefaultCommand();
-
-	// Initializes the sensor by connecting to the physical device
-	void InitializeSensor();
 	
 	//! Call to begin the stationary calibration process
 	void BeginStationaryCalibrartion();
@@ -58,7 +55,6 @@ private:
 	enum State
 	{
 		eNotPresent,				//!< No sensor is present
-		eNotCalibrated,
 		eInStationaryCalibration,
 		eInForwardCalibration,
 		eInReverseCalibration,
@@ -66,10 +62,7 @@ private:
 	};
 
 	//! The physical accelerometer connected via I2C
-	ADXL345_I2C* m_i2c;
-
-	//! The physical accelerometer connected via SPI	
-	ADXL345_SPI* m_spi;
+	mutable ADXL345_I2C m_i2c;
 
 	//! Alpha-beta filters are used to reduce the noise from the sensor
 	//! providing a more accurate calibration.

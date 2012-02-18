@@ -9,14 +9,18 @@
  */
 AccelerometerSubsystem::AccelerometerSubsystem() :
 	Subsystem("AccelerometerSubsystem"),
-	m_i2c (0),
-	m_spi (0),
+	m_i2c (1),
 	m_x (0.01, 0.005),
 	m_y (0.01, 0.005),
 	m_z (0.01, 0.005),
 	m_currentState (eNotPresent)
 {
-	InitializeSensor();
+	// If we can read a non 0 vector then it is present and the stationary
+	// calibration process is started
+	if (GetRawVector().Magnitude() != 0.0)
+	{
+		m_currentState = eInStationaryCalibration;
+	}
 }
 
 /**
@@ -24,54 +28,6 @@ AccelerometerSubsystem::AccelerometerSubsystem() :
  */
 void AccelerometerSubsystem::InitDefaultCommand()
 {
-}
-
-/** @brief Initializes the sensor by connecting to the physical device
- *
- * @author Stephen Nutt
- */
-void AccelerometerSubsystem::InitializeSensor()
-{
-	// Delete any previous physical devices
-	delete m_i2c;
-	m_i2c = 0;
-	delete m_spi;
-	m_spi = 0;
-
-	// First try I2C
-	m_i2c = new ADXL345_I2C (1);
-	if (GetRawVector().Magnitude() == 0.0)
-	{
-		// No I2C device found - check SPI
-		delete m_i2c;
-		m_i2c = 0;
-//		m_spi = new ADXL345_SPI (1, k_Accl_SPI_CK, k_Accl_SPI_DI, k_Accl_SPI_DO, k_Accl_SPI_CS);
-		if (GetRawVector().Magnitude() == 0.0)
-		{
-			delete m_spi;
-			m_spi = 0;
-			return;
-		}
-	}
-
-	// If the sensor was not previously calibrated, begin the process now
-	if (m_currentState == eNotPresent)
-	{
-		m_currentState = eNotCalibrated;
-		BeginStationaryCalibrartion();
-	}
-}
-
-/** @brief Begins the stationary calibration process
- *
- * @author Stephen Nutt
- */
-void AccelerometerSubsystem::BeginStationaryCalibrartion()
-{
-	m_currentState = eInStationaryCalibration;
-	m_x.Clear();
-	m_y.Clear();
-	m_z.Clear();
 }
 
 /** @brief Begins the stationary calibration process
@@ -108,17 +64,10 @@ void AccelerometerSubsystem::PerformCalibrartion()
 		return;
 
 	const Vector3D v = GetRawVector();
-	if (v.Magnitude())
-	{
-		const UINT32 now = GetFPGATime();
-		m_x.Update (v.x, now);
-		m_y.Update (v.y, now);
-		m_z.Update (v.z, now);
-	}
-	else
-	{
-		InitializeSensor();
-	}
+	const UINT32 now = GetFPGATime();
+	m_x.Update (v.x, now);
+	m_y.Update (v.y, now);
+	m_z.Update (v.z, now);
 }
 
 /** @brief Terminates the calibration routines
@@ -163,18 +112,6 @@ Vector3D AccelerometerSubsystem::GetAccelerations() const
  */
 Vector3D AccelerometerSubsystem::GetRawVector() const
 {
-	if (m_i2c)
-	{
-		const ADXL345_I2C::AllAxes axes = m_i2c->GetAccelerations();
-		return Vector3D (axes.XAxis, axes.YAxis, axes.ZAxis);
-	}
-	else if (m_spi)
-	{
-		const ADXL345_SPI::AllAxes axes = m_spi->GetAccelerations();
-		return Vector3D (axes.XAxis, axes.YAxis, axes.ZAxis);
-	}
-	else
-	{
-		return Vector3D (0, 0, 0);
-	}
+	const ADXL345_I2C::AllAxes axes = m_i2c.GetAccelerations();
+	return Vector3D (axes.XAxis, axes.YAxis, axes.ZAxis);
 }
