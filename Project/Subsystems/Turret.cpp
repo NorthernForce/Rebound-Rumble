@@ -18,6 +18,10 @@ void Turret::TurnTurret(float Angle)
 	
 }
 
+float Turret::GetAngle()
+{
+	return 0.0f; // TODO: Implement this.
+}
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

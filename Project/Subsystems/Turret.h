@@ -16,6 +16,7 @@ private:
 public:
 	Turret();
 	void SetAngle(float Angle);
+    float GetAngle();
 	void TurnTurret(float Angle);
 	void InitDefaultCommand();
 };

@@ -1,11 +1,26 @@
 #include "BallStorage.h"
 #include "../Robotmap.h"
+#include "../CommandBase.h"
+#include "../Commands/BallController.h"
 
 /**
  * @brief The constructor for the Ball Storage system.
  */
-BallStorage::BallStorage() : Subsystem("BallStorage") {
-	
+BallStorage::BallStorage() try :
+    Subsystem("BallStorage"),
+    m_storageMotor((printf("Initializing pickup motor jaguar. \n"), k_storageMotorJaguar)),
+    m_ballCount(0)
+{
+	m_storageMotor.ChangeControlMode(CANJaguar::kPosition);
+	m_storageMotor.ConfigMaxOutputVoltage(k_storageMaxOutputVoltage);
+	m_storageMotor.EnableControl();
+    //!TODO: Ramp this jaguar
+
+	printf("Pickup motor jaguar successfully created. \n");
+} catch (exception e)
+{
+    printf("Error creating pickup motor jaguar");
+    printf(e.what());
 }
    
 /**
@@ -14,6 +29,7 @@ BallStorage::BallStorage() : Subsystem("BallStorage") {
 void BallStorage::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
+    SetDefaultCommand(new BallController());
 }
 
 /**
@@ -22,34 +38,56 @@ void BallStorage::InitDefaultCommand() {
  * 
  * @return An int, the number of balls.
  */
-int CountBalls()
+int BallStorage::CountBalls()
 {
-    return 0;
+    return m_ballCount;
+}
+
+void BallStorage::GetBallFromPickup()
+{
+    CommandBase::s_ballPickup->AdvanceBall();
 }
 
 /**
  * @brief Stops the storage mechanism from moving.
  * Used to stop ball flow once a ball is collected.
  */
-void Stop()
+void BallStorage::Stop()
 {
-	
+	m_storageMotor.Set(0.0);
 }
 
 /**
- * @brief Advances the ball to a specified position
- * in the storage mechanism. It has three possible
- * positions: k_ballPosition1, k_ballPosition2, or k_ballPosition3.
+ * @brief Enables the jaguar if it has been disabled.
  */
-void AdvanceBall(int position)
+void BallStorage::Enable()
 {
-	
+    m_storageMotor.EnableControl();
+}
+
+/**
+ * @brief Disables jaguar control in this subsystem
+ */
+void BallStorage::Disable()
+{
+    m_storageMotor.DisableControl();
+}
+
+/**
+ * @brief Advances balls in the storage mechanism
+ * the number of times specified.
+ *
+ * @param times The number of times that the balls should be advanced.
+ */
+void BallStorage::AdvanceBall(int times)
+{
+	m_storageMotor.Set(0.0);
 }
 
 /**
  * @brief Clears all the balls out of the storage mechanism.
  */
-void Clear()
+void BallStorage::Clear()
 {
 	
 }

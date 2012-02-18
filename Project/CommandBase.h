@@ -10,7 +10,7 @@
 #include "Subsystems/GyroSubsystem.h"
 #include "Subsystems/MaxbotixUltrasonic.h"
 #include "Subsystems/AccelerometerSubsystem.h"
-#include "Subsystems/Targeting.h"
+//#include "Subsystems/Targeting.h"
 #include "Subsystems/Drive.h"
 #include "Subsystems/Turret.h"
 #include "OI.h"
@@ -40,7 +40,7 @@ public:
 	static GyroSubsystem *s_gyro;
 	static MaxbotixUltrasonic *s_ultrasonicSensor;
 	static AccelerometerSubsystem *s_accelerometer;
-	static Targeting *s_targeting;
+	//static Targeting *s_targeting;
 	static Turret *s_turret;
 	
 	//Create operator interface.

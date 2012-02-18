@@ -3,41 +3,53 @@
 
 /**
  * @brief Constructor for the ball pickup system.
+ * I'm using the comma operator when initializing the jaguar
+ * to provide feedback, as Steve did in BSBotDrive.cpp
  * 
- * @author Arthur Lockman
+ * @author Joseph Martin
  */
-BallPickup::BallPickup() : Subsystem("BallPickup") {
-	
+BallPickup::BallPickup() :
+    Subsystem("BallPickup"),
+    m_hasBall(false),
+    m_pickupRelay((printf("Initializing pickup motor jaguar. \n"), k_pickupMotorRelay)) 
+{
 }
     
 /**
  * @brief Sets the default command for the subsystem.
  */
 void BallPickup::InitDefaultCommand() {
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
+    // This subsystem technically has no default command because its
+    // "default" command is also the default command of BallShooter.
 }
 
 /**
- * @brief Spins up the motors for the ball pickup
+ * @brief Starts the motors for the ball pickup
  * system.
- * 
- * @author Arthur Lockman
+ * We should probably ramp this in the future.
  */
-void BallPickup::Spinup()
+void BallPickup::Start()
 {
-	
+	m_pickupRelay.Set(Relay::kOff);
 }
 
 /**
- * @brief Stops all motors in the pickup system
- * from running. Only used in emergency.
- * 
- * @author Arthur Lockman
+ * @brief Sends the ball currently in the pickup system to the
+ * ball storage system.
+ */
+void BallPickup::AdvanceBall()
+{
+    return; // Not implemented
+}
+
+/**
+ * @brief Stops the subsystem from picking up balls.
+ * This will be called when we have a ball in the system.
+ * We should probably ramp this in the future.
  */
 void BallPickup::Stop()
 {
-	
+	m_pickupRelay.Set(Relay::kOff);
 }
 
 /**
@@ -49,5 +61,5 @@ void BallPickup::Stop()
  */
 bool BallPickup::HasBall()
 {
-	return false;
+	return m_hasBall;
 }

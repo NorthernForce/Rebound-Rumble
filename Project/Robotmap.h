@@ -41,7 +41,7 @@ enum AnalogAddress
 	k_MaxbotixUltrasonic = 1,
 };
 	
-enum DigitlaAddress
+enum DigitalAddress
 {
 	k_Accl_SPI_CK = 1,
 	k_Accl_SPI_DI = 2,
@@ -80,6 +80,13 @@ enum PWMAddress
 {
 	k_pwmCameraPan  = 1, 
 	k_pwmCameraTilt = 2,
+};
+
+enum RelayPort
+{
+    k_liftMotorRelay = 1,
+    k_pickupMotorRelay = 2,
+    k_storageMotorRelay = 3,
 };
 
 #define k_rampValue 0.4
@@ -130,5 +137,9 @@ enum PWMAddress
 // Pickup motor speed
 #define k_pickupMotorSpeed 0
 #define k_storageMotorSpeed 0
+
+// Maximum accelerations and velocities
+//#define k_maxDriveVelocity 
+//#define k_maxDriveAccel 
 
 #endif

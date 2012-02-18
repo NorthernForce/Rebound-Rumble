@@ -16,12 +16,17 @@ class BallStorage: public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
+    CANJaguar m_storageMotor;
+    int m_ballCount;
 public:
 	BallStorage();
 	int CountBalls();
 	void Stop();
+    void GetBallFromPickup();
 	void AdvanceBall(int position);
 	void Clear();
+    void Enable();
+    void Disable();
 	void InitDefaultCommand();
 };
 
