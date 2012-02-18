@@ -1,4 +1,7 @@
 #include "Fire.h"
+#include "ShootBall.h"
+#include "Spinup.h"
+#include "AimTurret.h"
 
 /**
  * @brief The constructor for the Fire command.
@@ -8,7 +11,9 @@ Fire::Fire() {
         // e.g. AddSequential(new Command1());
         //      AddSequential(new Command2());
         // these will run in order.
-
+	AddParallel(new AimTurret());
+	AddSequential(new Spinup());
+	AddSequential(new ShootBall());
         // To run multiple commands at the same time,
         // use AddParallel()
         // e.g. AddParallel(new Command1());
