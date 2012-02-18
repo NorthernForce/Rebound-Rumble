@@ -34,23 +34,23 @@ const int k_aI5 = 5;
  */
 OI::OI() try :
 	m_ImageButton(&m_stick, k_XBoxButtonA),
-    m_fireButton(k_fireButton),
-    m_manualSwitch(k_manualSwitch),
-    m_openChuteButton(k_openChuteButton),
-    m_closeChuteButton(k_closeChuteButton),
-    m_feederSwitch(k_feederSwitch),
-    m_lowerRampButton(k_lowerRampButton),
-	m_noTargetLED(k_noTargetLED),
-	m_hasTargetLED(k_hasTargetLED),
-	m_autoLED(k_autoLED),
-	m_manualLED(k_manualLED),
+//    m_fireButton(k_fireButton),
+//    m_manualSwitch(k_manualSwitch),
+//    m_openChuteButton(k_openChuteButton),
+//    m_closeChuteButton(k_closeChuteButton),
+//    m_feederSwitch(k_feederSwitch),
+//    m_lowerRampButton(k_lowerRampButton),
+//	m_noTargetLED(k_noTargetLED),
+//	m_hasTargetLED(k_hasTargetLED),
+//	m_autoLED(k_autoLED),
+//	m_manualLED(k_manualLED),
 	m_manipulatorStick(k_manipulatorJoystickPort),
     m_stick(),
 	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO())
 {
 	// Process operator interface input here.
     m_ImageButton.WhenPressed(new CaptureImages());
-    m_fireButton.WhenPressed(new Fire());
+    //m_fireButton.WhenPressed(new Fire());
     
     printf("All OI elements created successfully.");
     printf("\n");
@@ -68,11 +68,11 @@ void OI::SetTargetLEDs(bool target)
 {
 	if (target)
 	{
-		m_hasTargetLED.TurnOn();
-		m_noTargetLED.TurnOff();
+		//m_hasTargetLED.TurnOn();
+		//m_noTargetLED.TurnOff();
 	} else {
-		m_hasTargetLED.TurnOff();
-		m_noTargetLED.TurnOn();
+		//m_hasTargetLED.TurnOff();
+		//m_noTargetLED.TurnOn();
 	}
 }
 

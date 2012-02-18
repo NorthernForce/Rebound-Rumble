@@ -11,6 +11,7 @@
 class DriverStationLED
 {
 public:
+	DriverStationLED();
 	DriverStationLED(int port);
 	bool Get();
 	void TurnOn();

@@ -6,11 +6,15 @@
  * 
  * @param port The button port.
  */
-EnhancedIOButton::EnhancedIOButton(const int port):
+EnhancedIOButton::EnhancedIOButton(const int port) try :
 	m_dsIO(DriverStation::GetInstance()->GetEnhancedIO())
 {
 	m_port = port;
 	m_dsIO.SetDigitalConfig(m_port, DriverStationEnhancedIO::kInputPullUp);
+}
+catch (exception e)
+{
+	printf("Exception creating button: %s\n",e.what());
 }
 
 /**
