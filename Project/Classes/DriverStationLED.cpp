@@ -31,7 +31,7 @@ bool DriverStationLED::Get()
  */
 void DriverStationLED::TurnOn()
 {
-	DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(m_port,true);
+	DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(m_port,false);
 	m_state = true;
 }
 
@@ -40,7 +40,7 @@ void DriverStationLED::TurnOn()
  */
 void DriverStationLED::TurnOff()
 {
-	DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(m_port,false);
+	DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(m_port,true);
 	m_state = false;
 }
 
@@ -51,13 +51,6 @@ void DriverStationLED::TurnOff()
  */
 bool DriverStationLED::Toggle()
 {
-	if (m_state)
-	{
-		this->TurnOn();
-		m_state = true;
-	} else {
-		this->TurnOff();
-		m_state = false;
-	}
+	(m_state)?this->TurnOn():this->TurnOff();
 	return m_state;
 }
