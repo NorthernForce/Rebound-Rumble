@@ -34,6 +34,18 @@ void AccelerometerSubsystem::InitDefaultCommand()
  *
  * @author Stephen Nutt
  */
+void AccelerometerSubsystem::BeginStationaryCalibrartion()
+{
+	m_currentState = eInStationaryCalibration;
+	m_x.Clear();
+	m_y.Clear();
+	m_z.Clear();
+}
+
+/** @brief Begins the stationary calibration process
+ *
+ * @author Stephen Nutt
+ */
 void AccelerometerSubsystem::BeginActiveCalibrartion (
 	bool forward)
 {

@@ -43,7 +43,10 @@ protected:
 		this->UpdateDashboard();
 		//Update the LED on the driver station to say if it has a target or not.
 		//@TODO test this.
-		CommandBase::oi->SetTargetLEDs(CommandBase::s_camera->HasTarget());
+		if (CommandBase::s_camera)
+		{
+			CommandBase::oi->SetTargetLEDs(CommandBase::s_camera->HasTarget());
+		}
 	}
 	
 	virtual void TeleopInit() 

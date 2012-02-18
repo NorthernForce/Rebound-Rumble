@@ -12,23 +12,28 @@ CalibrateAccelerometer::CalibrateAccelerometer() :
 	Requires (s_drive);
 }
 
-/** @brief Called continously as the command runs
+/** @brief Called to initialize the calibration command
+ *
+ * @author Stephen Nutt
+ */
+void CalibrateAccelerometer::Initialize()
+{
+	m_executeCount = 0;
+	s_drive->DriveRobot (1.0, 0.0);
+	s_accelerometer->BeginActiveCalibrartion (true);
+}
+
+/** @brief Called continuously as the command runs
  *
  * @author Stephen Nutt
  */
 void CalibrateAccelerometer::Execute()
 {
-	switch (m_executeCount++)
+	if (++m_executeCount == 2)
 	{
-	case 0:
 		s_accelerometer->BeginActiveCalibrartion (true);
-		s_drive->DriveRobot (0.1, 0.0);
-		break;
-
-	case 1:
-		s_accelerometer->BeginActiveCalibrartion (true);
-		break;
 	}
+	s_accelerometer->PerformCalibrartion();
 }
 
 /** @brief Returns true when the command should finish
@@ -37,7 +42,7 @@ void CalibrateAccelerometer::Execute()
  */
 bool CalibrateAccelerometer::IsFinished()
 {
-	return m_executeCount >= 5;
+	return m_executeCount >= 25;
 }
 
 void CalibrateAccelerometer::Interrupted()

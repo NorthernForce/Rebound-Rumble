@@ -14,7 +14,7 @@ class CalibrateAccelerometer :
 {
 public:
 	CalibrateAccelerometer();
-	virtual void Initialize(){}
+	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void Interrupted();

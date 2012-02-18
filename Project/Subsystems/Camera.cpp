@@ -24,7 +24,7 @@ Camera::Camera() :
 	m_frameProcessingTime (0)
 {
 	SetDirectory ("/tmp/Images");
-	m_imageProcessingTask.Start (reinterpret_cast<UINT32> (this));
+//	m_imageProcessingTask.Start (reinterpret_cast<UINT32> (this));
 }
 
 /** @brief Destroys the camera object.
