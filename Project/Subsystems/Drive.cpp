@@ -22,6 +22,16 @@ void Drive::InitDefaultCommand()
 	SetDefaultCommand(new DriveWithJoystick());
 }
 
+/**
+ * @brief Changes the control mode of the jaguars.
+ * 
+ * @param enable Whether to enable the encoders or not.
+ */
+void Drive::ChangeControlMode(bool enable)
+{
+	drive->EnableEncoders(enable);
+}
+
 void Drive::DriveWithStick(XboxJoystick& stick)
 {
 	drive->ArcadeDrive(stick);

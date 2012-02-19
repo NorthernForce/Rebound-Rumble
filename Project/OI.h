@@ -30,6 +30,8 @@ public:
 	DriverStationLED m_hasTargetLED;
 	DriverStationLED m_autoLED;
 	DriverStationLED m_manualLED;
+	JoystickButton m_encoderEnableButton;
+	JoystickButton m_encoderDisableButton;
 	
 private:
 	XboxJoystick m_stick;

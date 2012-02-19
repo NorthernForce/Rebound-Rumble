@@ -20,6 +20,7 @@ public:
 	void InitDefaultCommand();
 	void DriveWithStick(XboxJoystick& stick);
 	void DriveRobot (float speed, float direction);
+	void ChangeControlMode (bool enable);
 };
 
 #endif

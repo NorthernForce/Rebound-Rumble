@@ -1,5 +1,6 @@
 #include "OI.h"
 #include "Commands/CaptureImages.h"
+#include "Commands/ChangeControlMode.h"
 #include "Commands/Fire.h"
 #include "Robotmap.h"
 
@@ -20,12 +21,16 @@ OI::OI() try :
 	m_hasTargetLED(k_hasTargetLED),
 	m_autoLED(k_autoLED),
 	m_manualLED(k_manualLED),
+	m_encoderEnableButton(&m_stick, k_XBoxButtonBack),
+	m_encoderDisableButton(&m_stick, k_XBoxButtonStart),
     m_stick(),
 	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO())
 {
 	// Process operator interface input here.
     m_ImageButton.WhenPressed(new CaptureImages());
     m_fireButton.WhenPressed(new Fire());
+    m_encoderEnableButton.WhenPressed(new ChangeControlMode(true));
+    m_encoderDisableButton.WhenPressed(new ChangeControlMode(false));
     
     printf("All OI elements created successfully.");
     printf("\n");
@@ -43,11 +48,11 @@ void OI::SetTargetLEDs(bool target)
 {
 	if (target)
 	{
-		//m_hasTargetLED.TurnOn();
-		//m_noTargetLED.TurnOff();
+		m_hasTargetLED.TurnOn();
+		m_noTargetLED.TurnOff();
 	} else {
-		//m_hasTargetLED.TurnOff();
-		//m_noTargetLED.TurnOn();
+		m_hasTargetLED.TurnOff();
+		m_noTargetLED.TurnOn();
 	}
 }
 

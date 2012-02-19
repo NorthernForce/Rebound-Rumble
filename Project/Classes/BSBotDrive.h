@@ -11,12 +11,13 @@
  */
 class DriveMotors
 {
-protected:
+public:
 	DriveMotors();
 	RampedCANJaguar m_frontLeftMotor;
 	RampedCANJaguar m_frontRightMotor;
 	RampedCANJaguar m_rearLeftMotor;
 	RampedCANJaguar m_rearRightMotor;
+	bool m_usingEncoders;
 };
 
 /*

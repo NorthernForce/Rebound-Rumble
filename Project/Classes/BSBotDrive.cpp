@@ -53,25 +53,55 @@ DriveMotors::DriveMotors() try :
 	m_frontLeftMotor ((printf("Initializing front left jaguar. \n"), k_frontLeftJaguar), ramp, velocityLimit, tolerance, thereTolerance),
 	m_frontRightMotor((printf("Initializing front right jaguar. \n"), k_frontRightJaguar), ramp, velocityLimit, tolerance, thereTolerance),
 	m_rearLeftMotor  ((printf("Initializing rear left jaguar. \n"), k_rearLeftJaguar), ramp, velocityLimit, tolerance, thereTolerance),
-	m_rearRightMotor ((printf("Initializing rear right jaguar. \n"), k_rearRightJaguar), ramp, velocityLimit, tolerance, thereTolerance)
+	m_rearRightMotor ((printf("Initializing rear right jaguar. \n"), k_rearRightJaguar), ramp, velocityLimit, tolerance, thereTolerance),
+	m_usingEncoders(k_useEncoders)
 {
-    printf("Drive jaguars successfully instantiated\n\r");
-	m_frontLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	printf("Drive jaguars successfully instantiated\n\r");
+	if (k_useEncoders)
+	{
+		m_frontLeftMotor.ChangeControlMode(CANJaguar::kSpeed);
+		m_frontLeftMotor.SetPID(k_driveP,k_driveI,k_driveD);
+		m_frontLeftMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+		m_frontLeftMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
+		
+		m_frontRightMotor.ChangeControlMode(CANJaguar::kSpeed);
+		m_frontRightMotor.SetPID(k_driveP,k_driveI,k_driveD);
+		m_frontRightMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+		m_frontRightMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
+		
+		m_rearLeftMotor.ChangeControlMode(CANJaguar::kSpeed);
+		m_rearLeftMotor.SetPID(k_driveP,k_driveI,k_driveD);
+		m_rearLeftMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+		m_rearLeftMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
+		
+		m_rearRightMotor.ChangeControlMode(CANJaguar::kSpeed);
+		m_rearRightMotor.SetPID(k_driveP,k_driveI,k_driveD);
+		m_rearRightMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+		m_rearRightMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
+	} else {
+		m_frontLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	
+		m_frontRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	
+		m_rearLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	
+		m_rearRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	}
 	m_frontLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_frontLeftMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
 	m_frontLeftMotor.EnableControl();
-
-	m_frontRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	
 	m_frontRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_frontRightMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
 	m_frontRightMotor.EnableControl();
-
-	m_rearLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	
 	m_rearLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_rearLeftMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
 	m_rearLeftMotor.EnableControl();
-
-	m_rearRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	
 	m_rearRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_rearRightMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
 	m_rearRightMotor.EnableControl();
-
 	printf("Drive jaguars successfully created. \n\r");
 }
 catch (exception e)
@@ -107,6 +137,68 @@ void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
 	const float moveValue = -controller.GetRawAxis (Joystick::kDefaultYAxis);
 	this->ArcadeDrive (moveValue, -rotateValue, true);
 	
+}
+
+/**
+ * @brief Changes the control mode of the jaguars.
+ * 
+ * @param enable Whether to turn the encoders on or off.
+ * 
+ * @author Arthur Lockman
+ */
+void BSBotDrive::EnableEncoders(bool enable)
+{
+	DriveMotors::m_frontLeftMotor.DisableControl();
+	DriveMotors::m_frontRightMotor.DisableControl();
+	DriveMotors::m_rearLeftMotor.DisableControl();
+	DriveMotors::m_rearRightMotor.DisableControl();
+	if (enable)
+	{
+		DriveMotors::m_frontLeftMotor.ChangeControlMode(CANJaguar::kSpeed);
+		DriveMotors::m_frontLeftMotor.SetPID(k_driveP,k_driveI,k_driveD);
+		DriveMotors::m_frontLeftMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+		DriveMotors::m_frontLeftMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
+		
+		DriveMotors::m_frontRightMotor.ChangeControlMode(CANJaguar::kSpeed);
+		DriveMotors::m_frontRightMotor.SetPID(k_driveP,k_driveI,k_driveD);
+		DriveMotors::m_frontRightMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+		DriveMotors::m_frontRightMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
+		
+		DriveMotors::m_rearLeftMotor.ChangeControlMode(CANJaguar::kSpeed);
+		DriveMotors::m_rearLeftMotor.SetPID(k_driveP,k_driveI,k_driveD);
+		DriveMotors::m_rearLeftMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+		DriveMotors::m_rearLeftMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
+		
+		DriveMotors::m_rearRightMotor.ChangeControlMode(CANJaguar::kSpeed);
+		DriveMotors::m_rearRightMotor.SetPID(k_driveP,k_driveI,k_driveD);
+		DriveMotors::m_rearRightMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+		DriveMotors::m_rearRightMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
+	} else {
+		DriveMotors::m_frontLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	
+		DriveMotors::m_frontRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	
+		DriveMotors::m_rearLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	
+		DriveMotors::m_rearRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
+	}
+	DriveMotors::m_frontLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	DriveMotors::m_frontLeftMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
+	DriveMotors::m_frontLeftMotor.EnableControl();
+	
+	DriveMotors::m_frontRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	DriveMotors::m_frontRightMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
+	DriveMotors::m_frontRightMotor.EnableControl();
+	
+	DriveMotors::m_rearLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	DriveMotors::m_rearLeftMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
+	DriveMotors::m_rearLeftMotor.EnableControl();
+	
+	DriveMotors::m_rearRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	DriveMotors::m_rearRightMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
+	DriveMotors::m_rearRightMotor.EnableControl();
+	
+	printf("Drive jaguars re-initialized.\n\r");
 }
 
 /**
