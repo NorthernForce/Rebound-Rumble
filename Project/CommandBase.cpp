@@ -17,6 +17,8 @@ MaxbotixUltrasonic* CommandBase::s_ultrasonicSensor = NULL;
 AccelerometerSubsystem* CommandBase::s_accelerometer = NULL;
 //Targeting* CommandBase::s_targeting = NULL;
 Turret* CommandBase::s_turret = NULL;
+RampManipulator* CommandBase::s_RampManipulator = NULL; 
+
 
 OI* CommandBase::oi = NULL;
 
@@ -34,6 +36,8 @@ void CommandBase::init()
 	s_accelerometer = new AccelerometerSubsystem();
 	//s_targeting = new Targeting();
 	//s_turret = new Turret();
+	//s_RampManipulator = new RampManipulator(k_RampManipulatorRelay,
+	//		k_RampManipulatorSoleniod); 
 	
 	oi = new OI();
 }

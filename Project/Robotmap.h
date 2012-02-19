@@ -51,6 +51,8 @@ enum DigitalAddress
 	k_Accl_SPI_CS = 4,
 	k_MaxbotixSerialMode = 5,
 	k_MaxbotixOn = 6,
+	k_RampManipulatorRelay = 7, // 7 and 8
+	k_RampManipulatorSoleniod = 9,
 };
 
 enum EnhancedIOAddresses

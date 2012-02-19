@@ -13,6 +13,7 @@
 //#include "Subsystems/Targeting.h"
 #include "Subsystems/Drive.h"
 #include "Subsystems/Turret.h"
+#include "Subsystems/RampManipulator.h"
 #include "OI.h"
 
 
@@ -42,6 +43,7 @@ public:
 	static AccelerometerSubsystem *s_accelerometer;
 	//static Targeting *s_targeting;
 	static Turret *s_turret;
+	static RampManipulator *s_RampManipulator;
 	
 	//Create operator interface.
 	static OI *oi;
