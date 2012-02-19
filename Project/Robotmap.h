@@ -40,6 +40,7 @@ enum AnalogAddress
 {
 	k_MaxbotixUltrasonic = 1,
 	k_followDistanceInches = 24,
+	k_followDeadband = 1,
 };
 	
 enum DigitalAddress

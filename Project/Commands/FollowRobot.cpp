@@ -14,9 +14,14 @@ void FollowRobot::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void FollowRobot::Execute() {
-	if(CommandBase::s_ultrasonicSensor->GetRangeInInches()>k_followDistanceInches+1)
-	s_drive->DriveRobot(.425,0);
-	else if(CommandBase::s_ultrasonicSensor->GetRangeInInches()<k_followDistanceInches-1);
+	if(CommandBase::s_ultrasonicSensor->GetRangeInInches()>(k_followDistanceInches+k_followDeadband)) {
+		s_drive->DriveRobot(.425,0);
+		//if (s_ultrasonicSensor->GetRangeInInches()>60) s_drive->DriveRobot(-.425,0);
+		//else s_drive->DriveRobot((s_ultrasonicSensor->GetRangeInInches()-k_followDistanceInches)*.001,0);
+	}	
+	if(CommandBase::s_ultrasonicSensor->GetRangeInInches()<(k_followDistanceInches-k_followDeadband))
+		s_drive->DriveRobot(-.425,0);
+		
 }
 
 // Make this return true when this Command no longer needs to run execute()
