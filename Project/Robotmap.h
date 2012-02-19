@@ -39,6 +39,7 @@ enum JaguarsAddress
 enum AnalogAddress
 {
 	k_MaxbotixUltrasonic = 1,
+	k_followDistanceInches = 24,
 };
 	
 enum DigitalAddress

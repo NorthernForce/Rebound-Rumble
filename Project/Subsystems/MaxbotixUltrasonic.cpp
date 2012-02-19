@@ -51,10 +51,11 @@ MaxbotixUltrasonic::MaxbotixUltrasonic (
  *
  * @author Stephen Nutt
  */
-unsigned MaxbotixUltrasonic::GetRangeInInches() const
+double MaxbotixUltrasonic::GetRangeInInches() const
 {
-	const float range = (m_distanceChannel.GetVoltage() - m_minVoltage) / m_voltageRange;
-	return static_cast<unsigned> ((range * m_distanceRange) + m_minDistance);
+	//const float range = (m_distanceChannel.GetVoltage() - m_minVoltage) / m_voltageRange;
+	//return static_cast<unsigned> ((range * m_distanceRange) + m_minDistance);
+	return m_distanceChannel.GetVoltage()/.0098; //9.8mV/Inch
 }
 
 /** @brief Returns the range in cm

@@ -26,7 +26,7 @@ public:
 	}
 
 	//! Returns the range in inches
-	unsigned GetRangeInInches() const;
+	double GetRangeInInches() const;
 
 	//! Returns the range in centimeters
 	unsigned GetRangeInCM() const;

@@ -21,6 +21,9 @@ public:
 	void OI::SetTargetLEDs(bool target);
     JoystickButton m_ImageButton;
     DigitalIOButton m_fireButton;
+    JoystickButton m_followButton;
+	JoystickButton m_encoderEnableButton;
+	JoystickButton m_encoderDisableButton;
     DigitalIOButton m_manualSwitch;
     DigitalIOButton m_openChuteButton;
     DigitalIOButton m_closeChuteButton;
@@ -30,8 +33,8 @@ public:
 	DriverStationLED m_hasTargetLED;
 	DriverStationLED m_autoLED;
 	DriverStationLED m_manualLED;
-	JoystickButton m_encoderEnableButton;
-	JoystickButton m_encoderDisableButton;
+
+	
 	
 private:
 	XboxJoystick m_stick;

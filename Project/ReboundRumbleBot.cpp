@@ -104,7 +104,7 @@ protected:
 		
 		if (const MaxbotixUltrasonic* const pUltrasonic = CommandBase::s_ultrasonicSensor)
 		{
-			SetSmartDashboardDouble ("Target Distance (feet)", pUltrasonic->GetRangeInInches() / 12.0);
+			SetSmartDashboardDouble ("Target Distance inches", pUltrasonic->GetRangeInInches());
 			SetSmartDashboardDouble ("Ultrasonic Analog Voltage",pUltrasonic->GetVoltage());
 			SetSmartDashboardDouble ("Target Voltage", pUltrasonic->GetVoltage());
 		}

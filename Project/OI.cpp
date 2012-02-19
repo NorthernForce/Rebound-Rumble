@@ -2,6 +2,7 @@
 #include "Commands/CaptureImages.h"
 #include "Commands/ChangeControlMode.h"
 #include "Commands/Fire.h"
+#include "Commands/FollowRobot.h"
 #include "Robotmap.h"
 
 /** 
@@ -12,6 +13,9 @@
 OI::OI() try :
 	m_ImageButton(&m_stick, k_XBoxButtonA),
     m_fireButton(k_fireButton),
+	m_followButton(&m_stick, k_XBoxButtonB),
+	m_encoderEnableButton(&m_stick, k_XBoxButtonBack),
+	m_encoderDisableButton(&m_stick, k_XBoxButtonStart),
     m_manualSwitch(k_manualSwitch),
     m_openChuteButton(k_openChuteButton),
     m_closeChuteButton(k_closeChuteButton),
@@ -21,8 +25,8 @@ OI::OI() try :
 	m_hasTargetLED(k_hasTargetLED),
 	m_autoLED(k_autoLED),
 	m_manualLED(k_manualLED),
-	m_encoderEnableButton(&m_stick, k_XBoxButtonBack),
-	m_encoderDisableButton(&m_stick, k_XBoxButtonStart),
+
+	
     m_stick(),
 	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO())
 {
@@ -31,6 +35,7 @@ OI::OI() try :
     m_fireButton.WhenPressed(new Fire());
     m_encoderEnableButton.WhenPressed(new ChangeControlMode(true));
     m_encoderDisableButton.WhenPressed(new ChangeControlMode(false));
+    m_followButton.WhileHeld(new FollowRobot());
     
     printf("All OI elements created successfully.");
     printf("\n");
