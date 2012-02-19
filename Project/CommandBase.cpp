@@ -19,7 +19,6 @@ AccelerometerSubsystem* CommandBase::s_accelerometer = NULL;
 Turret* CommandBase::s_turret = NULL;
 RampManipulator* CommandBase::s_RampManipulator = NULL; 
 
-
 OI* CommandBase::oi = NULL;
 
 void CommandBase::init() 

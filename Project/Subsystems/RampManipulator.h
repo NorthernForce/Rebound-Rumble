@@ -21,7 +21,11 @@ public:
 	void InitDefaultCommand();
 private:
 	Relay m_RampManipulatorMotor; // The window motor
-	Solenoid m_RampManipulatorSoleniod; // The brake solenoid
+	Servo m_LeftLockServo; 
+	Servo m_RightLockServo; 
+	float m_LockAngle;
+	float m_UnlockAngle;
+//	Solenoid m_RampManipulatorSoleniod; // The brake solenoid
 };
 
 #endif

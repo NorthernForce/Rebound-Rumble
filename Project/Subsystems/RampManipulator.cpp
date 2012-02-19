@@ -7,13 +7,20 @@
 
 #include "RampManipulator.h"
 
+const int k_LeftLockAngle = 10;
+const int k_LeftUnlockAngle = 10;
+const int k_RightLockAngle = 10;
+const int k_RightUnlockAngle = 10;
+
 /*
  * Default constructor
  */
-RampManipulator::RampManipulator( int RelayPort, int SolonoidPort) 
-: Subsystem("Drive"),
+RampManipulator::RampManipulator( int RelayPort, int ServoPort ) 
+: Subsystem("RampManipulator"),
 m_RampManipulatorMotor(RelayPort),
-m_RampManipulatorSoleniod(SolonoidPort)
+m_LeftLockServo(ServoPort),
+m_RightLockServo(ServoPort + 1)
+//m_RampManipulatorSoleniod(SolonoidPort)
 {
 	
 }
@@ -43,10 +50,14 @@ void RampManipulator::MotorStop()
 
 void RampManipulator::EngageLock()
 {
-	m_RampManipulatorSoleniod.Set(0);
+	m_LeftLockServo.SetAngle(k_LeftLockAngle);
+	m_RightLockServo.SetAngle(k_RightLockAngle);
+//	m_RampManipulatorSoleniod.Set(0);
 }
 
 void RampManipulator::ReleaseLock()
 {
-	m_RampManipulatorSoleniod.Set(1);
+	m_LeftLockServo.SetAngle(k_LeftUnlockAngle);
+	m_RightLockServo.SetAngle(k_RightUnlockAngle);
+//	m_RampManipulatorSoleniod.Set(1);
 }
