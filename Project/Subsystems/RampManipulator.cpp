@@ -15,11 +15,11 @@ const int k_RightUnlockAngle = 10;
 /*
  * Default constructor
  */
-RampManipulator::RampManipulator( int RelayPort, int ServoPort ) 
+RampManipulator::RampManipulator( int RelayPort, int LeftServoPort, int RightServoPort ) 
 : Subsystem("RampManipulator"),
 m_RampManipulatorMotor(RelayPort),
-m_LeftLockServo(ServoPort),
-m_RightLockServo(ServoPort + 1)
+m_LeftLockServo(LeftServoPort),
+m_RightLockServo(RightServoPort)
 //m_RampManipulatorSoleniod(SolonoidPort)
 {
 	

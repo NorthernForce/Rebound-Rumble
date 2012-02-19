@@ -11,7 +11,7 @@
 class RampManipulator: public Subsystem {
 private:
 public:
-	RampManipulator(int RelayPort, int SolonoidPort);
+	RampManipulator(int RelayPort, int LeftServoPort, int RightServoPort);
 	
 	void MotorForward();
 	void MotorBackward();
