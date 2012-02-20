@@ -36,7 +36,6 @@ void Drive::DriveWithStick(XboxJoystick& stick)
 {
 	drive->ArcadeDrive(stick);
 }
-
 /** @brief Drives the robot the specified 
  *
  * @author Stephen Nutt
