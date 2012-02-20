@@ -95,11 +95,27 @@ protected:
 			if (pCamera->HasTarget())
 			{
 				SetSmartDashboardDouble ("Target Angle", pCamera->GetAngleToTarget());
+
 			}
 			else
 			{
 				dashboard.PutString ("Target Angle", "No target found.");
 			}
+
+            float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(pCamera->GetHorizontalDistance()));
+            if( arrivalAngle < k_aAngleMax &&
+                arrivalAngle > k_aAngleMin )
+            {
+            } else
+                dashboard.PutString("Directions", "Target is Ok.");
+            {
+                if(arrivalAngle > k_aAngleMax) arrivalAngle = k_aAngleMax;
+                if(arrivalAngle < k_aAngleMin) arrivalAngle = k_aAngleMin;
+                // Distance from target to drive to.
+                // Not currently used.
+                float x = - 2*k_targetHeight/(k_tanTheta + tan(arrivalAngle));
+                SetSmartDashboardDouble("Directions", x - pCamera->GetHorizontalDistance());
+            }
 		}
 		
 		if (const MaxbotixUltrasonic* const pUltrasonic = CommandBase::s_ultrasonicSensor)
