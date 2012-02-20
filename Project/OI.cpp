@@ -4,6 +4,7 @@
 #include "Commands/Fire.h"
 #include "Commands/LogAccelerometer.h"
 #include "Commands/FollowRobot.h"
+#include "Commands/Balance.h"
 #include "Robotmap.h"
 
 /** 
@@ -14,31 +15,32 @@
 OI::OI() try :
 	m_imageButton(&m_stick, k_XBoxButtonA),
     m_logAccelerometerButton(&m_stick, k_XBoxButtonX),
-    m_fireButton(k_fireButton),
+//    m_fireButton(k_fireButton),
 	m_followButton(&m_stick, k_XBoxButtonB),
 	m_encoderEnableButton(&m_stick, k_XBoxButtonBack),
 	m_encoderDisableButton(&m_stick, k_XBoxButtonStart),
-    m_manualSwitch(k_manualSwitch),
-    m_openChuteButton(k_openChuteButton),
-    m_closeChuteButton(k_closeChuteButton),
-    m_feederSwitch(k_feederSwitch),
-    m_lowerRampButton(k_lowerRampButton),
-	m_noTargetLED(k_noTargetLED),
-	m_hasTargetLED(k_hasTargetLED),
-	m_autoLED(k_autoLED),
-	m_manualLED(k_manualLED),
-
+	m_balanceButton(&m_stick, k_XBoxButtonY),
+//    m_manualSwitch(k_manualSwitch),
+//    m_openChuteButton(k_openChuteButton),
+//    m_closeChuteButton(k_closeChuteButton),
+//    m_feederSwitch(k_feederSwitch),
+//    m_lowerRampButton(k_lowerRampButton),
+//	m_noTargetLED(k_noTargetLED),
+//	m_hasTargetLED(k_hasTargetLED),
+//	m_autoLED(k_autoLED),
+//	m_manualLED(k_manualLED),
 	
-    m_stick(),
-	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO())
+    m_stick()
+//	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO())
 {
 	// Process operator interface input here.
     m_imageButton.WhenPressed(new CaptureImages());
     m_logAccelerometerButton.WhenPressed(new LogAccelerometer());
-    m_fireButton.WhenPressed(new Fire());
+//    m_fireButton.WhenPressed(new Fire());
     m_encoderEnableButton.WhenPressed(new ChangeControlMode(true));
     m_encoderDisableButton.WhenPressed(new ChangeControlMode(false));
     m_followButton.WhileHeld(new FollowRobot());
+    m_balanceButton.WhileHeld(new Balance());
     
     printf("All OI elements created successfully.");
     printf("\n");
@@ -56,11 +58,11 @@ void OI::SetTargetLEDs(bool target)
 {
 	if (target)
 	{
-		m_hasTargetLED.TurnOn();
-		m_noTargetLED.TurnOff();
+//		m_hasTargetLED.TurnOn();
+//		m_noTargetLED.TurnOff();
 	} else {
-		m_hasTargetLED.TurnOff();
-		m_noTargetLED.TurnOn();
+//		m_hasTargetLED.TurnOff();
+//		m_noTargetLED.TurnOn();
 	}
 }
 
@@ -72,4 +74,14 @@ void OI::SetTargetLEDs(bool target)
 XboxJoystick& OI::GetStick()
 {
 	return m_stick;
+}
+
+/**
+ * @brief Temporary class. Sets the position of the
+ * servos on the Ramp manipulator.
+ */
+void OI::SetRampManipulatorServos()
+{
+	float position = DriverStation::GetInstance()->GetAnalogIn(1)/5;
+	CommandBase::s_RampManipulator->SetServo(position);
 }

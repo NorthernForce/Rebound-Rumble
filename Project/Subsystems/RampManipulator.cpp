@@ -6,21 +6,21 @@
  */
 
 #include "RampManipulator.h"
+#include "../Robotmap.h"
 
-const int k_LeftLockAngle = 10;
-const int k_LeftUnlockAngle = 10;
-const int k_RightLockAngle = 10;
-const int k_RightUnlockAngle = 10;
+const float k_LeftLockAngle = 0.5;
+const float k_LeftUnlockAngle = 0.0;
+const float k_RightLockAngle = 0.5;
+const float k_RightUnlockAngle = 0.0;
 
 /*
  * Default constructor
  */
-RampManipulator::RampManipulator( int RelayPort, int LeftServoPort, int RightServoPort ) 
-: Subsystem("RampManipulator"),
-m_RampManipulatorMotor(RelayPort),
-m_LeftLockServo(LeftServoPort),
-m_RightLockServo(RightServoPort)
-//m_RampManipulatorSoleniod(SolonoidPort)
+RampManipulator::RampManipulator() : 
+		Subsystem("RampManipulator"),
+		m_RampManipulatorMotor(k_rampManipulatorRelay,Relay::kBothDirections),
+		m_LeftLockServo(k_LeftServoPort),
+		m_RightLockServo(k_RightServoPort)
 {
 	
 }
@@ -52,12 +52,15 @@ void RampManipulator::EngageLock()
 {
 	m_LeftLockServo.SetAngle(k_LeftLockAngle);
 	m_RightLockServo.SetAngle(k_RightLockAngle);
-//	m_RampManipulatorSoleniod.Set(0);
 }
 
 void RampManipulator::ReleaseLock()
 {
 	m_LeftLockServo.SetAngle(k_LeftUnlockAngle);
 	m_RightLockServo.SetAngle(k_RightUnlockAngle);
-//	m_RampManipulatorSoleniod.Set(1);
+}
+
+void RampManipulator::SetServo(float position)
+{
+	
 }

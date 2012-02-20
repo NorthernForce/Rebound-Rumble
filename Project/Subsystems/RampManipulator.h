@@ -11,7 +11,7 @@
 class RampManipulator: public Subsystem {
 private:
 public:
-	RampManipulator(int RelayPort, int LeftServoPort, int RightServoPort);
+	RampManipulator();
 	
 	void MotorForward();
 	void MotorBackward();
@@ -19,13 +19,13 @@ public:
 	void EngageLock();
 	void ReleaseLock();
 	void InitDefaultCommand();
+	void SetServo(float position);
 private:
 	Relay m_RampManipulatorMotor; // The window motor
 	Servo m_LeftLockServo; 
 	Servo m_RightLockServo; 
 	float m_LockAngle;
 	float m_UnlockAngle;
-//	Solenoid m_RampManipulatorSoleniod; // The brake solenoid
 };
 
 #endif

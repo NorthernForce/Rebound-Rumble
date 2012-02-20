@@ -1,8 +1,10 @@
 #include "LowerRampManipulator.h"
 
-LowerRampManipulator::LowerRampManipulator() : CommandBase("LowerRampManipulator") {
+LowerRampManipulator::LowerRampManipulator() : CommandBase("LowerRampManipulator") 
+{
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
+	Requires(s_RampManipulator);
 }
 
 // Called just before this Command runs the first time

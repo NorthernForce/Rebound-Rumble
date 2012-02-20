@@ -41,7 +41,7 @@ enum AnalogAddress
 {
 	k_MaxbotixUltrasonic = 1,
 	k_followDistanceInches = 24,
-	k_followDeadband = 1,
+	k_followDeadband = 2,
 };
 	
 enum DigitalAddress
@@ -85,6 +85,8 @@ enum PWMAddress
 {
 	k_pwmCameraPan  = 1, 
 	k_pwmCameraTilt = 2,
+	k_LeftServoPort = 3,
+	k_RightServoPort = 4,
 };
 
 enum RelayPort
@@ -92,6 +94,7 @@ enum RelayPort
     k_liftMotorRelay = 1,
     k_pickupMotorRelay = 2,
     k_storageMotorRelay = 3,
+    k_rampManipulatorRelay = 4,
 };
 
 #define k_rampValue 0.4

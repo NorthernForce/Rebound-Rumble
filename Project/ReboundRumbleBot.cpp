@@ -44,9 +44,7 @@ protected:
 		//Update the LED on the driver station to say if it has a target or not.
 		//@TODO test this.
 		if (CommandBase::s_camera)
-		{
 			CommandBase::oi->SetTargetLEDs(CommandBase::s_camera->HasTarget());
-		}
 	}
 	
 	virtual void TeleopInit() 
@@ -64,12 +62,14 @@ protected:
 	virtual void TeleopPeriodic() 
 	{
 		Scheduler::GetInstance()->Run();
+		CommandBase::oi->SetRampManipulatorServos();
 		this->UpdateDashboard();
 		CommandBase::s_accelerometer->PerformCalibrartion();
 		
 		//Update the LED on the driver station to say if it has a target or not.
 		//@TODO test this.
-		CommandBase::oi->SetTargetLEDs(CommandBase::s_camera->HasTarget());
+		if (CommandBase::s_camera)
+			CommandBase::oi->SetTargetLEDs(CommandBase::s_camera->HasTarget());
 	}
 
 	virtual void DisabledPeriodic()

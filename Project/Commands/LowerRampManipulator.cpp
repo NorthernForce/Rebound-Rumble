@@ -1,8 +1,10 @@
 #include "RaiseRampManipulator.h"
 
-RaiseRampManipulator::RaiseRampManipulator() : CommandBase("RaiseRampManipulator") {
+RaiseRampManipulator::RaiseRampManipulator() : CommandBase("RaiseRampManipulator") 
+{
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
+	Requires(s_RampManipulator);
 }
 
 // Called just before this Command runs the first time
