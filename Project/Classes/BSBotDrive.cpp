@@ -25,6 +25,7 @@ const float mecanumWheelDistancePerPulse = mecanumWheelDiameter * M_PI / encoder
 
 const float ramp = .4;
 const float velocityLimit = 1.0;
+const float rampVelocityLimit = 0.75;
 const float tolerance = 0.2;
 const float thereTolerance = 0.1;
 
@@ -201,6 +202,19 @@ void BSBotDrive::EnableEncoders(bool enable)
 	printf("Drive jaguars re-initialized.\n\r");
 }
 
+float BSBotDrive::Limit(float input, float max) 
+{
+    if (input > max)
+    {
+        return max;
+    } else if (input < -max)
+    {
+        return -max;
+    }
+    return input;
+}
+
+
 /**
  * @brief Actually computes the values that the wheels need to 
  * turn to make the robot go.
@@ -217,9 +231,18 @@ void BSBotDrive::ArcadeDrive (
 	// local variables to hold the computed PWM values for the motors
 	float left;
 	float right;
-
-	moveValue   = Limit (moveValue);
-	rotateValue = Limit (rotateValue) / rotateReduce;
+	Vector3D accelerations = CommandBase::s_accelerometer->GetAccelerations();
+	float limit;
+	if((acos(Limit(accelerations.z,1)) > M_PI/24) && 
+	   (k_maxMatchTime - DriverStation::GetInstance()->GetMatchTime() < 20))
+	{
+		limit = rampVelocityLimit;
+	} else
+	{
+		limit = velocityLimit;
+	}
+	moveValue   = Limit (moveValue, limit);
+	rotateValue = Limit (rotateValue, limit) / rotateReduce;
 
 	if (squaredInputs)
 	{
@@ -254,7 +277,6 @@ void BSBotDrive::ArcadeDrive (
 			right = -max (-moveValue, -rotateValue);
 		}
 	}
-
 	this->PowerMotors (left, right);
 }
 

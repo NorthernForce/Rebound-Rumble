@@ -2,6 +2,7 @@
 #define ROBOTMAP_H
 
 #define M_PI 3.1415926535897932384626433832795
+#include <math.h>
 
 
 /**
@@ -144,6 +145,14 @@ enum RelayPort
 
 // Maximum accelerations and velocities
 //#define k_maxDriveVelocity 
-//#define k_maxDriveAccel 
+//#define k_maxDriveAccel
+
+static const float k_secTheta = 2;//1/cos(M_PI/3);
+static const float k_tanTheta = sqrt(3.0f);//tan(M_PI/3);
+static const float k_spinupTolerance = 1;
+static const float k_targetHeight = 98/12;
+static const float k_aAngleMin = M_PI/6;
+static const float k_aAngleMax = M_PI/3;
+static const float k_maxMatchTime = 135;
 
 #endif

@@ -39,6 +39,7 @@ class BSBotDrive :
 private:
 	void PowerMotors (float frontLeft, float frontRight);
 	void PowerMotors (float frontLeft, float rearLeft, float frontRight, float rearRight);
+    float Limit(float input, float max);
 public:
 	BSBotDrive();
 	//! Drives the robot using an XBox controller
