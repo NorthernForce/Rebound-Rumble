@@ -20,6 +20,7 @@ public:
 	void InitDefaultCommand();
 	void Search();
 	float GetDistanceToTarget() const;
+	float GetHorizontalDistance() const;
 	float GetAngleToTarget() const;
 	void SaveImageToFTP() const;
 	bool HasTarget() const;

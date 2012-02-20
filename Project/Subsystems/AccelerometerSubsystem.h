@@ -19,6 +19,15 @@ private:
 	// for methods that implement subsystem capabilities
 public:
 	AccelerometerSubsystem();
+    
+	AlphaBetaFilter<double>& GetX();
+	AlphaBetaFilter<double>& GetY();
+	AlphaBetaFilter<double>& GetZ();
+
+    void EnableLogging(size_t initLogSize);
+    void DisableLogging();
+    void WriteLog(ostream& os);
+
 	void InitDefaultCommand();
 	
 	//! Call to begin the stationary calibration process

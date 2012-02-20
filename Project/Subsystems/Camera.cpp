@@ -61,6 +61,12 @@ float Camera::GetDistanceToTarget() const
     return 0.0; // Not implemented yet
 }
 
+float Camera::GetHorizontalDistance() const
+{
+    float distance = GetDistanceToTarget();
+    return distance*cos(asin(k_targetHeight/distance));
+}
+
 /**
  * @brief Makes the camera look around to find a
  * target. Used only if the target is lost.
@@ -69,15 +75,35 @@ void Camera::Search()
 {
 }
 
-/** @brief Returns true if at least one target has been
- * found.
+/** @brief Returns true if there is a target that we can shoot at.
  *
  * @author Stephen Nutt
  */
 bool Camera::HasTarget() const
 {
 	const Synchronized sync (m_cameraSemaphore);
-	return !m_particles.empty();
+	if(!m_particles.empty())
+    {
+        float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(GetHorizontalDistance()));
+        if( arrivalAngle < k_aAngleMax &&
+            arrivalAngle > k_aAngleMin )
+        {
+            return true;
+        } else
+        {
+            if(arrivalAngle > k_aAngleMax) arrivalAngle = k_aAngleMax;
+            if(arrivalAngle < k_aAngleMin) arrivalAngle = k_aAngleMin;
+            // Distance from target to drive to.
+            // Not currently used.
+            float x = - 2*k_targetHeight/(k_tanTheta + tan(arrivalAngle));
+            if(x > GetHorizontalDistance())
+            {
+            } else if (x < GetHorizontalDistance())
+            {
+            }
+        }
+    } 
+    return false;
 }
 
 /**
@@ -259,7 +285,7 @@ void Camera::ProcessImages()
 				{
 					// TESTING ONLY - Delete this line
 					//For testing purposes, prints the particle reports to the Console.
-					printf("particle: %d center_mass_x: %d\n", i, particle.center_mass_x);
+		//			printf("particle: %d center_mass_x: %d\n", i, particle.center_mass_x);
 				}
 			}
 		}

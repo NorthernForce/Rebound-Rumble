@@ -2,6 +2,7 @@
 #include "Commands/CaptureImages.h"
 #include "Commands/ChangeControlMode.h"
 #include "Commands/Fire.h"
+#include "Commands/LogAccelerometer.h"
 #include "Commands/FollowRobot.h"
 #include "Robotmap.h"
 
@@ -11,7 +12,8 @@
  * the robot.
  */
 OI::OI() try :
-	m_ImageButton(&m_stick, k_XBoxButtonA),
+	m_imageButton(&m_stick, k_XBoxButtonA),
+    m_logAccelerometerButton(&m_stick, k_XBoxButtonX),
     m_fireButton(k_fireButton),
 	m_followButton(&m_stick, k_XBoxButtonB),
 	m_encoderEnableButton(&m_stick, k_XBoxButtonBack),
@@ -31,7 +33,8 @@ OI::OI() try :
 	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO())
 {
 	// Process operator interface input here.
-    m_ImageButton.WhenPressed(new CaptureImages());
+    m_imageButton.WhenPressed(new CaptureImages());
+    m_logAccelerometerButton.WhenPressed(new LogAccelerometer());
     m_fireButton.WhenPressed(new Fire());
     m_encoderEnableButton.WhenPressed(new ChangeControlMode(true));
     m_encoderDisableButton.WhenPressed(new ChangeControlMode(false));

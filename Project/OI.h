@@ -19,7 +19,8 @@ public:
 	OI();
 	XboxJoystick& GetStick();
 	void OI::SetTargetLEDs(bool target);
-    JoystickButton m_ImageButton;
+    JoystickButton m_imageButton;
+    JoystickButton m_logAccelerometerButton;
     DigitalIOButton m_fireButton;
     JoystickButton m_followButton;
 	JoystickButton m_encoderEnableButton;

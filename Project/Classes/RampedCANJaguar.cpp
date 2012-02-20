@@ -83,7 +83,7 @@ void RampedCANJaguar::SetOutput(float outputValue)
         	//accel = Limit( (outputValue - m_prevVelocity), m_maxVelocity /* 0.2 works*/ );
         	//velocity = Limit( m_prevVelocity + accel, 1 );
 
-        	velocity = m_prevVelocity + (outputValue-m_prevVelocity) * m_maxVelocity;
+        	velocity = m_prevVelocity + (outputValue-m_prevVelocity) * m_ramp;
             CANJaguar::Set(velocity);
             break;
         case kPosition:

@@ -23,6 +23,27 @@ AccelerometerSubsystem::AccelerometerSubsystem() :
 	}
 }
 
+void AccelerometerSubsystem::EnableLogging(size_t initLogSize)
+{
+	m_x.EnableLogging(initLogSize);
+	m_y.EnableLogging(initLogSize);
+	m_z.EnableLogging(initLogSize);
+}
+
+void AccelerometerSubsystem::DisableLogging()
+{
+	m_x.DisableLogging();
+	m_y.DisableLogging();
+	m_z.DisableLogging();
+}
+
+void AccelerometerSubsystem::WriteLog(ostream& os)
+{
+	m_x.WriteLog(os);
+	m_y.WriteLog(os);
+	m_z.WriteLog(os);
+}
+
 /**
  * @brief Sets the default command for the subsystem.
  */
