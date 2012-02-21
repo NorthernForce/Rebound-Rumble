@@ -9,6 +9,9 @@
 #include "Commands/LowerRampManipulator.h"
 #include "Commands/StartPickup.h"
 #include "Commands/StopPickup.h"
+#include "Commands/TurnTurretLeft.h"
+#include "Commands/TurnTurretRight.h"
+#include "Commands/LockTarget.h"
 #include "Robotmap.h"
 
 /** 
@@ -26,8 +29,12 @@ OI::OI() try :
 	m_balanceButton(&m_stick, k_XBoxButtonY),
 	m_raiseButton(&m_stick, k_XBoxButtonRight),
 	m_lowerButton(&m_stick, k_XBoxButtonLeft),
-    m_startPickupButton(&m_manipulatorStick, k_XBoxButtonA),
-    m_stopPickupButton(&m_manipulatorStick, k_XBoxButtonB),
+    m_startPickupButton(&m_manipulatorStick, k_XBoxButtonStart),
+    m_stopPickupButton(&m_manipulatorStick, k_XBoxButtonBack),
+    m_turnTurretLeft(&m_manipulatorStick, k_XBoxButtonA),
+    m_turnTurretRight(&m_manipulatorStick, k_XBoxButtonB),
+    m_lockTarget(&m_manipulatorStick, k_XBoxButtonY),
+    
 //    m_manualSwitch(k_manualSwitch),
 //    m_openChuteButton(k_openChuteButton),
 //    m_closeChuteButton(k_closeChuteButton),
@@ -45,6 +52,9 @@ OI::OI() try :
 	// Process operator interface input here.
     m_imageButton.WhenPressed(new CaptureImages());
     m_logAccelerometerButton.WhenPressed(new LogAccelerometer());
+    m_turnTurretLeft.WhileHeld(new TurnTurretLeft());
+    m_turnTurretRight.WhileHeld(new TurnTurretRight());
+	m_lockTarget.WhileHeld(new LockTarget());
 //    m_fireButton.WhenPressed(new Fire());
     m_encoderEnableButton.WhenPressed(new ChangeControlMode(true));
     m_encoderDisableButton.WhenPressed(new ChangeControlMode(false));

@@ -31,7 +31,7 @@ enum JaguarsAddress
 	k_frontRightJaguar = 4,
 	k_rearLeftJaguar = 3,
 	k_rearRightJaguar = 5,
-	k_turretMotor = 9,
+	k_turretJaguar = 9,
 	k_flywheelFront = 6,
 	k_flywheelBack = 7,
 };

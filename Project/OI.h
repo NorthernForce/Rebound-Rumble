@@ -30,6 +30,9 @@ public:
 	JoystickButton m_lowerButton;
     JoystickButton m_startPickupButton;
     JoystickButton m_stopPickupButton;
+    JoystickButton m_turnTurretLeft;
+    JoystickButton m_turnTurretRight;
+    JoystickButton m_lockTarget;
 //    DigitalIOButton m_manualSwitch;
 //    DigitalIOButton m_openChuteButton;
 //    DigitalIOButton m_closeChuteButton;
