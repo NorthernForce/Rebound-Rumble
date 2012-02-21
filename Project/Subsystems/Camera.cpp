@@ -84,7 +84,8 @@ bool Camera::HasTarget() const
 	const Synchronized sync (m_cameraSemaphore);
 	if(!m_particles.empty())
     {
-        float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(GetHorizontalDistance()));
+       return true;
+		/*float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(GetHorizontalDistance()));
         if( arrivalAngle < k_aAngleMax &&
             arrivalAngle > k_aAngleMin )
         {
@@ -101,7 +102,7 @@ bool Camera::HasTarget() const
             } else if (x < GetHorizontalDistance())
             {
             }
-        }
+        }*/
     } 
     return false;
 }

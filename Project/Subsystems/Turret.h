@@ -8,17 +8,27 @@
  *
  * @author Joe
  */
-class Turret: public Subsystem {
+class TurretMotors
+{
+protected:
+	TurretMotors();
+	CANJaguar m_turretJaguar;
+};
+class Turret: 
+protected TurretMotors,	
+public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	float m_currentAngle; //radians
+
 public:
 	Turret();
 	void SetAngle(float Angle);
     float GetAngle();
 	void TurnTurret(float Angle);
 	void InitDefaultCommand();
+	void Turn(float speed);
 };
 
 #endif
