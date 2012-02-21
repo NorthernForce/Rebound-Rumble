@@ -26,6 +26,8 @@ public:
 	JoystickButton m_encoderEnableButton;
 	JoystickButton m_encoderDisableButton;
 	JoystickButton m_balanceButton;
+	JoystickButton m_raiseButton;
+	JoystickButton m_lowerButton;
 //    DigitalIOButton m_manualSwitch;
 //    DigitalIOButton m_openChuteButton;
 //    DigitalIOButton m_closeChuteButton;
@@ -35,7 +37,6 @@ public:
 //	DriverStationLED m_hasTargetLED;
 //	DriverStationLED m_autoLED;
 //	DriverStationLED m_manualLED;
-	void SetRampManipulatorServos();
 private:
 	XboxJoystick m_stick;
 //	DriverStationEnhancedIO& m_driverstationEnhancedIO;

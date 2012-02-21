@@ -42,7 +42,7 @@ void CalibrateAccelerometer::Execute()
  */
 bool CalibrateAccelerometer::IsFinished()
 {
-	return m_executeCount >= 25;
+	return m_executeCount >= 15;
 }
 
 void CalibrateAccelerometer::Interrupted()

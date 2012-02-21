@@ -94,7 +94,8 @@ enum RelayPort
     k_liftMotorRelay = 1,
     k_pickupMotorRelay = 2,
     k_storageMotorRelay = 3,
-    k_rampManipulatorRelay = 4,
+    k_rampManipulatorRelayRight = 4,
+    k_rampManipulatorRelayLeft = 5,
 };
 
 #define k_rampValue 0.4

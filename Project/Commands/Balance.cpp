@@ -1,10 +1,10 @@
 #include "Balance.h"
 #include "../Robotmap.h"
 
-const double p = 0.1; //set this value
+const double p = 0.4; //set this value
 const double i = 0.0; //keep at zero
-const double d = 0.05; //set this value
-const double maxAngle = M_PI/12;
+const double d = 0.1; //set this value
+const double maxAngle = M_PI/6;
 
 Balance::Balance(): PIDCommand(p,i,d)
 {
@@ -16,14 +16,14 @@ Balance::Balance(): PIDCommand(p,i,d)
 // Called just before this Command runs the first time
 void Balance::Initialize() 
 {
-	PIDCommand::_Initialize();
+	this->_Initialize();
 	SetSetpoint(0.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Balance::Execute() 
 {
-	this->UsePIDOutput(this->ReturnPIDInput());
+	this->_Execute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -35,7 +35,7 @@ bool Balance::IsFinished()
 // Called once after isFinished returns true
 void Balance::End() 
 {
-	PIDCommand::_End();
+	this->_End();
 	
 }
 
@@ -43,24 +43,24 @@ void Balance::End()
 // subsystems is scheduled to run
 void Balance::Interrupted() 
 {
-	PIDCommand::_Interrupted();
+	this->_Interrupted();
 }
 
 double Balance::ReturnPIDInput()
 {
 	Vector3D accelerations = CommandBase::s_accelerometer->GetAccelerations();
-	double returnVal = (acos(Limit(accelerations.z,1)) * sign(accelerations.y))/maxAngle;  
+	double returnVal = (acos(Limit(accelerations.z,1)) * sign(-accelerations.y))/maxAngle;  
 	printf("z-acceleration: %f\n\r", accelerations.z);
 	printf("y-acceleration: %f\n\r", accelerations.y);
 	printf("PIDInput: %f\n\r", returnVal);
-	return returnVal;
+	return Limit(returnVal,1);
 }
 
 void Balance::UsePIDOutput(double output)
 {
 	printf("Using PID Output\n\r");
 	printf("Output: %f\n\r", output);
-	double finalOutput = output*2;
+	double finalOutput = output;
 	CommandBase::s_drive->DriveRobot((float)finalOutput, 0);
 }
 

@@ -29,6 +29,7 @@ protected:
 	virtual void DisabledInit()
 	{
 		CommandBase::s_accelerometer->BeginStationaryCalibrartion();
+		printf("Disabled.");
 	}
 
 	virtual void AutonomousInit() 
@@ -39,6 +40,7 @@ protected:
 	
 	virtual void AutonomousPeriodic() 
 	{
+		CommandBase::s_drive->Feed();
 		Scheduler::GetInstance()->Run();
 		this->UpdateDashboard();
 		//Update the LED on the driver station to say if it has a target or not.
@@ -57,14 +59,14 @@ protected:
 			// this line or comment it out.
 			m_autonomousCommand->Cancel();
 		}
+		Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
 	}
 	
 	virtual void TeleopPeriodic() 
 	{
+		CommandBase::s_drive->Feed();
 		Scheduler::GetInstance()->Run();
-		CommandBase::oi->SetRampManipulatorServos();
 		this->UpdateDashboard();
-		CommandBase::s_accelerometer->PerformCalibrartion();
 		
 		//Update the LED on the driver station to say if it has a target or not.
 		//@TODO test this.

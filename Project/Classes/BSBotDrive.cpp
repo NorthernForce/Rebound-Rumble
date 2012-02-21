@@ -340,3 +340,11 @@ void BSBotDrive::PowerMotors (
 	DriveMotors::m_frontRightMotor.SetOutput(-frontRight);
 	DriveMotors::m_frontLeftMotor.SetOutput(frontLeft);
 }
+
+/**
+ * @brief Feeds the safety helper.
+ */
+void BSBotDrive::Feed()
+{
+	m_safetyHelper->Feed();
+}

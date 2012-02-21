@@ -52,5 +52,7 @@ public:
 	void EnableEncoders (bool enable);
 	//! Stops the robot
 	void Stop();
+	//! Feeds the safety helper.
+	void Feed();
 };
 #endif

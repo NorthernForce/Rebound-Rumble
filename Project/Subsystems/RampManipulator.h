@@ -19,9 +19,10 @@ public:
 	void EngageLock();
 	void ReleaseLock();
 	void InitDefaultCommand();
-	void SetServo(float position);
+	bool m_down;
 private:
-	Relay m_RampManipulatorMotor; // The window motor
+	Relay m_RampManipulatorMotorRight;
+	Relay m_RampManipulatorMotorLeft;// The window motor
 	Servo m_LeftLockServo; 
 	Servo m_RightLockServo; 
 	float m_LockAngle;

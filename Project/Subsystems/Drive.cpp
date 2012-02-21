@@ -46,3 +46,8 @@ void Drive::DriveRobot (
 {
 	drive->ArcadeDrive (speed, direction, false);
 }
+
+void Drive::Feed()
+{
+	drive->Feed();
+}

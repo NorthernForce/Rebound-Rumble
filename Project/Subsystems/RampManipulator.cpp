@@ -8,21 +8,22 @@
 #include "RampManipulator.h"
 #include "../Robotmap.h"
 
-const float k_LeftLockAngle = 0.5;
-const float k_LeftUnlockAngle = 0.0;
-const float k_RightLockAngle = 0.5;
-const float k_RightUnlockAngle = 0.0;
+const float k_RightLockAngle = 1.0;
+const float k_RightUnlockAngle = 0.6;
+const float k_LeftLockAngle = 0.0;
+const float k_LeftUnlockAngle = 0.4;
 
 /*
  * Default constructor
  */
 RampManipulator::RampManipulator() : 
 		Subsystem("RampManipulator"),
-		m_RampManipulatorMotor(k_rampManipulatorRelay,Relay::kBothDirections),
+		m_down(false),
+		m_RampManipulatorMotorRight(k_rampManipulatorRelayRight,Relay::kBothDirections),
+		m_RampManipulatorMotorLeft(k_rampManipulatorRelayLeft, Relay::kBothDirections),
 		m_LeftLockServo(k_LeftServoPort),
 		m_RightLockServo(k_RightServoPort)
 {
-	
 }
 
 
@@ -35,32 +36,30 @@ void RampManipulator::InitDefaultCommand()
 
 void RampManipulator::MotorForward()
 {
-	m_RampManipulatorMotor.Set(Relay::kForward);
+	m_RampManipulatorMotorRight.Set(Relay::kReverse);
+	m_RampManipulatorMotorLeft.Set(Relay::kReverse);
 }
 
 void RampManipulator::MotorBackward()
 {
-	m_RampManipulatorMotor.Set(Relay::kReverse);
+	m_RampManipulatorMotorRight.Set(Relay::kForward);
+	m_RampManipulatorMotorLeft.Set(Relay::kForward);
 }
 
 void RampManipulator::MotorStop()
 {
-	m_RampManipulatorMotor.Set(Relay::kOff);
+	m_RampManipulatorMotorRight.Set(Relay::kOff);
+	m_RampManipulatorMotorLeft.Set(Relay::kOff);
 }
 
 void RampManipulator::EngageLock()
 {
-	m_LeftLockServo.SetAngle(k_LeftLockAngle);
-	m_RightLockServo.SetAngle(k_RightLockAngle);
+	m_LeftLockServo.Set(k_LeftLockAngle);
+	m_RightLockServo.Set(k_RightLockAngle);
 }
 
 void RampManipulator::ReleaseLock()
 {
-	m_LeftLockServo.SetAngle(k_LeftUnlockAngle);
-	m_RightLockServo.SetAngle(k_RightUnlockAngle);
-}
-
-void RampManipulator::SetServo(float position)
-{
-	
+	m_LeftLockServo.Set(k_LeftUnlockAngle);
+	m_RightLockServo.Set(k_RightUnlockAngle);
 }

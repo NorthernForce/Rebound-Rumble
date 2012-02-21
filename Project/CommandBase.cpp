@@ -28,15 +28,14 @@ void CommandBase::init()
 	//s_ballPickup = new BallPickup();
 	//s_ballShooter = new BallShooter();
 	//s_ballStorage = new BallStorage();
-	s_camera = new Camera();
+	//s_camera = new Camera();
 	s_cameraMount = new CameraMount();
 	s_gyro = new GyroSubsystem();
 	s_ultrasonicSensor = new MaxbotixUltrasonic (k_MaxbotixUltrasonic, k_MaxbotixSerialMode, k_MaxbotixOn);
 	s_accelerometer = new AccelerometerSubsystem();
 	//s_targeting = new Targeting();
 	//s_turret = new Turret();
-	//s_RampManipulator = new RampManipulator(k_RampManipulatorRelay,
-	//		k_RampManipulatorSoleniod); 
+	s_RampManipulator = new RampManipulator(); 
 	
 	oi = new OI();
 }

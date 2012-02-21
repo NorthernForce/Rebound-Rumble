@@ -5,6 +5,8 @@
 #include "Commands/LogAccelerometer.h"
 #include "Commands/FollowRobot.h"
 #include "Commands/Balance.h"
+#include "Commands/RaiseRampManipulator.h"
+#include "Commands/LowerRampManipulator.h"
 #include "Robotmap.h"
 
 /** 
@@ -20,6 +22,8 @@ OI::OI() try :
 	m_encoderEnableButton(&m_stick, k_XBoxButtonBack),
 	m_encoderDisableButton(&m_stick, k_XBoxButtonStart),
 	m_balanceButton(&m_stick, k_XBoxButtonY),
+	m_raiseButton(&m_stick, k_XBoxButtonRight),
+	m_lowerButton(&m_stick, k_XBoxButtonLeft),
 //    m_manualSwitch(k_manualSwitch),
 //    m_openChuteButton(k_openChuteButton),
 //    m_closeChuteButton(k_closeChuteButton),
@@ -41,6 +45,8 @@ OI::OI() try :
     m_encoderDisableButton.WhenPressed(new ChangeControlMode(false));
     m_followButton.WhileHeld(new FollowRobot());
     m_balanceButton.WhileHeld(new Balance());
+    m_raiseButton.WhenPressed(new RaiseRampManipulator());
+    m_lowerButton.WhenPressed(new LowerRampManipulator());
     
     printf("All OI elements created successfully.");
     printf("\n");
@@ -74,14 +80,4 @@ void OI::SetTargetLEDs(bool target)
 XboxJoystick& OI::GetStick()
 {
 	return m_stick;
-}
-
-/**
- * @brief Temporary class. Sets the position of the
- * servos on the Ramp manipulator.
- */
-void OI::SetRampManipulatorServos()
-{
-	float position = DriverStation::GetInstance()->GetAnalogIn(1)/5;
-	CommandBase::s_RampManipulator->SetServo(position);
 }
