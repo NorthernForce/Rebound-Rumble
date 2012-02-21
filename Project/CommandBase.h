@@ -3,6 +3,7 @@
 
 #include "Subsystems/Drive.h"
 #include "Subsystems/BallShooter.h"
+#include "Subsystems/BallPickup.h"
 #include "Subsystems/Camera.h"
 #include "Subsystems/GyroSubsystem.h"
 #include "Subsystems/MaxbotixUltrasonic.h"
@@ -30,6 +31,7 @@ public:
 	// The "S" prefix denotes a subsystem.
 	static Drive *s_drive;
 	static BallShooter *s_ballShooter;
+    static BallPickup *s_ballPickup;
 	static Camera *s_camera;
 	static GyroSubsystem *s_gyro;
 	static MaxbotixUltrasonic *s_ultrasonicSensor;

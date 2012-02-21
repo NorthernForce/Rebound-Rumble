@@ -44,6 +44,14 @@ void AccelerometerSubsystem::WriteLog(ostream& os)
 	m_z.WriteLog(os);
 }
 
+void AccelerometerSubsystem::Update(UINT32 currTime)
+{
+	Vector3D accelerations = this->GetAccelerations();
+	m_x.Update(accelerations.x, currTime);
+	m_y.Update(accelerations.y, currTime);
+	m_z.Update(accelerations.z, currTime);
+}
+
 /**
  * @brief Sets the default command for the subsystem.
  */

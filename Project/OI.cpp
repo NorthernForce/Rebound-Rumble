@@ -7,6 +7,8 @@
 #include "Commands/Balance.h"
 #include "Commands/RaiseRampManipulator.h"
 #include "Commands/LowerRampManipulator.h"
+#include "Commands/StartPickup.h"
+#include "Commands/StopPickup.h"
 #include "Robotmap.h"
 
 /** 
@@ -24,6 +26,8 @@ OI::OI() try :
 	m_balanceButton(&m_stick, k_XBoxButtonY),
 	m_raiseButton(&m_stick, k_XBoxButtonRight),
 	m_lowerButton(&m_stick, k_XBoxButtonLeft),
+    m_startPickupButton(&m_manipulatorStick, k_XBoxButtonA),
+    m_stopPickupButton(&m_manipulatorStick, k_XBoxButtonB),
 //    m_manualSwitch(k_manualSwitch),
 //    m_openChuteButton(k_openChuteButton),
 //    m_closeChuteButton(k_closeChuteButton),
@@ -34,7 +38,8 @@ OI::OI() try :
 //	m_autoLED(k_autoLED),
 //	m_manualLED(k_manualLED),
 	
-    m_stick()
+    m_stick(),
+    m_manipulatorStick(2)
 //	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO())
 {
 	// Process operator interface input here.
@@ -47,7 +52,8 @@ OI::OI() try :
     m_balanceButton.WhileHeld(new Balance());
     m_raiseButton.WhenPressed(new RaiseRampManipulator());
     m_lowerButton.WhenPressed(new LowerRampManipulator());
-    
+    m_startPickupButton.WhenPressed(new StartPickup());
+    m_stopPickupButton.WhenPressed(new StopPickup());
     printf("All OI elements created successfully.");
     printf("\n");
 }

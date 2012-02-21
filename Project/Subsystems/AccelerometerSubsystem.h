@@ -27,6 +27,7 @@ public:
     void EnableLogging(size_t initLogSize);
     void DisableLogging();
     void WriteLog(ostream& os);
+    void Update(UINT32 currTime);
 
 	void InitDefaultCommand();
 	

@@ -28,6 +28,8 @@ public:
 	JoystickButton m_balanceButton;
 	JoystickButton m_raiseButton;
 	JoystickButton m_lowerButton;
+    JoystickButton m_startPickupButton;
+    JoystickButton m_stopPickupButton;
 //    DigitalIOButton m_manualSwitch;
 //    DigitalIOButton m_openChuteButton;
 //    DigitalIOButton m_closeChuteButton;
@@ -39,6 +41,7 @@ public:
 //	DriverStationLED m_manualLED;
 private:
 	XboxJoystick m_stick;
+	Joystick m_manipulatorStick;
 //	DriverStationEnhancedIO& m_driverstationEnhancedIO;
 };
 
