@@ -49,7 +49,8 @@ void Balance::Interrupted()
 double Balance::ReturnPIDInput()
 {
 	Vector3D accelerations = CommandBase::s_accelerometer->GetAccelerations();
-	double returnVal = (acos(Limit(accelerations.z,1)) * sign(-accelerations.y))/maxAngle;  
+	//double returnVal = (acos(Limit(accelerations.z,1)) * sign(-accelerations.y))/maxAngle;  
+	double returnVal = accelerations.y;
 	printf("z-acceleration: %f\n\r", accelerations.z);
 	printf("y-acceleration: %f\n\r", accelerations.y);
 	printf("PIDInput: %f\n\r", returnVal);

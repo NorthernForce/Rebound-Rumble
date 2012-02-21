@@ -27,14 +27,13 @@
 //CAN Jaguars
 enum JaguarsAddress
 {
-	k_frontLeftJaguar = 1,
-	k_frontRightJaguar = 3,
-	k_rearLeftJaguar = 2,
-	k_rearRightJaguar = 4,
-   	k_pickupMotorJaguar = 5,
-   	k_storageMotorJaguar = 6,
-	k_flywheelFront = 7,
-	k_flywheelBack = 8,
+	k_frontLeftJaguar = 2,
+	k_frontRightJaguar = 4,
+	k_rearLeftJaguar = 3,
+	k_rearRightJaguar = 5,
+	k_turretMotor = 9,
+	k_flywheelFront = 6,
+	k_flywheelBack = 7,
 };
 
 enum AnalogAddress

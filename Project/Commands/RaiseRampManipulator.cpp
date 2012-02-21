@@ -10,36 +10,39 @@ RaiseRampManipulator::RaiseRampManipulator() : CommandBase("RaiseRampManipulator
 // Called just before this Command runs the first time
 void RaiseRampManipulator::Initialize() 
 {
-	s_RampManipulator->MotorForward();
-	s_RampManipulator->ReleaseLock();
-	_state = 0;
-	printf("Raise: State 0\n\r");
+	if (s_RampManipulator->m_down)
+	{
+		_state = 3;
+	} else {
+		s_RampManipulator->MotorForward();
+		s_RampManipulator->ReleaseLock();
+		_state = 0;
+	}
 }
 
 // Called repeatedly when this Command is scheduled to run
 void RaiseRampManipulator::Execute() 
 {
-	if (s_RampManipulator->m_down)
+	if (_state == 0 && TimeSinceInitialized() > .1 )
 	{
-		if (_state == 0 && TimeSinceInitialized() > .1 )
-		{
-			s_RampManipulator->MotorBackward();
-			_state = 1;
-			printf("Raise: State 1\n\r");
-		}
-		if (_state == 1 && TimeSinceInitialized() > .6 )
-		{
-			s_RampManipulator->MotorStop();
-			_state = 2;
-			printf("Raise: State 2\n\r");
-			s_RampManipulator->m_down = false;
-		}
+		s_RampManipulator->MotorBackward();
+		_state = 1;
+	}
+	if (_state == 1 && TimeSinceInitialized() > .6 )
+	{
+		s_RampManipulator->MotorStop();
+		_state = 2;
+	}
+	if (_state == 2 && TimeSinceInitialized() >.61)
+	{
+		s_RampManipulator->m_down = false;
+		_state = 3;
 	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool RaiseRampManipulator::IsFinished() {
-	return (_state == 2);
+	return (_state == 3);
 }
 
 // Called once after isFinished returns true
