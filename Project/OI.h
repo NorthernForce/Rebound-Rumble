@@ -25,7 +25,7 @@ public:
     JoystickButton m_followButton;
 	JoystickButton m_encoderEnableButton;
 	JoystickButton m_encoderDisableButton;
-	JoystickButton m_balanceButton;
+	JoystickButton m_loadButton;
 	JoystickButton m_raiseButton;
 	JoystickButton m_lowerButton;
     JoystickButton m_startPickupButton;

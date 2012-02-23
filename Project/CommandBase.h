@@ -32,6 +32,7 @@ public:
 	static Drive *s_drive;
 	static BallShooter *s_ballShooter;
     static BallPickup *s_ballPickup;
+    static BallLifter *s_ballLifter;
 	static Camera *s_camera;
 	static GyroSubsystem *s_gyro;
 	static MaxbotixUltrasonic *s_ultrasonicSensor;

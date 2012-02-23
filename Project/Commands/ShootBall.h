@@ -6,7 +6,7 @@
 /**
  *
  *
- * @author Joseph Martin
+ * @author Arthur Lockman
  */
 class ShootBall: public CommandBase {
 public:

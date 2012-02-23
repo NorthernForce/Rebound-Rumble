@@ -51,8 +51,6 @@ enum DigitalAddress
 	k_Accl_SPI_CS = 4,
 	k_MaxbotixSerialMode = 5,
 	k_MaxbotixOn = 6,
-	k_RampManipulatorRelay = 7, // 7 and 8
-	k_RampManipulatorSoleniod = 9,
 };
 
 enum EnhancedIOAddresses
@@ -92,11 +90,14 @@ enum RelayPort
 {
     k_liftMotorRelay = 1,
     k_pickupMotorRelay = 2,
-    k_storageMotorRelay = 3,
     k_rampManipulatorRelayRight = 4,
     k_rampManipulatorRelayLeft = 5,
 };
 
+enum DigitalIOLines
+{
+	k_liftLimit = 1,
+};
 #define k_rampValue 0.4
 
 //Xbox Controller Ports
@@ -135,20 +136,6 @@ enum RelayPort
 // Number of Images to capture when the image capture button
 // is held down
 #define k_ImageCaptureCount 10
-
-//Enhanced IO module keys
-#define k_fireLowerTarget 1
-#define k_fireMiddleLeftTarget 2
-#define k_fireMiddleRightTarget 3
-#define k_fireTopTarget 4
-
-// Pickup motor speed
-#define k_pickupMotorSpeed 0
-#define k_storageMotorSpeed 0
-
-// Maximum accelerations and velocities
-//#define k_maxDriveVelocity 
-//#define k_maxDriveAccel
 
 static const float k_secTheta = 2;//1/cos(M_PI/3);
 static const float k_tanTheta = sqrt(3.0f);//tan(M_PI/3);

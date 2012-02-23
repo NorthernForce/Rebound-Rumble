@@ -9,8 +9,7 @@ const double maxAngle = M_PI/6;
 Balance::Balance(): PIDCommand(p,i,d)
 {
 	Requires(CommandBase::s_drive);
-	Requires(CommandBase::s_accelerometer);
-	
+	Requires(CommandBase::s_accelerometer);	
 }
 
 // Called just before this Command runs the first time

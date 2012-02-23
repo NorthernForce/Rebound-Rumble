@@ -9,7 +9,6 @@ TurretMotors::TurretMotors()  try:
 		m_turretJaguar.ChangeControlMode(CANJaguar::kPercentVbus);
 		m_turretJaguar.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
 		m_turretJaguar.EnableControl();	
-		//m_turretJaguar.SetSafetyEnabled(false);
 		printf("Turret jaguar successfully created. \n");
 	}
 	catch (exception e)
@@ -19,7 +18,6 @@ TurretMotors::TurretMotors()  try:
 	}
 Turret::Turret() :Subsystem("Turret")
 {
-	
 	
 }
 
@@ -38,7 +36,7 @@ void Turret::TurnTurret(float Angle)
 
 float Turret::GetAngle()
 {
-	return 0.0f; // TODO: Implement this.
+	return 0.0; // TODO: Implement this.
 }
 void Turret::Turn(float speed)
 {

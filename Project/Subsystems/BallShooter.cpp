@@ -7,9 +7,9 @@ static const float k_wheelRadius = 1.0;
  * @brief The constructor for the ball shooter.
  */
 ShooterMotors::ShooterMotors() try:
-m_flywheelFront((printf("Initializing front left jaguar. \n"), k_flywheelFront)),
-m_flywheelBack((printf("Initializing front left jaguar. \n"), k_flywheelBack)),
-m_liftMotor(k_liftMotorRelay,Relay::kForwardOnly)
+
+		m_flywheelFront((printf("Initializing front left jaguar. \n"), k_flywheelFront)),
+		m_flywheelBack((printf("Initializing front left jaguar. \n"), k_flywheelBack))
 {
 	m_flywheelFront.ChangeControlMode(CANJaguar::kPercentVbus);
 	m_flywheelFront.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
@@ -54,28 +54,52 @@ void BallShooter::SetSpeed(float velocity)
 	m_flywheelBack.Set(velocity*30/(k_wheelRadius*M_PI));
 }
 
-/**
- * @brief Sets the vertical angle of the pitcher, relative
- * to the ground.
- * 
- * @param angle The angle to set it to, in degrees.
- */
-void BallShooter::AdjustVerticalAngle(float angle)
-{
-	
-}
-
-/**
- * @brief Fires a ball.
- */
-void BallShooter::Fire()
-{
-	m_liftMotor.Set(Relay::kOn);
-	Wait(3);
-	m_liftMotor.Set(Relay::kOff);
-}
-
 Vector2D BallShooter::GetSpeed()
 {
 	return Vector2D(m_flywheelFront.Get()*(M_PI/30),m_flywheelBack.Get()*(M_PI/30));
+}
+
+/**
+ * @brief The constructor for the Ball Lifter.
+ */
+BallLifter::BallLifter():
+		Subsystem("BallLifter"),
+		m_liftLimit(k_liftLimit),
+		m_liftMotor(k_liftMotorRelay,Relay::kBothDirections)
+{
+ 	//Do nothing, as the whole class is set up.
+}
+
+/**
+ * @brief Sets up the default command for the lifter.
+ */
+void BallLifter::InitDefaultCommand() {
+	// Set the default command for a subsystem here.
+	//SetDefaultCommand(new MySpecialCommand());
+}
+
+/**
+ * @brief Turns the lift on.
+ */
+void BallLifter::EnableLift()
+{
+	m_liftMotor.Set(Relay::kForward);
+}
+
+/**
+ * @brief Turns the lift off.
+ */
+void BallLifter::DisableLift()
+{
+	m_liftMotor.Set(Relay::kOff);
+}
+
+/**
+ * @brief Gets the state of the limit switch.
+ * 
+ * @return Bool, whether or not the limit is hit.
+ */
+bool BallLifter::GetLimit()
+{
+	return m_liftLimit.Get();
 }

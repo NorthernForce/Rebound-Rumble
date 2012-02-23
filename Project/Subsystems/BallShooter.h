@@ -4,9 +4,7 @@
 #include "../Classes/Vector2D.h"
 
 /**
- * @brief This class contains all methods
- * for interacting with the ball shooter mechanism
- * on the robot. 
+ * @brief These are the motors for the shooter on the robot.
  *
  * @author Arthur Lockman
  */
@@ -16,7 +14,6 @@ protected:
 	ShooterMotors();
 	CANJaguar m_flywheelFront;
 	CANJaguar m_flywheelBack;
-	Relay m_liftMotor;
 };
 
 class BallShooter: 
@@ -29,9 +26,20 @@ public:
 	BallShooter();
 	void SetSpeed(float voltage);
 	void InitDefaultCommand();
-	void AdjustVerticalAngle(float angle);
-	void Fire();
     Vector2D GetSpeed();
+};
+
+class BallLifter:
+	public Subsystem {
+private:
+	DigitalInput m_liftLimit;
+	Relay m_liftMotor;
+public:
+	BallLifter();
+	void EnableLift();
+	void DisableLift();
+	void InitDefaultCommand();
+	bool GetLimit();
 };
 
 #endif

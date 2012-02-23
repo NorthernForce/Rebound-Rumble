@@ -1,7 +1,7 @@
 #include "Fire.h"
-#include "ShootBall.h"
 #include "Spinup.h"
 #include "AimTurret.h"
+#include "ShootBall.h"
 
 /**
  * @brief The constructor for the Fire command.
@@ -11,7 +11,7 @@ Fire::Fire() {
         // e.g. AddSequential(new Command1());
         //      AddSequential(new Command2());
         // these will run in order.
-	AddParallel(new AimTurret());
+	AddSequential(new AimTurret());
 	AddSequential(new Spinup());
 	AddSequential(new ShootBall());
         // To run multiple commands at the same time,
@@ -19,10 +19,4 @@ Fire::Fire() {
         // e.g. AddParallel(new Command1());
         //      AddSequential(new Command2());
         // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
 }

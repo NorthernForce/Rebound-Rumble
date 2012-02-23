@@ -4,7 +4,7 @@
 
 BallPickup::BallPickup() : 
 	Subsystem("BallPickup"),
-	m_pickupMotor(k_pickupMotorRelay, Relay::kForwardOnly)
+	m_pickupMotor(k_pickupMotorRelay, Relay::kBothDirections)
 {
 
 }
@@ -17,7 +17,7 @@ void BallPickup::InitDefaultCommand() {
 
 void BallPickup::Start()
 {
-	m_pickupMotor.Set(Relay::kOn);
+	m_pickupMotor.Set(Relay::kForward);
 }
 
 void BallPickup::Stop()
