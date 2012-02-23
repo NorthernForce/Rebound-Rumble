@@ -19,7 +19,7 @@ Vector3D::Vector3D()
 }
 
 /**
- * @breif Constructor taking initial values for the
+ * @brief Constructor taking initial values for the
  * x and y components of the vector
  * @param x_init initial x value for the vector
  * @param y_init initial y value for the vector

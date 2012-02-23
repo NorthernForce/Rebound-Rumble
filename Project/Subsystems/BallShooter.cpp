@@ -45,7 +45,7 @@ void BallShooter::InitDefaultCommand() {
  * @brief Sets the pitcher to spin at a set speed 
  * for startup.
  * 
- * @param speed A float, the speed in voltage of the pitcher.
+ * @param velocity A float, the speed in voltage of the pitcher.
  * This should always be positive.
  */
 void BallShooter::SetSpeed(float velocity)

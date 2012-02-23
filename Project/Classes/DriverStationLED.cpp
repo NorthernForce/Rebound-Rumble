@@ -19,7 +19,7 @@ DriverStationLED::DriverStationLED(int port)
 /**
  * @brief Gets the state of the LED.
  * 
- * @retun The state of the LED, on or off.
+ * @return The state of the LED, on or off.
  */
 bool DriverStationLED::Get()
 {
