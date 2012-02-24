@@ -59,8 +59,8 @@ double AimTurret::ReturnPIDInput()
 
 void AimTurret::UsePIDOutput(double output)
 {
-	printf("Using PID Output\n\r");
-	printf("Output: %f\n\r", output);
+	//printf("Using PID Output\n\r");
+	//printf("Output: %f\n\r", output);
 	if(!(PID_Controller->OnTarget()))
 		CommandBase::s_turret->Turn(output);
 }
