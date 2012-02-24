@@ -9,6 +9,8 @@ const double tolerance = 5; //tolerance in percent
 
 const double maxAngle = 25; //range is +- maxAngle
 
+const double scanSpeed = 0.1; //Speed to scan for a target if one isn't found.
+
 AimTurret::AimTurret(): PIDCommand(p,i,d)
 {
 	Requires(CommandBase::s_camera);
@@ -27,10 +29,37 @@ void AimTurret::Initialize()
 	SetSetpoint(0.0);
 }
 
-// Called repeatedly when this Command is scheduled to run
+/**
+ * @brief Aims the turret. What this does at the moment is to 
+ * aim the turret at the target if the camera sees a target. Otherwise,
+ * it will scan back and forth slowly to help the camera find a target. 
+ * THIS NEEDS TO BE TESTED.
+ */
 void AimTurret::Execute() 
 {
-	this->_Execute();
+	double time = 0.0;
+	if (!(CommandBase::s_camera->HasTarget()))
+	{
+		time = TimeSinceInitialized();
+		double _state = 0;
+		
+		if (TimeSinceInitialized() > time + 1 && _state = 0)
+		{
+			CommandBase::s_turret->Turn(-scanSpeed);
+			CommandBase::s_drive->Feed();
+			_state = 1;
+		}
+		if (TimeSinceInitialized() > time + 2 && _state = 1)
+		{
+			CommandBase::s_turret->Turn(scanSpeed);
+			CommandBase::s_drive->Feed();
+			_state = 0;
+		}
+	} 
+	else if (CommandBase::s_camera->HasTarget())
+	{
+		this->_Execute();
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
