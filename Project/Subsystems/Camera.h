@@ -18,7 +18,6 @@ public:
 	~Camera();
 
 	void InitDefaultCommand();
-	void Search();
 	float GetDistanceToTarget() const;
 	float GetHorizontalDistance() const;
 	float GetAngleToTarget() const;

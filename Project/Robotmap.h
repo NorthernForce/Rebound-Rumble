@@ -32,8 +32,8 @@ enum JaguarsAddress
 	k_rearLeftJaguar = 3,
 	k_rearRightJaguar = 5,
 	k_turretJaguar = 9,
-	k_flywheelFront = 6,
-	k_flywheelBack = 7,
+	k_flywheelFrontJaguar = 6,
+	k_flywheelBackJaguar = 7,
 };
 
 enum AnalogAddress
@@ -53,7 +53,7 @@ enum DigitalAddress
 	k_MaxbotixOn = 6,
 };
 
-enum EnhancedIOAddresses
+enum EnhancedIODigitalAddresses
 {
 	//! Digital inputs/outputs on the PSoC
 	k_fireButton = 1,
@@ -68,7 +68,9 @@ enum EnhancedIOAddresses
 	k_manualLED = 10,
 	k_lowerRampButton = 11,
 	k_dIO12 = 12,
-
+};
+enum EnhancedIOAnalogAddresses
+{
 	//!Analog inputs on the PSoC modules.
 	k_turretAngle = 1,
 	k_velocitySlider = 2,
@@ -80,8 +82,8 @@ enum EnhancedIOAddresses
 // PWM Assigments
 enum PWMAddress
 {
-	k_pwmCameraPan  = 1, 
-	k_pwmCameraTilt = 2,
+//	k_pwmCameraPan  = 1, 
+//	k_pwmCameraTilt = 2,
 	k_LeftServoPort = 3,
 	k_RightServoPort = 4,
 };
@@ -114,11 +116,6 @@ enum DigitalIOLines
 #define k_XBoxJoystickPort 1
 #define k_manipulatorJoystickPort 2
 
-//Ball positions.
-#define k_ballPosition1 1
-#define k_ballPosition2 2
-#define k_ballPosition3 3
-
 //Acceleration of Gravity (meters per second)
 #define k_GravityAccel 9.8
 #define k_ArrivalAngle 45.0
@@ -141,8 +138,10 @@ static const float k_secTheta = 2;//1/cos(M_PI/3);
 static const float k_tanTheta = sqrt(3.0f);//tan(M_PI/3);
 static const float k_spinupTolerance = 1;
 static const float k_targetHeight = 98/12;
+static const float k_targetWidth = 2;//in feet
 static const float k_aAngleMin = M_PI/6;
 static const float k_aAngleMax = M_PI/3;
 static const float k_maxMatchTime = 135;
+static const float k_cameraViewAngle = 43.5;
 
 #endif

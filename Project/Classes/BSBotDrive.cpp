@@ -123,7 +123,6 @@ BSBotDrive::BSBotDrive():
 			DriveMotors::m_frontRightMotor, DriveMotors::m_frontLeftMotor)
 {
  	//Do nothing, as the whole class is set up.
-    DriveMotors::m_frontLeftMotor.PrintLimits();
 }
 
 /**
@@ -214,7 +213,6 @@ float BSBotDrive::Limit(float input, float max)
     return input;
 }
 
-
 /**
  * @brief Actually computes the values that the wheels need to 
  * turn to make the robot go.
@@ -233,7 +231,7 @@ void BSBotDrive::ArcadeDrive (
 	float right;
 	Vector3D accelerations = CommandBase::s_accelerometer->GetAccelerations();
 	float limit;
-	if((acos(Limit(accelerations.z,1)) > M_PI/24) && 
+	if((acos(Limit(accelerations.z,1)) > M_PI/18) && 
 	   (k_maxMatchTime - DriverStation::GetInstance()->GetMatchTime() < 20))
 	{
 		limit = rampVelocityLimit;

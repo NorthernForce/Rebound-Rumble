@@ -8,8 +8,8 @@ static const float k_wheelRadius = 1.0;
  */
 ShooterMotors::ShooterMotors() try:
 
-		m_flywheelFront((printf("Initializing front left jaguar. \n"), k_flywheelFront)),
-		m_flywheelBack((printf("Initializing front left jaguar. \n"), k_flywheelBack))
+		m_flywheelFront((printf("Initializing front flywheel jaguar. \n"), k_flywheelFrontJaguar)),
+		m_flywheelBack((printf("Initializing rear flywheel jaguar. \n"), k_flywheelBackJaguar))
 {
 	m_flywheelFront.ChangeControlMode(CANJaguar::kPercentVbus);
 	m_flywheelFront.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);

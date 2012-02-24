@@ -58,21 +58,47 @@ void Camera::InitCamera()
  */
 float Camera::GetDistanceToTarget() const
 {
-    return 0.0; // Not implemented yet
+	Rect topTarget;
+	topTarget.top = INT_MAX;
+	
+	// We need to lock m_cameraSemaphore to protect access
+	// to m_particles
+	{
+		const Synchronized sync (m_cameraSemaphore);
+		for (size_t i = 0; i < m_particles.size(); ++i)
+		{
+			const Rect& r = m_particles[i].boundingRect;
+			if (r.top < topTarget.top)
+			{
+				topTarget = r;
+			}
+		}
+	}
+	
+	//Calculate the distance to the target.
+	switch (m_cam.GetResolution())
+	{
+		case AxisCameraParams::kResolution_160x120:
+			return (((k_targetWidth*160)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
+
+		case AxisCameraParams::kResolution_320x240:
+			return (((k_targetWidth*320)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
+			
+		case AxisCameraParams::kResolution_640x480:
+			return (((k_targetWidth*640)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
+			
+		case AxisCameraParams::kResolution_640x360:
+			return (((k_targetWidth*640)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
+			
+		default:
+			return (((k_targetWidth*230)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
+	}
 }
 
 float Camera::GetHorizontalDistance() const
 {
     float distance = GetDistanceToTarget();
     return distance*cos(asin(k_targetHeight/distance));
-}
-
-/**
- * @brief Makes the camera look around to find a
- * target. Used only if the target is lost.
- */
-void Camera::Search()
-{
 }
 
 /** @brief Returns true if there is a target that we can shoot at.
