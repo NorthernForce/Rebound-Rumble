@@ -97,11 +97,12 @@ protected:
 			if (pCamera->HasTarget())
 			{
 				SetSmartDashboardDouble ("Target Angle", pCamera->GetAngleToTarget());
-
+				SetSmartDashboardDouble("Target Distance",pCamera->GetDistanceToTarget());
 			}
 			else
 			{
 				dashboard.PutString ("Target Angle", "No target found.");
+				dashboard.PutString("Target Distance","No target found.");
 			}
 
             float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(pCamera->GetHorizontalDistance()));
