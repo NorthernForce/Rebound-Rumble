@@ -11,7 +11,6 @@ Fire::Fire() {
         // e.g. AddSequential(new Command1());
         //      AddSequential(new Command2());
         // these will run in order.
-	AddSequential(new AimTurret());
 	AddSequential(new Spinup());
 	AddSequential(new ShootBall());
         // To run multiple commands at the same time,

@@ -11,7 +11,6 @@
 #include "Commands/StopPickup.h"
 #include "Commands/TurnTurretLeft.h"
 #include "Commands/TurnTurretRight.h"
-#include "Commands/LockTarget.h"
 #include "Robotmap.h"
 
 /** 
@@ -32,7 +31,6 @@ OI::OI() try :
     m_stopPickupButton(&m_manipulatorStick, k_XBoxButtonBack),
     m_turnTurretLeft(&m_manipulatorStick, k_XBoxButtonA),
     m_turnTurretRight(&m_manipulatorStick, k_XBoxButtonB),
-    m_lockTarget(&m_manipulatorStick, k_XBoxButtonY),
 	
     m_stick(),
     m_manipulatorStick(2)
@@ -41,9 +39,8 @@ OI::OI() try :
 	// Process operator interface input here.
     m_imageButton.WhenPressed(new CaptureImages());
     m_logAccelerometerButton.WhenPressed(new LogAccelerometer());
-    m_turnTurretLeft.WhileHeld(new TurnTurretLeft());
-    m_turnTurretRight.WhileHeld(new TurnTurretRight());
-	m_lockTarget.WhileHeld(new LockTarget());
+    //m_turnTurretLeft.WhileHeld(new TurnTurretLeft());
+    //sm_turnTurretRight.WhileHeld(new TurnTurretRight());
     m_encoderEnableButton.WhenPressed(new ChangeControlMode(true));
     m_encoderDisableButton.WhenPressed(new ChangeControlMode(false));
     m_followButton.WhileHeld(new FollowRobot());
