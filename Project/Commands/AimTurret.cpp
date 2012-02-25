@@ -37,25 +37,10 @@ void AimTurret::Initialize()
  */
 void AimTurret::Execute() 
 {
-	double time = 0.0;
 	if (!(CommandBase::s_camera->HasTarget()))
 	{
-		time = TimeSinceInitialized();
-		double _state = 0;
-		
-		if ( (TimeSinceInitialized() > time + 1) && (_state == 0) )
-		{
-			CommandBase::s_turret->Turn(-scanSpeed);
-			CommandBase::s_drive->Feed();
-			_state = 1;
-		}
-		if ( (TimeSinceInitialized() > time + 2) && (_state == 1) )
-		{
-			CommandBase::s_turret->Turn(scanSpeed);
-			CommandBase::s_drive->Feed();
-			_state = 0;
-		}
-	} 
+		CommandBase::s_turret->Turn(0);
+	}
 	else if (CommandBase::s_camera->HasTarget())
 	{
 		this->_Execute();
