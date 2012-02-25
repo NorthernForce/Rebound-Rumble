@@ -14,7 +14,8 @@ void Spinup::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Spinup::Execute() {
-	velocity = GetTargetDisp().x * k_secTheta * sqrt(k_GravityAccel / (2 * (GetTargetDisp().x * k_tanTheta - GetTargetDisp().y)));
+	float targetDist = s_camera->GetHorizontalDistance();
+	velocity = targetDist * k_secTheta * sqrt(k_GravityAccel / (2 * (targetDist * k_tanTheta - k_targetHeight)));
 	s_ballShooter->SetSpeed(velocity);
 }
 
@@ -35,8 +36,4 @@ void Spinup::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void Spinup::Interrupted() {
-}
-
-Vector3D Spinup::GetTargetDisp(){
-	return Vector3D();
 }

@@ -143,5 +143,7 @@ static const float k_aAngleMin = M_PI/6;
 static const float k_aAngleMax = M_PI/3;
 static const float k_maxMatchTime = 135;
 static const float k_cameraViewAngle = 43.5;
+static const float k_vMax = 1; // TODO: set this to a reasonable value
+static const float k_vMin = 0;
 
 #endif

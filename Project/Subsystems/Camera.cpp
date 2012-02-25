@@ -111,26 +111,22 @@ bool Camera::HasTarget() const
 	if(!m_particles.empty())
     {
        return true;
-		/*float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(GetHorizontalDistance()));
-        if( arrivalAngle < k_aAngleMax &&
-            arrivalAngle > k_aAngleMin )
-        {
-            return true;
-        } else
-        {
-            if(arrivalAngle > k_aAngleMax) arrivalAngle = k_aAngleMax;
-            if(arrivalAngle < k_aAngleMin) arrivalAngle = k_aAngleMin;
-            // Distance from target to drive to.
-            // Not currently used.
-            float x = - 2*k_targetHeight/(k_tanTheta + tan(arrivalAngle));
-            if(x > GetHorizontalDistance())
-            {
-            } else if (x < GetHorizontalDistance())
-            {
-            }
-        }*/
+		/**/
     } 
     return false;
+}
+
+bool Camera::HasValidTarget()
+{
+	float x = GetHorizontalDistance();
+	float velocity = x * k_secTheta * sqrt(k_GravityAccel / (2 * (x * k_tanTheta - k_targetHeight)));
+	if( (velocity > k_vMax) || (velocity < k_vMin) )
+	{
+		return false;
+	} else
+	{
+		return true;
+	}
 }
 
 /**
