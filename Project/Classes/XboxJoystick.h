@@ -17,7 +17,7 @@ private:
     void CalculateDeadband();
 	float DeadbandAdjust(float);
 public:
-	XboxJoystick();
+	XboxJoystick(int port);
 	float GetX(JoystickHand);
 	float GetY(JoystickHand);
     float GetMagnitude();

@@ -39,8 +39,7 @@ enum JaguarsAddress
 enum AnalogAddress
 {
 	k_MaxbotixUltrasonic = 1,
-	k_followDistanceInches = 24,
-	k_followDeadband = 2,
+	k_targetingUltrasonic = 2,
 };
 	
 enum DigitalAddress
@@ -51,6 +50,11 @@ enum DigitalAddress
 	k_Accl_SPI_CS = 4,
 	k_MaxbotixSerialMode = 5,
 	k_MaxbotixOn = 6,
+	k_liftLimit = 7,
+	k_turretLeftLimit = 8,
+	k_turretRightLimit = 9,
+	k_targetingUltrasonicSerialMode = 10,
+	k_targetingUltrasonicOn = 11,
 };
 
 enum EnhancedIODigitalAddresses
@@ -96,11 +100,9 @@ enum RelayPort
     k_rampManipulatorRelayLeft = 5,
 };
 
-enum DigitalIOLines
-{
-	k_liftLimit = 1,
-};
 #define k_rampValue 0.4
+#define k_followDistanceInches 24
+#define k_followDeadband 2
 
 //Xbox Controller Ports
 #define k_XBoxButtonA 1
@@ -113,7 +115,7 @@ enum DigitalIOLines
 #define	k_XBoxButtonStart 8
 #define	k_XBoxButtonLeftJoystick 9
 #define	k_XBoxButtonRightJoystick 10
-#define k_XBoxJoystickPort 1
+#define k_driveJoystickPort 1
 #define k_manipulatorJoystickPort 2
 
 //Acceleration of Gravity (meters per second)

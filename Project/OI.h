@@ -19,32 +19,30 @@ public:
 	OI();
 	XboxJoystick& GetStick();
 	void OI::SetTargetLEDs(bool target);
-    JoystickButton m_imageButton;
-    JoystickButton m_logAccelerometerButton;
-//    DigitalIOButton m_fireButton;
-    JoystickButton m_followButton;
-	JoystickButton m_encoderEnableButton;
-	JoystickButton m_encoderDisableButton;
-	JoystickButton m_loadButton;
-	JoystickButton m_raiseButton;
-	JoystickButton m_lowerButton;
-    JoystickButton m_startPickupButton;
-    JoystickButton m_stopPickupButton;
-    JoystickButton m_turnTurretLeft;
-    JoystickButton m_turnTurretRight;
-//    DigitalIOButton m_manualSwitch;
-//    DigitalIOButton m_openChuteButton;
-//    DigitalIOButton m_closeChuteButton;
-//    DigitalIOButton m_feederSwitch;
-//    DigitalIOButton m_lowerRampButton;
-//	DriverStationLED m_noTargetLED;
-//	DriverStationLED m_hasTargetLED;
-//	DriverStationLED m_autoLED;
-//	DriverStationLED m_manualLED;
+    
+    //Xbox Controller Buttons
+    //C prefix denotes a controller.
+    JoystickButton c_YButton;
+    JoystickButton c_XButton;
+    JoystickButton c_AButton;
+    JoystickButton c_BButton;
+    JoystickButton c_BackButton;
+    JoystickButton c_StartButton;
+    JoystickButton c_LeftButton;
+    JoystickButton c_RightButton;
+    
+    //2nd XBox Controller Buttons
+    JoystickButton c2_YButton;
+    JoystickButton c2_XButton;
+    JoystickButton c2_AButton;
+    JoystickButton c2_BButton;
+    JoystickButton c2_BackButton;
+    JoystickButton c2_StartButton;
+    JoystickButton c2_LeftButton;
+    JoystickButton c2_RightButton;
 private:
-	XboxJoystick m_stick;
-	Joystick m_manipulatorStick;
-//	DriverStationEnhancedIO& m_driverstationEnhancedIO;
+	XboxJoystick m_driveStick;
+	XboxJoystick m_manipulatorStick;
 };
 
 #endif

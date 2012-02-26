@@ -9,8 +9,8 @@
  * 
  * @author Arthur Lockman
  */
-XboxJoystick::XboxJoystick(): 
-	Joystick(k_XBoxJoystickPort) 
+XboxJoystick::XboxJoystick(int port): 
+	Joystick(port) 
 {
  	CalculateDeadband();
 }

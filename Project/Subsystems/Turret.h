@@ -15,13 +15,15 @@ protected:
 	CANJaguar m_turretJaguar;
 };
 class Turret: 
-protected TurretMotors,	
-public Subsystem {
+	protected TurretMotors,	
+	public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	float m_currentAngle; //radians
-
+	DigitalInput m_leftLimit;
+	DigitalInput m_rightLimit;
+	bool AtLimit();
 public:
 	Turret();
 	void SetAngle(float Angle);

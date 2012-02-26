@@ -36,6 +36,7 @@ public:
 	static Camera *s_camera;
 	static GyroSubsystem *s_gyro;
 	static MaxbotixUltrasonic *s_ultrasonicSensor;
+	static MaxbotixUltrasonic *s_targetingUltrasonicSensor;
 	static AccelerometerSubsystem *s_accelerometer;
 	static Turret *s_turret;
 	static RampManipulator *s_RampManipulator;

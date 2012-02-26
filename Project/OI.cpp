@@ -19,36 +19,49 @@
  * the robot.
  */
 OI::OI() try :
-	m_imageButton(&m_stick, k_XBoxButtonA),
-    m_logAccelerometerButton(&m_stick, k_XBoxButtonX),
-	m_followButton(&m_stick, k_XBoxButtonB),
-	m_encoderEnableButton(&m_stick, k_XBoxButtonBack),
-	m_encoderDisableButton(&m_stick, k_XBoxButtonStart),
-	m_loadButton(&m_stick, k_XBoxButtonY),
-	m_raiseButton(&m_stick, k_XBoxButtonRight),
-	m_lowerButton(&m_stick, k_XBoxButtonLeft),
-    m_startPickupButton(&m_manipulatorStick, k_XBoxButtonStart),
-    m_stopPickupButton(&m_manipulatorStick, k_XBoxButtonBack),
-    m_turnTurretLeft(&m_manipulatorStick, k_XBoxButtonA),
-    m_turnTurretRight(&m_manipulatorStick, k_XBoxButtonB),
+	c_YButton(&m_driveStick, k_XBoxButtonY),
+    c_XButton(&m_driveStick, k_XBoxButtonX),
+	c_AButton(&m_driveStick, k_XBoxButtonA),
+	c_BButton(&m_driveStick, k_XBoxButtonB),
+	c_BackButton(&m_driveStick, k_XBoxButtonBack),
+	c_StartButton(&m_driveStick, k_XBoxButtonStart),
+	c_LeftButton(&m_driveStick, k_XBoxButtonLeft),
+	c_RightButton(&m_driveStick, k_XBoxButtonRight),
 	
-    m_stick(),
-    m_manipulatorStick(2)
-//	m_driverstationEnhancedIO(DriverStation::GetInstance()->GetEnhancedIO())
+	c2_YButton(&m_manipulatorStick, k_XBoxButtonY),
+    c2_XButton(&m_manipulatorStick, k_XBoxButtonX),
+	c2_AButton(&m_manipulatorStick, k_XBoxButtonA),
+	c2_BButton(&m_manipulatorStick, k_XBoxButtonB),
+	c2_BackButton(&m_manipulatorStick, k_XBoxButtonBack),
+	c2_StartButton(&m_manipulatorStick, k_XBoxButtonStart),
+	c2_LeftButton(&m_manipulatorStick, k_XBoxButtonLeft),
+	c2_RightButton(&m_manipulatorStick, k_XBoxButtonRight),
+	
+    m_driveStick(k_driveJoystickPort),
+    m_manipulatorStick(k_manipulatorJoystickPort)
 {
-	// Process operator interface input here.
-    m_imageButton.WhenPressed(new CaptureImages());
-    m_logAccelerometerButton.WhenPressed(new LogAccelerometer());
-    //m_turnTurretLeft.WhileHeld(new TurnTurretLeft());
-    //sm_turnTurretRight.WhileHeld(new TurnTurretRight());
-    m_encoderEnableButton.WhenPressed(new ChangeControlMode(true));
-    m_encoderDisableButton.WhenPressed(new ChangeControlMode(false));
-    m_followButton.WhileHeld(new FollowRobot());
-    m_loadButton.WhenPressed(new ShootBall());
-    m_raiseButton.WhenPressed(new RaiseRampManipulator());
-    m_lowerButton.WhenPressed(new LowerRampManipulator());
-    m_startPickupButton.WhenPressed(new StartPickup());
-    m_stopPickupButton.WhenPressed(new StopPickup());
+	// Stick one buttons
+    c_BButton.WhileHeld(new FollowRobot());
+    c_YButton.WhenPressed(new ShootBall());
+    c_AButton.WhenPressed(new CaptureImages());
+    c_XButton.WhenPressed(new LogAccelerometer());
+    c_LeftButton.WhenPressed(new RaiseRampManipulator());
+    c_RightButton.WhenPressed(new LowerRampManipulator());
+    c_StartButton.WhenPressed(new ChangeControlMode(true));
+    c_BackButton.WhenPressed(new ChangeControlMode(false));
+    
+    // Stick 2 buttons
+//    c2_AButton.WhileHeld(new TurnTurretLeft());
+//    c2_BButton.WhileHeld(new TurnTurretRight());
+//    c2_BButton.WhileHeld();
+//    c2_YButton.WhenPressed();
+//    c2_AButton.WhenPressed();
+//    c2_XButton.WhenPressed();
+//    c2_LeftButton.WhenPressed();
+//    c2_RightButton.WhenPressed();
+//    c2_StartButton.WhenPressed();
+//    c2_BackButton.WhenPressed();
+    
     printf("All OI elements created successfully.");
     printf("\n");
 }
@@ -80,5 +93,5 @@ void OI::SetTargetLEDs(bool target)
  */
 XboxJoystick& OI::GetStick()
 {
-	return m_stick;
+	return m_driveStick;
 }

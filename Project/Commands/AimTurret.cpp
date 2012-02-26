@@ -50,7 +50,7 @@ void AimTurret::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool AimTurret::IsFinished() 
 {
-	return false;
+	return (CommandBase::s_camera->GetAngleToTarget() == 0);
 }
 
 // Called once after isFinished returns true
