@@ -16,6 +16,7 @@
  * written directly to the log.  This is to keep the filter running fast and
  * not be bogged down with slow IO code.
  *
+ * @author Stephen Nutt
  * @version 1.0
  */
 template <typename T>
@@ -53,28 +54,28 @@ public:
 
 	//! Seeds the filter with an initial value and rate of change at a
 	//! given time
-	inline void SeedFilter (const T& x, const T& v, UINT32 now)
+	inline void SeedFilter (const T& value, const T& speed, const UINT32 now)
 	{
-		m_value = x;
-		m_rateOfChange = v;
+		m_value = value;
+		m_rateOfChange = speed;
 		m_lastTime = now;
 		m_hasValue = true;
 	}
 
 	//! Seeds the filter with an initial value at a given time but does not
 	//! change the rate of change
-	inline void SeedFilter (const T& x, UINT32 now)
+	inline void SeedFilter (const T& value, const UINT32 now)
 	{
-		m_value = x;
+		m_value = value;
 		m_lastTime = now;
 		m_hasValue = true;
 	}
 
 	//! Initializes the logging for the filter
-	inline void EnableLogging (size_t initialLogSize)
+	inline void EnableLogging()
 	{
 		m_enableLogging = true;
-		m_history.reserve (initialLogSize);
+		m_history.reserve (1000);
 	}
 
 	//! Disabled the filter logging
@@ -103,7 +104,7 @@ public:
 
 	//! Updates the filter with using the new measured value and
 	//! the time of the measurement, returning the smoothed value
-	const T& Update (const T& measuredVal, UINT32 measurementTime)
+	const T& Update (const T& measuredVal, const UINT32 measurementTime)
 	{
 		if (m_hasValue == false)
 		{

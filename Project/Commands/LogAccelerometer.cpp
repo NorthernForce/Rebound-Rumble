@@ -20,7 +20,7 @@ void LogAccelerometer::Initialize() {
 	Priv_SetWriteFileAllowed(1);
 	m_file.open(filename, fstream::out);
 	if(!m_file.is_open()){printf("file failed to open\n\r");}
-	s_accelerometer->EnableLogging(1000); // <-- size of log?
+	s_accelerometer->EnableLogging();
 	printf("Opened File %s\n\r", filename);
 }
 

@@ -76,36 +76,36 @@ float Camera::GetDistanceToTarget() const
 	}
 	
 	//Calculate the distance to the target.
+	int width;
+	int height;
 	switch (m_cam.GetResolution())
 	{
-		float d1 = 0.0;
-		float d2 = 0.0;
-
 		case AxisCameraParams::kResolution_160x120:
-			d1 = (((k_visionTargetHeight*120)/topTarget.height/)2)/tan(32.625/2));
-			d2 = -(((k_visionTargetWidth*160)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
-			return (d1+d2)/2;
+		default:
+			width = 160;
+			height = 120;
+			break;
 
 		case AxisCameraParams::kResolution_320x240:
-			d1 = (((k_visionTargetHeight*240)/topTarget.height/)2)/tan(32.625/2));
-			d2 = -(((k_visionTargetWidth*320)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
-			return (d1+d2)/2;
+			width = 320;
+			height = 240;
+			break;
 			
 		case AxisCameraParams::kResolution_640x480:
-			d1 = (((k_visionTargetHeight*480)/topTarget.height/)2)/tan(32.625/2));
-			d2 = -(((k_visionTargetWidth*640)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
-			return (d1+d2)/2;
+			width = 640;
+			height = 470;
+			break;
 			
 		case AxisCameraParams::kResolution_640x360:
-			d1 = (((k_visionTargetHeight*360)/topTarget.height/)2)/tan(32.625/2));
-			d2 = -(((k_visionTargetWidth*640)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
-			return (d1+d2)/2;
-			
-		default:
-			d1 = (((k_visionTargetHeight*120)/topTarget.height/)2)/tan(32.625/2));
-			d2 = -(((k_visionTargetWidth*160)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
-			return (d1+d2)/2;
+			width = 640;
+			height = 360;
+			break;
 	}
+
+	const double c = 0.00510783347710582463695467550987; // tan(32.625/2) in radians
+	const double d1 = k_visionTargetHeight * 120 / topTarget.height / 2 / c;
+	const double d2 = -k_visionTargetWidth * 160 / topTarget.width / 2 / tan (k_cameraViewAngle * M_PI / 180 / 2);
+	return (d1 + d2) / 2;
 }
 
 float Camera::GetHorizontalDistance() const

@@ -23,11 +23,11 @@ AccelerometerSubsystem::AccelerometerSubsystem() :
 	}
 }
 
-void AccelerometerSubsystem::EnableLogging(size_t initLogSize)
+void AccelerometerSubsystem::EnableLogging()
 {
-	m_x.EnableLogging(initLogSize);
-	m_y.EnableLogging(initLogSize);
-	m_z.EnableLogging(initLogSize);
+	m_x.EnableLogging();
+	m_y.EnableLogging();
+	m_z.EnableLogging();
 }
 
 void AccelerometerSubsystem::DisableLogging()

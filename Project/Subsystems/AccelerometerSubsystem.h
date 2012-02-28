@@ -24,7 +24,7 @@ public:
 	AlphaBetaFilter<double>& GetY();
 	AlphaBetaFilter<double>& GetZ();
 
-    void EnableLogging(size_t initLogSize);
+    void EnableLogging();
     void DisableLogging();
     void WriteLog(ostream& os);
     void Update(UINT32 currTime);
