@@ -140,7 +140,7 @@ static const float k_secTheta = 2;//1/cos(M_PI/3);
 static const float k_tanTheta = sqrt(3.0f);//tan(M_PI/3);
 static const float k_spinupTolerance = 1;
 static const float k_targetHeight = 98/12;
-static const float k_visionTargetHeight 1.5;//in feet
+static const float k_visionTargetHeight = 1.5;//in feet
 static const float k_visionTargetWidth = 2;//in feet
 static const float k_aAngleMin = M_PI/6;
 static const float k_aAngleMax = M_PI/3;
