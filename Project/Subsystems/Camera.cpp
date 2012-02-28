@@ -103,9 +103,10 @@ float Camera::GetDistanceToTarget() const
 	}
 
 	const double c = 0.00510783347710582463695467550987; // tan(32.625/2) in radians
-	const double d1 = k_visionTargetHeight * 120 / topTarget.height / 2 / c;
-	const double d2 = -k_visionTargetWidth * 160 / topTarget.width / 2 / tan (k_cameraViewAngle * M_PI / 180 / 2);
-	return (d1 + d2) / 2;
+	const double b = 0.00696315765950309044502672426179; // tan(43.5/2) in radians
+	const double h = 1.5 * height / 2 * c * topTarget.height;
+	const double w = 2 * height / 2 * b * topTarget.width;
+	return (h + w) / 2;
 }
 
 float Camera::GetHorizontalDistance() const
