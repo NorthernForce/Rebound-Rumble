@@ -83,27 +83,27 @@ float Camera::GetDistanceToTarget() const
 
 		case AxisCameraParams::kResolution_160x120:
 			d1 = (((k_visionTargetHeight*120)/topTarget.height/)2)/tan(32.625/2));
-			d2 = (((k_visionTargetWidth*160)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
+			d2 = -(((k_visionTargetWidth*160)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
 			return (d1+d2)/2;
 
 		case AxisCameraParams::kResolution_320x240:
 			d1 = (((k_visionTargetHeight*240)/topTarget.height/)2)/tan(32.625/2));
-			d2 = (((k_visionTargetWidth*320)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
+			d2 = -(((k_visionTargetWidth*320)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
 			return (d1+d2)/2;
 			
 		case AxisCameraParams::kResolution_640x480:
 			d1 = (((k_visionTargetHeight*480)/topTarget.height/)2)/tan(32.625/2));
-			d2 = (((k_visionTargetWidth*640)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
+			d2 = -(((k_visionTargetWidth*640)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
 			return (d1+d2)/2;
 			
 		case AxisCameraParams::kResolution_640x360:
 			d1 = (((k_visionTargetHeight*360)/topTarget.height/)2)/tan(32.625/2));
-			d2 = (((k_visionTargetWidth*640)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
+			d2 = -(((k_visionTargetWidth*640)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
 			return (d1+d2)/2;
 			
 		default:
 			d1 = (((k_visionTargetHeight*120)/topTarget.height/)2)/tan(32.625/2));
-			d2 = (((k_visionTargetWidth*160)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
+			d2 = -(((k_visionTargetWidth*160)/topTarget.width)/2)/tan(k_cameraViewAngle/2);
 			return (d1+d2)/2;
 	}
 }
