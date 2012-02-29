@@ -1,5 +1,6 @@
 #include <vxWorks.h>
 #include <usrLib.h>
+#include <limits>
 #include "Camera.h"
 #include "../Robotmap.h"
 #include "Vision/BinaryImage.h"
@@ -19,8 +20,8 @@ Camera::Camera() :
 	m_cam (AxisCamera::GetInstance("10.1.72.11")),
 	m_imageProcessingTask ("ImageProcessing", (FUNCPTR)Camera::ImageProcessingTask, Task::kDefaultPriority + 10),
 	m_cameraSemaphore (semBCreate (SEM_Q_PRIORITY, SEM_FULL)),
-	m_saveSourceImage (true),
-	m_saveProcessedImages (true),
+	m_saveSourceImage (false),
+	m_saveProcessedImages (false),
 	m_frameProcessingTime (0)
 {
 	SetDirectory ("/tmp/Images");
@@ -38,8 +39,6 @@ Camera::~Camera()
 
 void Camera::InitDefaultCommand()
 {
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
 }
 
 /**
@@ -65,6 +64,11 @@ float Camera::GetDistanceToTarget() const
 	// to m_particles
 	{
 		const Synchronized sync (m_cameraSemaphore);
+		if (m_particles.empty())
+		{
+			return std::numeric_limits<float>::quiet_NaN();
+		}
+
 		for (size_t i = 0; i < m_particles.size(); ++i)
 		{
 			const Rect& r = m_particles[i].boundingRect;
@@ -93,7 +97,7 @@ float Camera::GetDistanceToTarget() const
 			
 		case AxisCameraParams::kResolution_640x480:
 			width = 640;
-			height = 470;
+			height = 480;
 			break;
 			
 		case AxisCameraParams::kResolution_640x360:
@@ -112,6 +116,7 @@ float Camera::GetDistanceToTarget() const
 float Camera::GetHorizontalDistance() const
 {
     float distance = GetDistanceToTarget();
+    if (distance == std::numeric_limits<float>::quiet_NaN()) return distance;
     return distance*cos(asin(k_targetHeight/distance));
 }
 
@@ -133,6 +138,7 @@ bool Camera::HasTarget() const
 bool Camera::HasValidTarget()
 {
 	float x = GetHorizontalDistance();
+    if (x == std::numeric_limits<float>::quiet_NaN()) return false;
 	float velocity = x * k_secTheta * sqrt(k_GravityAccel / (2 * (x * k_tanTheta - k_targetHeight)));
 	if( (velocity > k_vMax) || (velocity < k_vMin) )
 	{
@@ -162,7 +168,7 @@ int Camera::GetNumberOfTargets() const
  * closest target, both of which are suitable candidates
  * to target in on.
  *
- * @return A float, the angle in degrees of deviation.
+ * @return A float, the angle in radians of deviation.
  */
 float Camera::GetAngleToTarget() const
 {
@@ -173,6 +179,11 @@ float Camera::GetAngleToTarget() const
 	// to m_particles
 	{
 		const Synchronized sync (m_cameraSemaphore);
+		if (m_particles.empty())
+		{
+			return std::numeric_limits<float>::quiet_NaN();
+		}
+
 		for (size_t i = 0; i < m_particles.size(); ++i)
 		{
 			const Rect& r = m_particles[i].boundingRect;
@@ -192,15 +203,15 @@ float Camera::GetAngleToTarget() const
 	switch (m_cam.GetResolution())
 	{
 		case AxisCameraParams::kResolution_160x120:
-			return (center - 80) / 4;
+			return (center - 80) / 4 * M_PI / 180;
 
 		case AxisCameraParams::kResolution_320x240:
-			return (center - 160) / 8;
+			return (center - 160) / 8 * M_PI / 180;
 
 		case AxisCameraParams::kResolution_640x480:
 		case AxisCameraParams::kResolution_640x360:
 		default:
-			return (center - 320) / 16;
+			return (center - 320) / 16 * M_PI / 180;
 	}
 }
 
@@ -215,7 +226,7 @@ void Camera::SetDirectory (
 	const Synchronized sync (m_cameraSemaphore);
 	strcpy (m_directory, directory);
 	Priv_SetWriteFileAllowed(1);
-	mkdir (m_directory);
+//	mkdir (m_directory); Does this work??
 	m_lastImageNo = m_imageNo = nextImage - 1;
 }
 
@@ -227,17 +238,6 @@ void Camera::CaptureImages (unsigned count)
 {
 	const Synchronized sync (m_cameraSemaphore);
 	m_lastImageNo = std::min (m_imageNo + count, m_lastImageNo + count);
-}
-
-/*
- * @brief Grabs a frame from the camera and saves it to the file system
- */
-void Camera::SaveImageToFTP() const
-{
-	printf("the width of the image is: %i\n",m_image.GetWidth());
-	printf("the height of the image is: %i\n",m_image.GetHeight());
-	m_image.Write("/tmp/raw.jpg");
-	printf("image successfully written");
 }
 
 /** @brief Static function called when the camera task is started,
@@ -283,28 +283,23 @@ void Camera::ProcessImages()
 			if (saveSourceImage || saveProcessedImages) ++m_imageNo;
 		}
 
-		//printf ("Capturing frame");
 		m_cam.GetImage (&m_image);
 		if (saveSourceImage ) SaveImage(m_image, "src.jpg");
 
 		//@TODO correct HSL thresholds.
-		//printf ("Performing HSL");
 		Threshold violetThreshold (168, 205, 22, 255, 65, 255);
 		const std::auto_ptr<BinaryImage> violetPixels (m_image.ThresholdHSL(violetThreshold));
 		if (violetPixels.get() == 0) continue;
 		if (saveProcessedImages) SaveImage (*violetPixels, "violet.png");
 
-		//printf ("Performing Remove Small objects");
 		const std::auto_ptr<BinaryImage> bigObjectsImage (violetPixels->RemoveSmallObjects (false, 2));
 		if (bigObjectsImage.get() == 0) continue;
 		if (saveProcessedImages) SaveImage (*bigObjectsImage, "big.png");
 
-		//printf ("Performing Convex Hull");
 		const std::auto_ptr<BinaryImage> convexHullImage (bigObjectsImage->ConvexHull (false));
 		if (convexHullImage.get() == 0) continue;
 		if (saveProcessedImages) SaveImage (*convexHullImage, "hull.png");
 
-		//printf ("Performing Particle Analysis");
 		const int particleCount = convexHullImage->GetNumberParticles();
 
 		// Save the particle analysis for use by the main thread.
@@ -317,20 +312,7 @@ void Camera::ProcessImages()
 			{
 				ParticleAnalysisReport& particle = m_particles[i];
 				particle = convexHullImage->GetParticleAnalysisReport(i);
-
-				if (saveProcessedImages)
-				{
-					// TESTING ONLY - Delete this line
-					//For testing purposes, prints the particle reports to the Console.
-		//			printf("particle: %d center_mass_x: %d\n", i, particle.center_mass_x);
-				}
 			}
-		}
-
-		if (saveProcessedImages)
-		{
-			// TESTING ONLY - Delete this line
-			printf("\n");
 		}
 
 		// Update the processing time.  We add 1 to ensure the time
@@ -338,7 +320,6 @@ void Camera::ProcessImages()
 		const UINT32 now = GetFPGATime();
 		m_frameProcessingTime = (now - frameStart) + 1;
 		frameStart = now;
-		//printf ("Frame complete");
 	}
 }
 

@@ -22,7 +22,6 @@ public:
 	float GetHorizontalDistance() const;
 	float GetAngleToTarget() const;
     bool HasValidTarget();
-	void SaveImageToFTP() const;
 	bool HasTarget() const;
 	int GetNumberOfTargets() const;
 
