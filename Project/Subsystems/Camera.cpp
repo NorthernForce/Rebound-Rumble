@@ -106,8 +106,8 @@ float Camera::GetDistanceToTarget() const
 			break;
 	}
 
-	const double c = 0.00510783347710582463695467550987; // tan(32.625/2) in radians
-	const double b = 0.00696315765950309044502672426179; // tan(43.5/2) in radians
+	const double c = 0.292659195508492; // tan(32.625/2)
+	const double b = 0.398959545973719; // tan(43.5/2)
 	const double h = 1.5 * height / 2 * c * topTarget.height;
 	const double w = 2 * height / 2 * b * topTarget.width;
 	return (h + w) / 2;
