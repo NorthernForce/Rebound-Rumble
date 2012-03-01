@@ -12,7 +12,7 @@ BallPickup::BallPickup() :
 void BallPickup::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new StartPickup());
+	//SetDefaultCommand(new StartPickup());
 }
 
 void BallPickup::Start()

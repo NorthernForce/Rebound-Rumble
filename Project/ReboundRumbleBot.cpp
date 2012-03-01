@@ -59,7 +59,7 @@ protected:
 			// this line or comment it out.
 			m_autonomousCommand->Cancel();
 		}
-		Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
+		//Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
 	}
 	
 	virtual void TeleopPeriodic() 

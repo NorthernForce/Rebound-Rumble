@@ -66,7 +66,7 @@ float Camera::GetDistanceToTarget() const
 		const Synchronized sync (m_cameraSemaphore);
 		if (m_particles.empty())
 		{
-			return std::numeric_limits<float>::quiet_NaN();
+			return -1;//return std::numeric_limits<float>::quiet_NaN();
 		}
 
 		for (size_t i = 0; i < m_particles.size(); ++i)
@@ -116,7 +116,7 @@ float Camera::GetDistanceToTarget() const
 float Camera::GetHorizontalDistance() const
 {
     float distance = GetDistanceToTarget();
-    if (distance == std::numeric_limits<float>::quiet_NaN()) return distance;
+    if (distance == -1) return -1;//std::numeric_limits<float>::quiet_NaN()) return distance;
     return distance*cos(asin(k_targetHeight/distance));
 }
 
@@ -138,7 +138,7 @@ bool Camera::HasTarget() const
 bool Camera::HasValidTarget()
 {
 	float x = GetHorizontalDistance();
-	if ( (x == std::numeric_limits<float>::quiet_NaN()) || (x > k_maxDistance)) return false;
+	if ( (x == -1) || (x > k_maxDistance)) return false;
 	else return true;
 }
 
@@ -174,7 +174,8 @@ float Camera::GetAngleToTarget() const
 		const Synchronized sync (m_cameraSemaphore);
 		if (m_particles.empty())
 		{
-			return std::numeric_limits<float>::quiet_NaN();
+			//return std::numeric_limits<float>::quiet_NaN()
+			return -1;
 		}
 
 		for (size_t i = 0; i < m_particles.size(); ++i)

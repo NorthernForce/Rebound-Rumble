@@ -57,8 +57,8 @@ OI::OI() try :
 //    c2_YButton.WhenPressed();
 //    c2_AButton.WhenPressed();
 //    c2_XButton.WhenPressed();
-//    c2_LeftButton.WhenPressed();
-//    c2_RightButton.WhenPressed();
+    c2_LeftButton.WhenPressed(new StopPickup());
+    c2_RightButton.WhenPressed(new StartPickup());
 //    c2_StartButton.WhenPressed();
 //    c2_BackButton.WhenPressed();
     
