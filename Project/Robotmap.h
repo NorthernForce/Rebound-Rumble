@@ -151,6 +151,6 @@ static const float k_cameraViewAngle = 43.5;
 static const float k_vMax = 10; // TODO: set this to a reasonable value
 static const float k_vMin = 0;
 static const float k_maxDistance = k_vMax * k_cosTheta * (sqrt(k_sinTheta*k_sinTheta * k_vMax*k_vMax - 2 * k_GravityAccel * k_targetHeight) + k_vMax * k_sinTheta);
-static const float k_spinConstantA = 1;
-static const float k_spinConstantB = 0;
+static const float k_spinConstantA = 1.924;
+static const float k_spinConstantB = 23.865;
 #endif
