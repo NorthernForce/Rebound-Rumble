@@ -21,7 +21,7 @@ public:
 
 /*
  * @brief This is the robot drive class. This class
- * extends the WPILib robotdrive class to contain 
+ * extends the WPILib robotdrive class to contain
  * the real drive code that we need to use to drive
  * our BS bot chassis.
  *
@@ -47,17 +47,15 @@ public:
 	void UseEncoders (bool enable);
 	//! Stops the robot
 	void Stop();
-	//! Feeds the safety helper.
-	void Feed();
 
     double GetAvgSpeed() const;
-	
+
 private:
 	//! Set to true when the encoders are on, false when either use of the
 	//! encoders is not desired or the robot is stationary and the encoders
 	//! are turned off
 	bool m_encodersOn;
-	
+
 	//! Set to true when use of the encoders is desired
 	bool m_useEncoders;
 

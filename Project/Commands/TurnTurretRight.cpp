@@ -23,7 +23,6 @@ void TurnTurretRight::Execute() {
 	}
 	else*/
 		CommandBase::s_turret->Turn(.25);
-		CommandBase::s_drive->Feed();
 }
 
 // Make this return true when this Command no longer needs to run execute()

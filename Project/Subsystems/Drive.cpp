@@ -47,11 +47,6 @@ void Drive::DriveRobot (
 	drive->ArcadeDrive (speed, direction, false);
 }
 
-void Drive::Feed()
-{
-	drive->Feed();
-}
-
 double Drive::GetAvgSpeed() const// Gets average speed in meters per second
 {
     return drive->GetAvgSpeed();

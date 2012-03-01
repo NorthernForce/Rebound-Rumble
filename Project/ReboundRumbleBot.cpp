@@ -15,7 +15,8 @@ class ReboundRumbleBot : public IterativeRobot
 public:
 	ReboundRumbleBot() :
 		m_autonomousCommand (0),
-		m_dashboardCounter (0)
+		m_dashboardCounter (0),
+		m_pCalibrationCommand (0)
 	{
 	}
 
@@ -32,7 +33,7 @@ protected:
 		printf("Disabled.");
 	}
 
-	virtual void AutonomousInit() 
+	virtual void AutonomousInit()
 	{
 		Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
 		m_autonomousCommand = m_pCalibrationCommand;
@@ -40,7 +41,6 @@ protected:
 	
 	virtual void AutonomousPeriodic() 
 	{
-		CommandBase::s_drive->Feed();
 		Scheduler::GetInstance()->Run();
 		this->UpdateDashboard();
 		//Update the LED on the driver station to say if it has a target or not.
@@ -64,10 +64,9 @@ protected:
 	
 	virtual void TeleopPeriodic() 
 	{
-		CommandBase::s_drive->Feed();
 		Scheduler::GetInstance()->Run();
 		this->UpdateDashboard();
-		
+
 		//Update the LED on the driver station to say if it has a target or not.
 		//@TODO test this.
 		if (CommandBase::s_camera)

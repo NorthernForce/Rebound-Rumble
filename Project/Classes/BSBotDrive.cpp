@@ -104,7 +104,6 @@ BSBotDrive::BSBotDrive():
  */
 void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
 {
-	m_safetyHelper->Feed();
 	float rotateValue = controller.GetRawAxis (4);
 	const float moveValue = -controller.GetRawAxis (Joystick::kDefaultYAxis);
 	this->ArcadeDrive (moveValue, -rotateValue, true);
@@ -160,7 +159,7 @@ void BSBotDrive::EnableEncoders(bool enable)
 		DriveMotors::m_rearRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
 	}
 
-	m_encodersOn = enable; 
+	m_encodersOn = enable;
 	return;
 }
 
@@ -303,13 +302,6 @@ void BSBotDrive::PowerMotors (
 	DriveMotors::m_rearLeftMotor.SetOutput(rearLeft);
 	DriveMotors::m_frontRightMotor.SetOutput(-frontRight);
 	DriveMotors::m_frontLeftMotor.SetOutput(frontLeft);
-}
-
-/**
- * @brief Feeds the safety helper.
- */
-void BSBotDrive::Feed()
-{
 	m_safetyHelper->Feed();
 }
 
