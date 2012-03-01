@@ -29,7 +29,7 @@ void Drive::InitDefaultCommand()
  */
 void Drive::ChangeControlMode(bool enable)
 {
-	drive->EnableEncoders(enable);
+	drive->UseEncoders(enable);
 }
 
 void Drive::DriveWithStick(XboxJoystick& stick)

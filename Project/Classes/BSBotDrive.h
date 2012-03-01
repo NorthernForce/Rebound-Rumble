@@ -17,7 +17,6 @@ public:
 	RampedCANJaguar m_frontRightMotor;
 	RampedCANJaguar m_rearLeftMotor;
 	RampedCANJaguar m_rearRightMotor;
-	bool m_usingEncoders;
 };
 
 /*
@@ -36,10 +35,6 @@ class BSBotDrive :
 	private DriveMotors,
 	public RobotDrive
 {
-private:
-	void PowerMotors (float frontLeft, float frontRight);
-	void PowerMotors (float frontLeft, float rearLeft, float frontRight, float rearRight);
-    float Limit(float input, float max);
 public:
 	BSBotDrive();
 	//! Drives the robot using an XBox controller
@@ -49,10 +44,26 @@ public:
 	//! Alternate drive to move the robot using move and rotate values
 	void ArcadeDrive2 (float moveValue, float rotateValue, bool squaredInputs);
 	//! Turns on and off the use of the encoders
-	void EnableEncoders (bool enable);
+	void UseEncoders (bool enable);
 	//! Stops the robot
 	void Stop();
 	//! Feeds the safety helper.
 	void Feed();
+	
+private:
+	//! Set to true when the encoders are on, false when either use of the
+	//! encoders is not desired or the robot is stationary and the encoders
+	//! are turned off
+	bool m_encodersOn;
+	
+	//! Set to true when use of the encoders is desired
+	bool m_useEncoders;
+
+	//! Turns on and off the encoders
+	void EnableEncoders (bool enable);
+
+	void PowerMotors (float frontLeft, float frontRight);
+	void PowerMotors (float frontLeft, float rearLeft, float frontRight, float rearRight);
+    float Limit(float input, float max);
 };
 #endif

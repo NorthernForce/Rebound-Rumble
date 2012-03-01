@@ -54,56 +54,23 @@ DriveMotors::DriveMotors() try :
 	m_frontLeftMotor ((printf("Initializing front left jaguar. \n"), k_frontLeftJaguar), ramp, velocityLimit, tolerance, thereTolerance),
 	m_frontRightMotor((printf("Initializing front right jaguar. \n"), k_frontRightJaguar), ramp, velocityLimit, tolerance, thereTolerance),
 	m_rearLeftMotor  ((printf("Initializing rear left jaguar. \n"), k_rearLeftJaguar), ramp, velocityLimit, tolerance, thereTolerance),
-	m_rearRightMotor ((printf("Initializing rear right jaguar. \n"), k_rearRightJaguar), ramp, velocityLimit, tolerance, thereTolerance),
-	m_usingEncoders(k_useEncoders)
+	m_rearRightMotor ((printf("Initializing rear right jaguar. \n"), k_rearRightJaguar), ramp, velocityLimit, tolerance, thereTolerance)
 {
-	printf("Drive jaguars successfully instantiated\n\r");
-	if (k_useEncoders)
-	{
-		m_frontLeftMotor.ChangeControlMode(CANJaguar::kSpeed);
-		m_frontLeftMotor.SetPID(k_driveP,k_driveI,k_driveD);
-		m_frontLeftMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
-		m_frontLeftMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
-		
-		m_frontRightMotor.ChangeControlMode(CANJaguar::kSpeed);
-		m_frontRightMotor.SetPID(k_driveP,k_driveI,k_driveD);
-		m_frontRightMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
-		m_frontRightMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
-		
-		m_rearLeftMotor.ChangeControlMode(CANJaguar::kSpeed);
-		m_rearLeftMotor.SetPID(k_driveP,k_driveI,k_driveD);
-		m_rearLeftMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
-		m_rearLeftMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
-		
-		m_rearRightMotor.ChangeControlMode(CANJaguar::kSpeed);
-		m_rearRightMotor.SetPID(k_driveP,k_driveI,k_driveD);
-		m_rearRightMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
-		m_rearRightMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
-	} else {
-		m_frontLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
-	
-		m_frontRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
-	
-		m_rearLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
-	
-		m_rearRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
-	}
-	m_frontLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
-	m_frontLeftMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
-	m_frontLeftMotor.EnableControl();
-	
-	m_frontRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
-	m_frontRightMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
-	m_frontRightMotor.EnableControl();
-	
-	m_rearLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
-	m_rearLeftMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
-	m_rearLeftMotor.EnableControl();
-	
-	m_rearRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
-	m_rearRightMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
-	m_rearRightMotor.EnableControl();
 	printf("Drive jaguars successfully created. \n\r");
+
+	DriveMotors::m_frontLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	DriveMotors::m_frontLeftMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
+
+	DriveMotors::m_frontRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	DriveMotors::m_frontRightMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
+
+	DriveMotors::m_rearLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	DriveMotors::m_rearLeftMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
+
+	DriveMotors::m_rearRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	DriveMotors::m_rearRightMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
+
+	printf("Drive jaguars successfully instantiated\n\r");
 }
 catch (exception e)
 {
@@ -114,20 +81,25 @@ catch (exception e)
 /**
  * @brief This class constructs the instance
  * of the Robot Drive that we use on the robot.
- * 
+ *
  * @author Arthur Lockman
  */
 BSBotDrive::BSBotDrive():
     DriveMotors(),
-	RobotDrive(DriveMotors::m_rearRightMotor, DriveMotors::m_rearLeftMotor, 
-			DriveMotors::m_frontRightMotor, DriveMotors::m_frontLeftMotor)
+	RobotDrive(DriveMotors::m_rearRightMotor, DriveMotors::m_rearLeftMotor,
+			DriveMotors::m_frontRightMotor, DriveMotors::m_frontLeftMotor),
+	m_encodersOn (true),
+	m_useEncoders (k_useEncoders)
 {
- 	//Do nothing, as the whole class is set up.
+	// Initially the encoders set as on so powering the motors to 0,0
+	// will disable use of the encoders
+	this->PowerMotors (0.0, 0.0);
+	this->Stop();
 }
 
 /**
  * @brief Used to drive the robot with a joystick.
- * 
+ *
  * @param controller The XBoxJoystick to use to control the robot.
  */
 void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
@@ -136,72 +108,62 @@ void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
 	float rotateValue = controller.GetRawAxis (4);
 	const float moveValue = -controller.GetRawAxis (Joystick::kDefaultYAxis);
 	this->ArcadeDrive (moveValue, -rotateValue, true);
-	
+}
+
+//! Turns on and off the use of the encoders
+void BSBotDrive::UseEncoders (bool enable)
+{
+	m_useEncoders = enable;
+	printf(m_useEncoders ? "Encoders on.\n\r" : "Encoders off\r\n");
 }
 
 /**
  * @brief Changes the control mode of the jaguars.
- * 
+ *
  * @param enable Whether to turn the encoders on or off.
- * 
+ *
  * @author Arthur Lockman
  */
 void BSBotDrive::EnableEncoders(bool enable)
 {
-	DriveMotors::m_frontLeftMotor.DisableControl();
-	DriveMotors::m_frontRightMotor.DisableControl();
-	DriveMotors::m_rearLeftMotor.DisableControl();
-	DriveMotors::m_rearRightMotor.DisableControl();
+	// Nothing to do if the system it currently set as desired
+	if (enable == m_encodersOn) return;
+
 	if (enable)
 	{
 		DriveMotors::m_frontLeftMotor.ChangeControlMode(CANJaguar::kSpeed);
 		DriveMotors::m_frontLeftMotor.SetPID(k_driveP,k_driveI,k_driveD);
 		DriveMotors::m_frontLeftMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
 		DriveMotors::m_frontLeftMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
-		
+
 		DriveMotors::m_frontRightMotor.ChangeControlMode(CANJaguar::kSpeed);
 		DriveMotors::m_frontRightMotor.SetPID(k_driveP,k_driveI,k_driveD);
 		DriveMotors::m_frontRightMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
 		DriveMotors::m_frontRightMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
-		
+
 		DriveMotors::m_rearLeftMotor.ChangeControlMode(CANJaguar::kSpeed);
 		DriveMotors::m_rearLeftMotor.SetPID(k_driveP,k_driveI,k_driveD);
 		DriveMotors::m_rearLeftMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
 		DriveMotors::m_rearLeftMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
-		
+
 		DriveMotors::m_rearRightMotor.ChangeControlMode(CANJaguar::kSpeed);
 		DriveMotors::m_rearRightMotor.SetPID(k_driveP,k_driveI,k_driveD);
 		DriveMotors::m_rearRightMotor.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
 		DriveMotors::m_rearRightMotor.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
 	} else {
 		DriveMotors::m_frontLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
-	
+
 		DriveMotors::m_frontRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
-	
+
 		DriveMotors::m_rearLeftMotor.ChangeControlMode(CANJaguar::kPercentVbus);
-	
+
 		DriveMotors::m_rearRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
 	}
-	DriveMotors::m_frontLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
-	DriveMotors::m_frontLeftMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
-	DriveMotors::m_frontLeftMotor.EnableControl();
-	
-	DriveMotors::m_frontRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
-	DriveMotors::m_frontRightMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
-	DriveMotors::m_frontRightMotor.EnableControl();
-	
-	DriveMotors::m_rearLeftMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
-	DriveMotors::m_rearLeftMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
-	DriveMotors::m_rearLeftMotor.EnableControl();
-	
-	DriveMotors::m_rearRightMotor.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
-	DriveMotors::m_rearRightMotor.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
-	DriveMotors::m_rearRightMotor.EnableControl();
-	
-	printf("Drive jaguars re-initialized.\n\r");
+
+	if (enable == m_encodersOn) return;
 }
 
-float BSBotDrive::Limit(float input, float max) 
+float BSBotDrive::Limit(float input, float max)
 {
     if (input > max)
     {
@@ -214,9 +176,9 @@ float BSBotDrive::Limit(float input, float max)
 }
 
 /**
- * @brief Actually computes the values that the wheels need to 
+ * @brief Actually computes the values that the wheels need to
  * turn to make the robot go.
- * 
+ *
  * @param moveValue The speed to move the robot N, or S.
  * @param rotateValue The rotational speed of the robot.
  * @param squaredInputs Whether or not the inputs are squared.
@@ -231,7 +193,7 @@ void BSBotDrive::ArcadeDrive (
 	float right;
 	Vector3D accelerations = CommandBase::s_accelerometer->GetAccelerations();
 	float limit;
-	if((acos(Limit(accelerations.z,1)) > M_PI/18) && 
+	if((acos(Limit(accelerations.z,1)) > M_PI/18) &&
 	   (k_maxMatchTime - DriverStation::GetInstance()->GetMatchTime() < 20))
 	{
 		limit = rampVelocityLimit;
@@ -292,10 +254,10 @@ void BSBotDrive::Stop()
 
 /**
  * @brief Powers the motors, given the speed of the front wheels. It
- * calculates the speed of the rear wheels, and passes it to the 
+ * calculates the speed of the rear wheels, and passes it to the
  * other PowerMotors method to actually power the motors to drive
  * the wheels.
- * 
+ *
  * @param frontLeft The speed of the front left motor.
  * @param frontRight The speed of the front right motor.
  */
@@ -303,6 +265,9 @@ void BSBotDrive::PowerMotors (
 	float frontLeft,
 	float frontRight)
 {
+	// Enable the encoders if we are using them and going a non 0 speed
+	EnableEncoders (m_useEncoders && (frontLeft != 0 || frontRight != 0));
+
 	// Calculate the desired rear mecanum speeds.
 	float rearLeft  = frontLeft  * (0.5 + wheelRatio) + frontRight * (0.5 - wheelRatio);
 	float rearRight = frontRight * (0.5 + wheelRatio) + frontLeft  * (0.5 - wheelRatio);
@@ -321,7 +286,7 @@ void BSBotDrive::PowerMotors (
 /**
  * @brief Powers the motors, given the speed of the front and rear wheels.
  * This actually does the powering of the motors.
- * 
+ *
  * @param frontLeft The speed of the front left motor.
  * @param frontRight The speed of the front right motor.
  * @param rearLeft The speed of the rear left motor.
@@ -333,7 +298,7 @@ void BSBotDrive::PowerMotors (
 		float frontRight,
 		float rearRight)
 {
-	DriveMotors::m_rearRightMotor.SetOutput(-rearRight); 
+	DriveMotors::m_rearRightMotor.SetOutput(-rearRight);
 	DriveMotors::m_rearLeftMotor.SetOutput(rearLeft);
 	DriveMotors::m_frontRightMotor.SetOutput(-frontRight);
 	DriveMotors::m_frontLeftMotor.SetOutput(frontLeft);
