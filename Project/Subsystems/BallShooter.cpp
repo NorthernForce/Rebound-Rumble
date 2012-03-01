@@ -1,7 +1,6 @@
 #include "BallShooter.h"
 #include "../Robotmap.h"
 
-static const float k_wheelRadius = 1.0;
 
 /**
  * @brief The constructor for the ball shooter.
@@ -45,18 +44,20 @@ void BallShooter::InitDefaultCommand() {
  * @brief Sets the pitcher to spin at a set speed 
  * for startup.
  * 
- * @param velocity A float, the speed in voltage of the pitcher.
+ * @param velocity A float, the speed in meters per second.
  * This should always be positive.
  */
 void BallShooter::SetSpeed(float velocity)
 {
-	m_flywheelFront.Set(velocity*30/(k_wheelRadius*M_PI));
-	m_flywheelBack.Set(velocity*30/(k_wheelRadius*M_PI));
+	m_flywheelFront.Set(velocity*30/(k_shooterWheelRadius*M_PI));
+	m_flywheelBack.Set(velocity*30/(k_shooterWheelRadius*M_PI));
 }
 
+//Gets the speed in meters per second of both wheels. "front" wheel is the x component
+// and the "back" wheel is the y component.
 Vector2D BallShooter::GetSpeed()
 {
-	return Vector2D(m_flywheelFront.Get()*(M_PI/30),m_flywheelBack.Get()*(M_PI/30));
+	return Vector2D(m_flywheelFront.GetSpeed()*(M_PI*k_shooterWheelRadius/30),m_flywheelBack.GetSpeed()*(M_PI*k_shooterWheelRadius/30));
 }
 
 /**

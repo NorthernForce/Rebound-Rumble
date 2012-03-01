@@ -136,21 +136,25 @@ enum RelayPort
 // is held down
 #define k_ImageCaptureCount 10
 
-static const float k_secTheta = 2;//1/cos(M_PI/3);
-static const float k_tanTheta = sqrt(3.0f);//tan(M_PI/3);
+static const float k_secTheta = 1/cos(M_PI/3);
+static const float k_tanTheta = tan(M_PI/3);
 static const float k_sinTheta = sin(M_PI/3);
 static const float k_cosTheta = cos(M_PI/3);
 static const float k_spinupTolerance = 1;
-static const float k_targetHeight = 98/12;
-static const float k_visionTargetHeight = 1.5;//in feet
-static const float k_visionTargetWidth = 2;//in feet
-static const float k_aAngleMin = M_PI/6;
-static const float k_aAngleMax = M_PI/3;
-static const float k_maxMatchTime = 135;
-static const float k_cameraViewAngle = 43.5;
+static const float k_shooterHeight = 1.1; // TODO:measure this
+static const float k_targetHeight = (98)*0.0254 - k_shooterHeight; // in meters
+static const float k_visionTargetHeight = 1.5 * (0.0254  *12);//in meters
+static const float k_visionTargetWidth = 2 * (0.0254 * 12);//in meters
+static const float k_aAngleMin = M_PI/6; // in radians
+static const float k_aAngleMax = M_PI/3; // in radians
+static const float k_maxMatchTime = 135; // in seconds
+static const float k_cameraViewAngle = 43.5; // in degrees
 static const float k_vMax = 10; // TODO: set this to a reasonable value
 static const float k_vMin = 0;
 static const float k_maxDistance = k_vMax * k_cosTheta * (sqrt(k_sinTheta*k_sinTheta * k_vMax*k_vMax - 2 * k_GravityAccel * k_targetHeight) + k_vMax * k_sinTheta);
 static const float k_spinConstantA = 1.924;
 static const float k_spinConstantB = 23.865;
+static const float k_shooterWheelRadius = (6)*(0.0254);
+static const float k_driveWheelRadius = 12*0.0254;
+static const float k_driveGearRatio = 1/12.75;
 #endif

@@ -53,7 +53,7 @@ void Camera::InitCamera()
 
 /**
  * @brief Returns the distance to the target.
- * @return float Distance, in feet.
+ * @return float Distance, in meters.
  */
 float Camera::GetDistanceToTarget() const
 {
@@ -108,8 +108,8 @@ float Camera::GetDistanceToTarget() const
 
 	const double c = 0.292659195508492; // tan(32.625/2)
 	const double b = 0.398959545973719; // tan(43.5/2)
-	const double h = 1.5 * height / 2 * c * topTarget.height;
-	const double w = 2 * height / 2 * b * topTarget.width;
+	const double h = k_visionTargetHeight * height / 2 * c * topTarget.height;
+	const double w = k_visionTargetWidth * height / 2 * b * topTarget.width;
 	return (h + w) / 2;
 }
 

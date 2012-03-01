@@ -49,6 +49,8 @@ public:
 	void Stop();
 	//! Feeds the safety helper.
 	void Feed();
+
+    double GetAvgSpeed();
 	
 private:
 	//! Set to true when the encoders are on, false when either use of the

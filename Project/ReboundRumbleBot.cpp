@@ -90,6 +90,13 @@ protected:
 		if ((++m_dashboardCounter % 25) != 0) return;
 
 		SmartDashboard& dashboard = *SmartDashboard::GetInstance();
+
+        if (const Drive* const pDrive = CommandBase::s_drive)
+        {
+            double speed = pDrive->GetAvgSpeed();
+            SetSmartDashboardDouble("Average Drive Wheel Speed", speed);
+        }
+
 		if (const Camera* const pCamera = CommandBase::s_camera)
 		{
 			const UINT32 time = pCamera->GetLastFrameProcessingTime();

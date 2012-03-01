@@ -312,3 +312,12 @@ void BSBotDrive::Feed()
 {
 	m_safetyHelper->Feed();
 }
+
+double BSBotDrive::GetAvgSpeed()
+{
+	double frontRightSpeed = DriveMotors::m_frontRightMotor.GetSpeed()*(M_PI/30)*k_driveGearRatio*k_driveWheelRadius;
+	double frontLeftSpeed = DriveMotors::m_frontLeftMotor.GetSpeed()*(M_PI/30)*k_driveGearRatio*k_driveWheelRadius;
+	double rearRightSpeed = DriveMotors::m_rearRightMotor.GetSpeed()*(M_PI/30)*k_driveGearRatio*k_driveWheelRadius;
+	double rearLeftSpeed = DriveMotors::m_rearLeftMotor.GetSpeed()*(M_PI/30)*k_driveGearRatio*k_driveWheelRadius;
+	return (frontLeftSpeed + frontRightSpeed + rearLeftSpeed + rearRightSpeed)/4;
+}
