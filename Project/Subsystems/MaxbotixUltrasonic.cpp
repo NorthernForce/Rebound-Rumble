@@ -67,3 +67,8 @@ unsigned MaxbotixUltrasonic::GetRangeInCM() const
 	const float range = (m_distanceChannel.GetVoltage() - m_minVoltage) / m_voltageRange;
 	return static_cast<unsigned> (((range * m_distanceRange) + m_minDistance) * 2.54f);
 }
+
+float MaxbotixUltrasonic::GetRange() const
+{
+	return 0.01f * GetRangeInCM();
+}

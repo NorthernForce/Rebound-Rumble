@@ -30,6 +30,9 @@ public:
 
 	//! Returns the range in centimeters
 	unsigned GetRangeInCM() const;
+
+    //! Returns the range in meters
+    float GetRange() const;
 	
 private:
 	//! Minimum voltage the ultrasonic sensor can return

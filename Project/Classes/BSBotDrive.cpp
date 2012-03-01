@@ -160,7 +160,8 @@ void BSBotDrive::EnableEncoders(bool enable)
 		DriveMotors::m_rearRightMotor.ChangeControlMode(CANJaguar::kPercentVbus);
 	}
 
-	if (enable == m_encodersOn) return;
+	m_encodersOn = enable; 
+	return;
 }
 
 float BSBotDrive::Limit(float input, float max)
