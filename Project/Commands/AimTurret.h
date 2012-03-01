@@ -23,9 +23,6 @@ public:
 	virtual void Interrupted();
 	virtual double ReturnPIDInput();
 	virtual void UsePIDOutput(double output);
-private:
-	PIDController* PID_Controller;
-	
 };
 
 #endif

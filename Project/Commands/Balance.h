@@ -4,7 +4,7 @@
 #include "../CommandBase.h"
 #include "Math.h"
 /**
- * This command will balance the robot on the bridge. It assumes 
+ * This command will balance the robot on the bridge. It assumes
  * that the accelerations are given in terms of g.
  * @author Conor McGrory
  */
@@ -21,7 +21,6 @@ public:
 private:
 	float sign(float number);
 	float Limit(float input, float max);
-	
 };
 
 #endif
