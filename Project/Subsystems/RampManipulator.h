@@ -13,8 +13,8 @@ private:
 public:
 	RampManipulator();
 	
-	void MotorForward();
-	void MotorBackward();
+	void MoveRampDown();
+	void MoveRampUp();
 	void MotorStop();
 	void EngageLock();
 	void ReleaseLock();
@@ -25,8 +25,6 @@ private:
 	Relay m_RampManipulatorMotorLeft;// The window motor
 	Servo m_LeftLockServo; 
 	Servo m_RightLockServo; 
-	float m_LockAngle;
-	float m_UnlockAngle;
 };
 
 #endif

@@ -10,7 +10,13 @@
  */
 class RaiseRampManipulator: public CommandBase {
 private:
-	int _state;
+	enum
+	{
+		RaiseRamps,
+		StopMotors,
+		WaitForStop,
+		Complete
+	} _state;
 public:
 	RaiseRampManipulator();
 	virtual void Initialize();

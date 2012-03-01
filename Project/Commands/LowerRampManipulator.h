@@ -10,7 +10,15 @@
  */
 class LowerRampManipulator: public CommandBase {
 private:
-	int _state;
+	enum
+	{
+		StopMotors,
+		EngageLock,
+		BackOffMotors,
+		StopBackOff,
+		WaitForStop,
+		Complete
+	} _state;
 public:
 	LowerRampManipulator();
 	virtual void Initialize();

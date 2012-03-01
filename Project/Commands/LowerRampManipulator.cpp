@@ -9,58 +9,58 @@ LowerRampManipulator::LowerRampManipulator() : CommandBase("LowerRampManipulator
 
 // Called just before this Command runs the first time
 void LowerRampManipulator::Initialize() {
-	//Advance the motor a bit to release pressure on the lock
 	if (s_RampManipulator->m_down)
 	{
-		_state = 5;
+		_state = Complete;
 	} else {
 		s_RampManipulator->ReleaseLock();
-		s_RampManipulator->MotorForward();
-		_state = 0;
+		s_RampManipulator->MoveRampDown();
+		_state = StopMotors;
 	}
 }
 
 // Called repeatedly when this Command is scheduled to run
 void LowerRampManipulator::Execute() 
 {
-	if (_state == 0 && TimeSinceInitialized() > .5)
+	if (_state == StopMotors && TimeSinceInitialized() > .5)
 	{
 		s_RampManipulator->MotorStop();
-		_state = 1;
+		_state = EngageLock;
 	}
-	if (_state == 1 && TimeSinceInitialized() >.6)
+	if (_state == EngageLock && TimeSinceInitialized() >.6)
 	{
 		s_RampManipulator->EngageLock();
-		_state = 2;
+		_state = BackOffMotors;
 	}
-	if (_state == 2 && TimeSinceInitialized() >.7)
+	if (_state == BackOffMotors && TimeSinceInitialized() >.7)
 	{
-		s_RampManipulator->MotorBackward();
-		_state = 3;
+		s_RampManipulator->MoveRampUp();
+		_state = StopBackOff;
 	}
-	if (_state == 3 && TimeSinceInitialized() >.8)
+	if (_state == StopBackOff && TimeSinceInitialized() >.75)
 	{
 		s_RampManipulator->MotorStop();
-		_state = 4;
+		_state = WaitForStop;
 	}
-	if (_state == 4 && TimeSinceInitialized() > .81)
+	if (_state == WaitForStop && TimeSinceInitialized() > .76)
 	{
 		s_RampManipulator->m_down = true;
-		_state = 5;
+		_state = Complete;
 	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool LowerRampManipulator::IsFinished() {
-	return (_state == 5);
+	return (_state == Complete);
 }
 
 // Called once after isFinished returns true
 void LowerRampManipulator::End() {
-	
+	s_RampManipulator->MotorStop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void LowerRampManipulator::Interrupted() {
+	s_RampManipulator->MotorStop();
 }

@@ -8,10 +8,13 @@
 #include "RampManipulator.h"
 #include "../Robotmap.h"
 
-const float k_RightLockAngle = 1.0;
-const float k_RightUnlockAngle = 0.6;
-const float k_LeftLockAngle = 0.0;
-const float k_LeftUnlockAngle = 0.4;
+namespace
+{
+	const float k_RightLockAngle = 1.0;
+	const float k_RightUnlockAngle = 0.6;
+	const float k_LeftLockAngle = 0.0;
+	const float k_LeftUnlockAngle = 0.4;
+}
 
 /*
  * Default constructor
@@ -34,13 +37,13 @@ void RampManipulator::InitDefaultCommand()
 {
 }
 
-void RampManipulator::MotorForward()
+void RampManipulator::MoveRampDown()
 {
 	m_RampManipulatorMotorRight.Set(Relay::kReverse);
 	m_RampManipulatorMotorLeft.Set(Relay::kReverse);
 }
 
-void RampManipulator::MotorBackward()
+void RampManipulator::MoveRampUp()
 {
 	m_RampManipulatorMotorRight.Set(Relay::kForward);
 	m_RampManipulatorMotorLeft.Set(Relay::kForward);
