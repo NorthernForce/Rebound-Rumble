@@ -313,11 +313,16 @@ void BSBotDrive::Feed()
 	m_safetyHelper->Feed();
 }
 
-double BSBotDrive::GetAvgSpeed()
+/**
+ * @brief Returns the average speed
+ *
+ * @author Joseph Martin
+ */
+double BSBotDrive::GetAvgSpeed() const
 {
-	double frontRightSpeed = DriveMotors::m_frontRightMotor.GetSpeed()*(M_PI/30)*k_driveGearRatio*k_driveWheelRadius;
-	double frontLeftSpeed = DriveMotors::m_frontLeftMotor.GetSpeed()*(M_PI/30)*k_driveGearRatio*k_driveWheelRadius;
-	double rearRightSpeed = DriveMotors::m_rearRightMotor.GetSpeed()*(M_PI/30)*k_driveGearRatio*k_driveWheelRadius;
-	double rearLeftSpeed = DriveMotors::m_rearLeftMotor.GetSpeed()*(M_PI/30)*k_driveGearRatio*k_driveWheelRadius;
-	return (frontLeftSpeed + frontRightSpeed + rearLeftSpeed + rearRightSpeed)/4;
+	const double frontRightSpeed = DriveMotors::m_frontRightMotor.GetSpeed();
+	const double frontLeftSpeed = DriveMotors::m_frontLeftMotor.GetSpeed();
+	const double rearRightSpeed = DriveMotors::m_rearRightMotor.GetSpeed();
+	const double rearLeftSpeed = DriveMotors::m_rearLeftMotor.GetSpeed();
+	return (frontLeftSpeed + frontRightSpeed + rearLeftSpeed + rearRightSpeed) / 4 * (M_PI / 30) * k_driveGearRatio * k_driveWheelRadius;
 }

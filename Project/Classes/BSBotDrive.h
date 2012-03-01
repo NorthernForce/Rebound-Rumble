@@ -13,10 +13,10 @@ class DriveMotors
 {
 public:
 	DriveMotors();
-	RampedCANJaguar m_frontLeftMotor;
-	RampedCANJaguar m_frontRightMotor;
-	RampedCANJaguar m_rearLeftMotor;
-	RampedCANJaguar m_rearRightMotor;
+	mutable RampedCANJaguar m_frontLeftMotor;
+	mutable RampedCANJaguar m_frontRightMotor;
+	mutable RampedCANJaguar m_rearLeftMotor;
+	mutable RampedCANJaguar m_rearRightMotor;
 };
 
 /*
@@ -50,7 +50,7 @@ public:
 	//! Feeds the safety helper.
 	void Feed();
 
-    double GetAvgSpeed();
+    double GetAvgSpeed() const;
 	
 private:
 	//! Set to true when the encoders are on, false when either use of the
