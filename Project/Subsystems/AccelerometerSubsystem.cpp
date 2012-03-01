@@ -65,6 +65,9 @@ void AccelerometerSubsystem::InitDefaultCommand()
  */
 void AccelerometerSubsystem::BeginStationaryCalibrartion()
 {
+    m_x.SetCorrectionGains(0.001, 0);
+    m_y.SetCorrectionGains(0.001, 0);
+    m_z.SetCorrectionGains(0.001, 0);
 	m_currentState = eInStationaryCalibration;
 	m_x.Clear();
 	m_y.Clear();

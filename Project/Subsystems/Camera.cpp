@@ -138,15 +138,8 @@ bool Camera::HasTarget() const
 bool Camera::HasValidTarget()
 {
 	float x = GetHorizontalDistance();
-    if (x == std::numeric_limits<float>::quiet_NaN()) return false;
-	float velocity = x * k_secTheta * sqrt(k_GravityAccel / (2 * (x * k_tanTheta - k_targetHeight)));
-	if( (velocity > k_vMax) || (velocity < k_vMin) )
-	{
-		return false;
-	} else
-	{
-		return true;
-	}
+	if ( (x == std::numeric_limits<float>::quiet_NaN()) || (x > k_maxDistance)) return false;
+	else return true;
 }
 
 /**

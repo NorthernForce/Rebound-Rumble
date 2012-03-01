@@ -16,6 +16,7 @@ void Spinup::Initialize() {
 void Spinup::Execute() {
 	float targetDist = s_camera->GetHorizontalDistance();
 	velocity = targetDist * k_secTheta * sqrt(k_GravityAccel / (2 * (targetDist * k_tanTheta - k_targetHeight)));
+	velocity = sqrt(k_spinConstantA * velocity * velocity + k_spinConstantB);
 	s_ballShooter->SetSpeed(velocity);
 }
 

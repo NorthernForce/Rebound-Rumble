@@ -13,7 +13,7 @@ LogAccelerometer::LogAccelerometer(): CommandBase("LogAcclerometer") {
 
 // Called just before this Command runs the first time
 void LogAccelerometer::Initialize() {
-	SetTimeout(5.0);
+	SetTimeout(20.0);
 	printf("Enabling Logging\n\r");
 	char* filename = new char[120];
 	sprintf(filename, "/tmp/AccelerometerLog_%d.csv", m_logNumber);
@@ -26,7 +26,7 @@ void LogAccelerometer::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void LogAccelerometer::Execute() {
-	s_accelerometer->Update((int)(1000*TimeSinceInitialized()));
+	s_accelerometer->Update((UINT32)(1000*TimeSinceInitialized()));
 }
 
 // Make this return true when this Command no longer needs to run execute()
