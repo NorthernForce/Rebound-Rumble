@@ -22,22 +22,22 @@ void LowerRampManipulator::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void LowerRampManipulator::Execute() 
 {
-	if (_state == StopMotors && TimeSinceInitialized() > .5)
+	if (_state == StopMotors && TimeSinceInitialized() > .7)
 	{
 		s_RampManipulator->MotorStop();
 		_state = EngageLock;
 	}
-	if (_state == EngageLock && TimeSinceInitialized() >.6)
+	if (_state == EngageLock && TimeSinceInitialized() >.8)
 	{
 		s_RampManipulator->EngageLock();
 		_state = BackOffMotors;
 	}
-	if (_state == BackOffMotors && TimeSinceInitialized() >.7)
+	if (_state == BackOffMotors && TimeSinceInitialized() >.9)
 	{
 		s_RampManipulator->MoveRampUp();
 		_state = StopBackOff;
 	}
-	if (_state == StopBackOff && TimeSinceInitialized() >.75)
+	if (_state == StopBackOff && TimeSinceInitialized() >1.5)
 	{
 		s_RampManipulator->MotorStop();
 		_state = WaitForStop;

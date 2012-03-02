@@ -23,17 +23,17 @@ void RaiseRampManipulator::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void RaiseRampManipulator::Execute() 
 {
-	if (_state == RaiseRamps && TimeSinceInitialized() > .05 )
+	if (_state == RaiseRamps && TimeSinceInitialized() > .15 )
 	{
 		s_RampManipulator->MoveRampUp();
 		_state = StopMotors;
 	}
-	if (_state == StopMotors && TimeSinceInitialized() > .55 )
+	if (_state == StopMotors && TimeSinceInitialized() > .65 )
 	{
 		s_RampManipulator->MotorStop();
 		_state = WaitForStop;
 	}
-	if (_state == WaitForStop && TimeSinceInitialized() >.56)
+	if (_state == WaitForStop && TimeSinceInitialized() >.66)
 	{
 		s_RampManipulator->m_down = false;
 		_state = Complete;
