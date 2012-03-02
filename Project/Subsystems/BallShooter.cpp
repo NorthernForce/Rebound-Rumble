@@ -47,15 +47,17 @@ void BallShooter::InitDefaultCommand() {
  */
 void BallShooter::SetSpeed(float velocity)
 {
-	m_flywheelFront.Set(velocity*30/(k_shooterWheelRadius*M_PI));
-	m_flywheelBack.Set(velocity*30/(k_shooterWheelRadius*M_PI));
+//	m_flywheelFront.Set(velocity*30/(k_shooterWheelRadius*M_PI));
+	//m_flywheelBack.Set(-velocity*30/(k_shooterWheelRadius*M_PI));
+	m_flywheelFront.Set(velocity);
+	m_flywheelBack.Set(-velocity);
 }
 
 //Gets the speed in meters per second of both wheels. "front" wheel is the x component
 // and the "back" wheel is the y component.
 Vector2D BallShooter::GetSpeed()
 {
-	return Vector2D(m_flywheelFront.GetSpeed()*(M_PI*k_shooterWheelRadius/30),m_flywheelBack.GetSpeed()*(M_PI*k_shooterWheelRadius/30));
+	return Vector2D(m_flywheelFront.GetSpeed()*(M_PI*k_shooterWheelRadius/30),m_flywheelBack.GetSpeed()*-(M_PI*k_shooterWheelRadius/30));
 }
 
 /**

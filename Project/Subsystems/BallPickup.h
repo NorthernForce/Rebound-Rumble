@@ -17,6 +17,7 @@ public:
 	BallPickup();
     void Start();
     void Stop();
+    void Reverse();
 	void InitDefaultCommand();
 };
 

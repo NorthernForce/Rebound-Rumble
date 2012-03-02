@@ -1,17 +1,16 @@
-#ifndef SHOOTBALL_H
-#define SHOOTBALL_H
+#ifndef REVERSEPICKUP_H
+#define REVERSEPICKUP_H
 
 #include "../CommandBase.h"
 
 /**
  *
  *
- * @author Arthur Lockman
+ * @author Joseph Martin
  */
-class ShootBall: public CommandBase {
-	int count;
+class ReversePickup: public CommandBase {
 public:
-	ShootBall();
+	ReversePickup();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

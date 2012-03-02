@@ -11,6 +11,7 @@
 #include "Commands/StopPickup.h"
 #include "Commands/TurnTurretLeft.h"
 #include "Commands/TurnTurretRight.h"
+#include "Commands/ReversePickup.h"
 #include "Robotmap.h"
 
 /** 
@@ -42,7 +43,7 @@ OI::OI() try :
 {
 	// Stick one buttons
     c_BButton.WhileHeld(new FollowRobot());
-    c_YButton.WhenPressed(new ShootBall());
+//    c_YButton.WhenPressed(new ShootBall());
     c_AButton.WhenPressed(new CaptureImages());
     c_XButton.WhenPressed(new LogAccelerometer());
     c_LeftButton.WhenPressed(new RaiseRampManipulator());
@@ -51,7 +52,7 @@ OI::OI() try :
     c_BackButton.WhenPressed(new ChangeControlMode(false));
     
     // Stick 2 buttons
-//    c2_AButton.WhileHeld(new TurnTurretLeft());
+    c2_AButton.WhileHeld(new ReversePickup());
 //    c2_BButton.WhileHeld(new TurnTurretRight());
 //    c2_BButton.WhileHeld();
 //    c2_YButton.WhenPressed();

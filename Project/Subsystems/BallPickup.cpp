@@ -20,6 +20,10 @@ void BallPickup::Start()
 	m_pickupMotor.Set(Relay::kForward);
 }
 
+void BallPickup::Reverse()
+{
+	m_pickupMotor.Set(Relay::kReverse);
+}
 void BallPickup::Stop()
 {
 	m_pickupMotor.Set(Relay::kOff);

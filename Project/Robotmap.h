@@ -94,7 +94,7 @@ enum PWMAddress
 
 enum RelayPort
 {
-    k_liftMotorRelay = 1,
+    k_liftMotorRelay = 6,
     k_pickupMotorRelay = 2,
     k_rampManipulatorRelayRight = 4,
     k_rampManipulatorRelayLeft = 5,
