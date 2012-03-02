@@ -43,7 +43,7 @@ OI::OI() try :
 {
 	// Stick one buttons
     c_BButton.WhileHeld(new FollowRobot());
-//    c_YButton.WhenPressed(new ShootBall());
+    c_YButton.WhileHeld(new ShootBall());
     c_AButton.WhenPressed(new CaptureImages());
     c_XButton.WhenPressed(new LogAccelerometer());
     c_LeftButton.WhenPressed(new RaiseRampManipulator());
