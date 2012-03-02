@@ -12,6 +12,7 @@
 #include "Commands/TurnTurretLeft.h"
 #include "Commands/TurnTurretRight.h"
 #include "Commands/ReversePickup.h"
+#include "Commands/LockTarget.h"
 #include "Robotmap.h"
 
 /** 
@@ -49,18 +50,18 @@ OI::OI() try :
     c_LeftButton.WhenPressed(new RaiseRampManipulator());
     c_RightButton.WhenPressed(new LowerRampManipulator());
     c_StartButton.WhenPressed(new ChangeControlMode(true));
-    c_BackButton.WhenPressed(new ChangeControlMode(false));
+    c_BackButton.WhenPressed(new ChangeControlMode(false)); 
     
     // Stick 2 buttons
     c2_AButton.WhileHeld(new ReversePickup());
 //    c2_BButton.WhileHeld(new TurnTurretRight());
 //    c2_BButton.WhileHeld();
-//    c2_YButton.WhenPressed();
+    c2_YButton.WhileHeld(new TurnTurretRight());
 //    c2_AButton.WhenPressed();
-//    c2_XButton.WhenPressed();
+    c2_XButton.WhileHeld(new TurnTurretLeft());
     c2_LeftButton.WhenPressed(new StopPickup());
     c2_RightButton.WhenPressed(new StartPickup());
-//    c2_StartButton.WhenPressed();
+    c2_StartButton.WhileHeld(new LockTarget());
 //    c2_BackButton.WhenPressed();
     
     printf("All OI elements created successfully.");

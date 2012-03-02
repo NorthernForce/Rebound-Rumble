@@ -21,6 +21,7 @@ public:
 	float GetDistanceToTarget() const;
 	float GetHorizontalDistance() const;
 	float GetAngleToTarget() const;
+	float GetDegreeAngleToTarget() const;
     bool HasValidTarget();
 	bool HasTarget() const;
 	int GetNumberOfTargets() const;
