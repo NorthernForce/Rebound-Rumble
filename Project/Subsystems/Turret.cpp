@@ -27,7 +27,7 @@ Turret::Turret(): Subsystem("Turret"),
 void Turret::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new AimTurret());
+//	SetDefaultCommand(new AimTurret());
 }
 void Turret::SetAngle(float Angle)
 {
