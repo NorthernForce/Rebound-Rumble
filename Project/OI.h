@@ -18,6 +18,7 @@ private:
 public:
 	OI();
 	XboxJoystick& GetStick();
+	XboxJoystick& GetManipulatorStick();
 	void OI::SetTargetLEDs(bool target);
     
     //Xbox Controller Buttons

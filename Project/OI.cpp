@@ -96,3 +96,7 @@ XboxJoystick& OI::GetStick()
 {
 	return m_driveStick;
 }
+XboxJoystick& OI::GetManipulatorStick()
+{
+	return m_manipulatorStick;
+}
