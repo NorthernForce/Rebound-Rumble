@@ -96,7 +96,7 @@ protected:
 		if ((++m_dashboardCounter % 25) != 0) return;
 
 		SmartDashboard& dashboard = *SmartDashboard::GetInstance();
-
+		SetSmartDashboardDouble("Elevator limit switch()",CommandBase::s_ballLifter->GetLimit());
 		if (const Drive* const pDrive = CommandBase::s_drive)
 		{
 			double speed = pDrive->GetAvgSpeed();
