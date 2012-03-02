@@ -27,8 +27,6 @@ catch (exception e)
 }
 BallShooter::BallShooter():
 		Subsystem("BallShooter")
-	//DriveMotors::m_rearRightMotor, DriveMotors::m_rearLeftMotor, 
-	//		DriveMotors::m_frontRightMotor, DriveMotors::m_frontLeftMotor)RobotDrive(
 {
  	//Do nothing, as the whole class is set up.
 }

@@ -22,9 +22,15 @@ public:
 	void DriveRobot (float speed, float direction);
 	void ChangeControlMode (bool enable);
     double GetAvgSpeed() const;
-    
+
+	//! Returns true if the motor safety reports the robot motors are being
+	//! corrected fed and are alive
     bool IsAlive() const
     { return drive->IsAlive(); }
+
+	//! Stops all the motors
+    void StopMotors() const
+    { drive->Stop(); }
 };
 
 #endif

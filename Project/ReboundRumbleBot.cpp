@@ -10,8 +10,14 @@
  * 
  * @author Arthur Lockman
  */
-class ReboundRumbleBot : public IterativeRobot 
+class ReboundRumbleBot : public IterativeRobot
 {
+	enum RobotState
+	{
+		Disabled,
+		Autonomous,
+		Teleop,
+	};
 public:
 	ReboundRumbleBot() :
 		m_autonomousCommand (0),
@@ -35,14 +41,14 @@ protected:
 
 	virtual void AutonomousInit()
 	{
-		Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
-		m_autonomousCommand = m_pCalibrationCommand;
+//		Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
+//		m_autonomousCommand = m_pCalibrationCommand;
 	}
-	
+
 	virtual void AutonomousPeriodic() 
 	{
 		Scheduler::GetInstance()->Run();
-		this->UpdateDashboard();
+		this->UpdateDashboard (Autonomous);
 		//Update the LED on the driver station to say if it has a target or not.
 		//@TODO test this.
 		if (CommandBase::s_camera)
@@ -65,7 +71,7 @@ protected:
 	virtual void TeleopPeriodic() 
 	{
 		Scheduler::GetInstance()->Run();
-		this->UpdateDashboard();
+		this->UpdateDashboard (Teleop);
 
 		//Update the LED on the driver station to say if it has a target or not.
 		//@TODO test this.
@@ -75,7 +81,8 @@ protected:
 
 	virtual void DisabledPeriodic()
 	{
-		this->UpdateDashboard();
+		CommandBase::s_drive->StopMotors();
+		this->UpdateDashboard (Disabled);
 		CommandBase::s_accelerometer->PerformCalibrartion();
 	}
 
@@ -83,7 +90,7 @@ protected:
 	 *
 	 * @author Stephen Nutt
 	 */
-	void UpdateDashboard()
+	void UpdateDashboard (RobotState state)
 	{
 		// Only update every 25 cycles (approx every 1/2 second)
 		if ((++m_dashboardCounter % 25) != 0) return;
@@ -95,17 +102,33 @@ protected:
 			double speed = pDrive->GetAvgSpeed();
 			SetSmartDashboardDouble("Average Drive Wheel Speed", speed);
 
-			char buffer[100];
+			const char* msg;
 			if (pDrive->IsAlive())
 			{
-				sprintf (buffer, "Alive at %d", m_dashboardCounter);
+				msg = "Alive at %d";
 			}
 			else
 			{
-				sprintf (buffer, "Dead at %d", m_dashboardCounter);
-				printf (buffer);
+				switch (state)
+				{
+				case Disabled:
+				default:
+					msg = "Disabled at %d";
+					break;
+
+				case Autonomous:
+					msg = "Autonomous stationary at %d";
+					break;
+
+				case Teleop:
+					printf ("Dead at %d\n", m_dashboardCounter / 25);
+					msg = "Dead at %d";
+					break;
+				}
 			}
 
+			char buffer[100];
+			sprintf (buffer, msg, m_dashboardCounter / 25);
 			dashboard.PutString ("Drive Status", buffer);
 		}
 

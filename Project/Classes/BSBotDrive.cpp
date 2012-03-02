@@ -250,6 +250,7 @@ void BSBotDrive::Stop()
 	DriveMotors::m_rearLeftMotor.StopMotor();
 	DriveMotors::m_frontRightMotor.StopMotor();
 	DriveMotors::m_frontLeftMotor.StopMotor();
+	m_safetyHelper->Feed();
 }
 
 /**
