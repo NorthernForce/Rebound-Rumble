@@ -281,7 +281,7 @@ void Camera::ProcessImages()
 		if (saveSourceImage ) SaveImage(m_image, "src.jpg");
 
 		//@TODO correct HSL thresholds.
-		Threshold violetThreshold (168, 205, 22, 255, 65, 255);
+		Threshold violetThreshold (172,195,59,120,119,255);
 		const std::auto_ptr<BinaryImage> violetPixels (m_image.ThresholdHSL(violetThreshold));
 		if (violetPixels.get() == 0) continue;
 		if (saveProcessedImages) SaveImage (*violetPixels, "violet.png");
