@@ -48,7 +48,13 @@ public:
 	//! Stops the robot
 	void Stop();
 
+	//! Returns the average speed of the motors in meters per second
     double GetAvgSpeed() const;
+
+	//! Returns true if the motor safety system has not stopped the
+	//! motors    
+    inline bool IsAlive() const
+    { return m_safetyHelper->IsAlive(); }
 
 private:
 	//! Set to true when the encoders are on, false when either use of the

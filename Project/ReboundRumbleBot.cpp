@@ -90,11 +90,24 @@ protected:
 
 		SmartDashboard& dashboard = *SmartDashboard::GetInstance();
 
-        if (const Drive* const pDrive = CommandBase::s_drive)
-        {
-            double speed = pDrive->GetAvgSpeed();
-            SetSmartDashboardDouble("Average Drive Wheel Speed", speed);
-        }
+		if (const Drive* const pDrive = CommandBase::s_drive)
+		{
+			double speed = pDrive->GetAvgSpeed();
+			SetSmartDashboardDouble("Average Drive Wheel Speed", speed);
+
+			char buffer[100];
+			if (pDrive->IsAlive())
+			{
+				sprintf (buffer, "Alive at %d", m_dashboardCounter);
+			}
+			else
+			{
+				sprintf (buffer, "Dead at %d", m_dashboardCounter);
+				printf (buffer);
+			}
+
+			dashboard.PutString ("Drive Status", buffer);
+		}
 
 		if (const Camera* const pCamera = CommandBase::s_camera)
 		{
@@ -111,20 +124,20 @@ protected:
 				dashboard.PutString("Target Distance","No target found.");
 			}
 
-            float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(pCamera->GetHorizontalDistance()));
-            if( arrivalAngle < k_aAngleMax &&
-                arrivalAngle > k_aAngleMin )
-            {
-            } else
-                dashboard.PutString("Directions", "Target is Ok.");
-            {
-                if(arrivalAngle > k_aAngleMax) arrivalAngle = k_aAngleMax;
-                if(arrivalAngle < k_aAngleMin) arrivalAngle = k_aAngleMin;
-                // Distance from target to drive to.
-                // Not currently used.
-                float x = - 2*k_targetHeight/(k_tanTheta + tan(arrivalAngle));
-                SetSmartDashboardDouble("Directions", x - pCamera->GetHorizontalDistance());
-            }
+			float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(pCamera->GetHorizontalDistance()));
+			if( arrivalAngle < k_aAngleMax &&
+				arrivalAngle > k_aAngleMin )
+			{
+			} else
+				dashboard.PutString("Directions", "Target is Ok.");
+			{
+				if(arrivalAngle > k_aAngleMax) arrivalAngle = k_aAngleMax;
+				if(arrivalAngle < k_aAngleMin) arrivalAngle = k_aAngleMin;
+				// Distance from target to drive to.
+				// Not currently used.
+				float x = - 2*k_targetHeight/(k_tanTheta + tan(arrivalAngle));
+				SetSmartDashboardDouble("Directions", x - pCamera->GetHorizontalDistance());
+			}
 		}
 		
 		if (const MaxbotixUltrasonic* const pUltrasonic = CommandBase::s_ultrasonicSensor)

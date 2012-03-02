@@ -22,6 +22,9 @@ public:
 	void DriveRobot (float speed, float direction);
 	void ChangeControlMode (bool enable);
     double GetAvgSpeed() const;
+    
+    bool IsAlive() const
+    { return drive->IsAlive(); }
 };
 
 #endif
