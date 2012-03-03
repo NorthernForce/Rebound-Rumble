@@ -17,7 +17,7 @@ class ReboundRumbleBot : public IterativeRobot
 	enum RobotState
 	{
 		Disabled,
-		Autonomous,
+		AutonomousState,
 		Teleop,
 	};
 public:
@@ -33,7 +33,7 @@ protected:
 	{
 		CommandBase::init();
 		//m_pCalibrationCommand = new CalibrateAccelerometer();
-        m_autonomousCommand = new Autonomous::Autonomous();
+        m_autonomousCommand = new Autonomous();
 	}
 
 	virtual void DisabledInit()
@@ -51,7 +51,7 @@ protected:
 	virtual void AutonomousPeriodic() 
 	{
 		Scheduler::GetInstance()->Run();
-		this->UpdateDashboard (Autonomous);
+		this->UpdateDashboard (AutonomousState);
 		//Update the LED on the driver station to say if it has a target or not.
 		//@TODO test this.
 		if (CommandBase::s_camera)
@@ -133,7 +133,7 @@ protected:
 					msg = "Disabled at %d";
 					break;
 
-				case Autonomous:
+				case AutonomousState:
 					msg = "Autonomous stationary at %d";
 					break;
 
@@ -230,7 +230,7 @@ private:
 		dashboard.PutString (name, buffer);
 	}
 
-	Command *m_autonomousCommand;
+	Autonomous *m_autonomousCommand;
 	
 	//! A counter to ensure the smart dashboard is updated frequently but
 	//! not continuously
