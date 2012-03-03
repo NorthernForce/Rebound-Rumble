@@ -80,7 +80,7 @@ void AccelerometerSubsystem::BeginStationaryCalibrartion()
 }
 
 //! Call to end the stationary calibration process
-void AccelerometerSubsystem::EndStationaryCalibrartion()
+void AccelerometerSubsystem::EndStationaryCalibration()
 {
 	if (m_currentState == eInStationaryCalibration)
 	{

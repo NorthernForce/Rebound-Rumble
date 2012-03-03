@@ -8,7 +8,7 @@
  *
  * Example:
  * new SimpleCommand<AccelerometerSubsystem> ("StopStationaryCalibration",
- *		*CommandBase::s_accelerometer, &AccelerometerSubsystem::EndStationaryCalibrartion);
+ *		*CommandBase::s_accelerometer, &AccelerometerSubsystem::EndStationaryCalibration);
  *
  *
  * @author Stephen Nutt

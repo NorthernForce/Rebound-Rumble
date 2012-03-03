@@ -35,7 +35,7 @@ public:
 	void BeginStationaryCalibrartion();
 
 	//! Call to end the stationary calibration process
-	void EndStationaryCalibrartion();
+	void EndStationaryCalibration();
 
 	//! Call to begin the dynamic calibration process while the robot
 	//! is moving straight either forwards or backwards
