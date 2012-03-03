@@ -23,16 +23,16 @@ OI* CommandBase::oi = NULL;
 void CommandBase::init() 
 {
     // Create a single static instance of all of your subsystems.
-//	s_drive = new Drive();
-//	s_ballShooter = new BallShooter();
-//	s_ballLifter = new BallLifter();
-//	s_camera = new Camera();
-//    s_ballPickup = new BallPickup();
+	s_drive = new Drive();
+	s_ballShooter = new BallShooter();
+	s_ballLifter = new BallLifter();
+	s_camera = new Camera();
+    s_ballPickup = new BallPickup();
 	s_gyro = new GyroSubsystem();
 	s_ultrasonicSensor = new MaxbotixUltrasonic (k_MaxbotixUltrasonic, k_MaxbotixSerialMode, k_MaxbotixOn);
 	//s_targetingUltrasonicSensor = new MaxbotixUltrasonic (k_targetingUltrasonic, k_targetingUltrasonicSerialMode, k_targetingUltrasonicOn);
 	s_accelerometer = new AccelerometerSubsystem();
-//	s_turret = new Turret();
+	s_turret = new Turret();
 	s_RampManipulator = new RampManipulator(); 
 	
 	oi = new OI();
