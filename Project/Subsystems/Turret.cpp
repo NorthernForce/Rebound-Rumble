@@ -68,7 +68,7 @@ void Turret::Turn(float speed)
 //			m_turretJaguar.Set(speed);
 //		}
 //	}
-	m_turretJaguar.Set(speed);
+	//m_turretJaguar.Set(speed);
 }
 
 /**

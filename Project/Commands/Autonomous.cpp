@@ -3,6 +3,7 @@
 #include "SimpleCommand.h"
 #include "CalibrateAccelerometer.h"
 #include "LowerRampManipulator.h"
+#include "StartPickup.h"
 #include "DriveToRamp.h"
 #include "../Subsystems/AccelerometerSubsystem.h"
 
@@ -26,8 +27,10 @@ Autonomous::Autonomous() {
 	AddSequential(new SimpleCommand<AccelerometerSubsystem>("EndStationaryCalibration",
 															*CommandBase::s_accelerometer,
 															&AccelerometerSubsystem::EndStationaryCalibration));
-	AddSequential(new ShootBall(2), 10);
+	AddSequential(new ShootBall(),6);
+	AddSequential(new StartPickup());
+	AddSequential(new ShootBall(),7);
 	AddSequential(new CalibrateAccelerometer());
-	AddParallel(new DriveToRamp());
-	AddSequential(new LowerRampManipulator());
+	//AddParallel(new DriveToRamp());
+	//AddSequential(new LowerRampManipulator());
 }

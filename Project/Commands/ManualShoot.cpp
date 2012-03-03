@@ -3,7 +3,7 @@
 ManualShoot::ManualShoot(): CommandBase("ManualShoot") {
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
-	Requires(s_ballShooter);
+	//Requires(s_ballShooter);
 	Requires(s_turret);
 }
 
@@ -16,7 +16,7 @@ void ManualShoot::Initialize() {
 void ManualShoot::Execute() {
 	XboxJoystick& controller = oi->GetManipulatorStick();
 	s_turret->Turn(-controller.GetRawAxis (4)/4);
-	s_ballShooter->SetSpeed(-controller.GetRawAxis(Joystick::kDefaultYAxis)*.8+.2);
+	//s_ballShooter->SetSpeed(-controller.GetRawAxis(Joystick::kDefaultYAxis)*.8+.2);
 }
 
 // Make this return true when this Command no longer needs to run execute()
