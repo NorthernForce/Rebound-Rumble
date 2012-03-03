@@ -155,7 +155,7 @@ protected:
 			SetSmartDashboardDouble ("FPS", time ? 1000000.0 / time : 0.0);
 			if (pCamera->HasTarget())
 			{
-				SetSmartDashboardDouble ("Target Angle", pCamera->GetAngleToTarget());
+				SetSmartDashboardDouble ("Target Anglein degrees", pCamera->GetDegreeAngleToTarget());
 				SetSmartDashboardDouble("Target Distance",pCamera->GetDistanceToTarget());
 			}
 			else

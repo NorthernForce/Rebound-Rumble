@@ -13,6 +13,7 @@
 #include "Commands/TurnTurretRight.h"
 #include "Commands/ReversePickup.h"
 #include "Commands/LockTarget.h"
+#include "Commands/StopFiring.h"
 #include "Robotmap.h"
 
 /** 
@@ -55,14 +56,12 @@ OI::OI() try :
     // Stick 2 buttons
     c2_AButton.WhileHeld(new ReversePickup());
     c2_BButton.WhileHeld(new LockTarget());
-//    c2_BButton.WhileHeld();
-   // c2_YButton.WhileHeld(new TurnTurretRight());
-//    c2_AButton.WhenPressed();
-   // c2_XButton.WhileHeld(new TurnTurretLeft());
+    //c2_XButton.WhileHeld(new TurnTurretLeft());
+    c2_YButton.WhileHeld(new ShootBall());
     c2_LeftButton.WhenPressed(new StopPickup());
     c2_RightButton.WhenPressed(new StartPickup());
     c2_StartButton.WhileHeld(new LockTarget());
-//    c2_BackButton.WhenPressed();
+    c2_BackButton.WhenPressed(new StopFiring());
     
     printf("All OI elements created successfully.");
     printf("\n");
