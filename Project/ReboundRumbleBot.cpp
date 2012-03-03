@@ -185,6 +185,7 @@ protected:
 			SetSmartDashboardDouble ("Target Distance inches", pUltrasonic->GetRangeInInches());
 			SetSmartDashboardDouble ("Ultrasonic Analog Voltage",pUltrasonic->GetVoltage());
 			SetSmartDashboardDouble ("Target Voltage", pUltrasonic->GetVoltage());
+			SetSmartDashboardDouble("Shooter Voltage",CommandBase::oi->GetManipulatorStick().GetRawAxis(Joystick::kDefaultYAxis)*.8+.2);
 		}
 		
 		if (const AccelerometerSubsystem* const pAccelerometer = CommandBase::s_accelerometer)
