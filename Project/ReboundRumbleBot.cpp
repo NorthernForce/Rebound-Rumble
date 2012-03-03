@@ -197,19 +197,22 @@ protected:
 				dashboard.PutString ("Accelerometer Z", "Not connected");
 				dashboard.PutString ("Level", "Not connected");
 			}
-			else if (pAccelerometer->IsCalibrated() == false)
-			{
-				dashboard.PutString ("Accelerometer X", "Uncalibrated");
-				dashboard.PutString ("Accelerometer Y", "Uncalibrated");
-				dashboard.PutString ("Accelerometer Z", "Uncalibrated");
-				dashboard.PutString ("Level", "Uncalibrated");
-			}
 			else
 			{
-				Vector3D val = pAccelerometer->GetAccelerations();
-				SetSmartDashboardDouble ("Accelerometer X", val.x);
-				SetSmartDashboardDouble ("Accelerometer Y", val.y);
-				SetSmartDashboardDouble ("Accelerometer Z", val.z);
+				if (pAccelerometer->IsCalibrated() == false)
+				{
+					dashboard.PutString ("Accelerometer X", "Uncalibrated");
+					dashboard.PutString ("Accelerometer Y", "Uncalibrated");
+					dashboard.PutString ("Accelerometer Z", "Uncalibrated");
+				}
+				else
+				{
+					Vector3D val = pAccelerometer->GetAccelerations();
+					SetSmartDashboardDouble ("Accelerometer X", val.x);
+					SetSmartDashboardDouble ("Accelerometer Y", val.y);
+					SetSmartDashboardDouble ("Accelerometer Z", val.z);
+				}
+
 				SetSmartDashboardDouble ("Level", pAccelerometer->GetLevel() * 180 / M_PI);
 			}
 		}

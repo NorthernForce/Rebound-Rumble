@@ -167,9 +167,30 @@ Vector3D AccelerometerSubsystem::GetAccelerations() const
  */
 float AccelerometerSubsystem::GetLevel() const
 {
-	const Vector3D current (m_x.GetValue(), m_y.GetValue(), m_z.GetValue());
-	double z = fabs (m_zAxis.DotProduct (current));
-	return z < 1.0 ? acos (z) : 0;
+	switch (m_currentState)
+	{
+	case eCalibrated:
+	case eInForwardCalibration:
+	case eInReverseCalibration:
+	case eStationaryCalibrationComplete:
+		{
+		const Vector3D current (m_x.GetValue(), m_y.GetValue(), m_z.GetValue());
+		double z = fabs (m_zAxis.DotProduct (current));
+		return z < 1.0 ? acos (z) : 0;
+		}
+
+	case eInStationaryCalibration:
+		{
+		const Vector3D current = this->GetRawVector();
+		const Vector3D zAxis (m_x.GetValue(), m_y.GetValue(), m_z.GetValue());
+		double z = fabs (zAxis.DotProduct (current));
+		return z < 1.0 ? acos (z) : 0;
+		}
+	
+	case eNotPresent:
+	default:
+		return 0.0;
+	}
 }
 
 /** @brief Obtains the raw uncalibrated acceleration vector from the
