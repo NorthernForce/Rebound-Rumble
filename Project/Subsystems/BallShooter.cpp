@@ -6,18 +6,19 @@
  * @brief The constructor for the ball shooter.
  */
 ShooterMotors::ShooterMotors() try:
-
-		m_flywheelFront((printf("Initializing front flywheel jaguar. \n"), k_flywheelFrontJaguar)),
-		m_flywheelBack((printf("Initializing rear flywheel jaguar. \n"), k_flywheelBackJaguar))
+	m_flywheelFront((printf("Initializing front flywheel jaguar. \n"), k_flywheelFrontJaguar)),
+	m_flywheelBack((printf("Initializing rear flywheel jaguar. \n"), k_flywheelBackJaguar))
 {
 	m_flywheelFront.ChangeControlMode(CANJaguar::kPercentVbus);
 	m_flywheelFront.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_flywheelFront.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
 	m_flywheelFront.EnableControl();
-	
+
 	m_flywheelBack.ChangeControlMode(CANJaguar::kPercentVbus);
 	m_flywheelBack.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_flywheelBack.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
 	m_flywheelBack.EnableControl();
-	
+
 	printf("Shooter jaguars successfully created. \n");
 }
 catch (exception e)
@@ -39,9 +40,9 @@ void BallShooter::InitDefaultCommand() {
 }
 
 /**
- * @brief Sets the pitcher to spin at a set speed 
+ * @brief Sets the pitcher to spin at a set speed
  * for startup.
- * 
+ *
  * @param velocity A float, the speed in meters per second.
  * This should always be positive.
  */
@@ -75,8 +76,6 @@ BallLifter::BallLifter():
  * @brief Sets up the default command for the lifter.
  */
 void BallLifter::InitDefaultCommand() {
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
 }
 
 /**
@@ -97,7 +96,7 @@ void BallLifter::DisableLift()
 
 /**
  * @brief Gets the state of the limit switch.
- * 
+ *
  * @return Bool, whether or not the limit is hit.
  */
 bool BallLifter::GetLimit()

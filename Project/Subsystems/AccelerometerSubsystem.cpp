@@ -10,9 +10,9 @@
 AccelerometerSubsystem::AccelerometerSubsystem() :
 	Subsystem("AccelerometerSubsystem"),
 	m_i2c (1),
-	m_x (0.01, 0.005),
-	m_y (0.01, 0.005),
-	m_z (0.01, 0.005),
+	m_x (0.001, 0),
+	m_y (0.001, 0),
+	m_z (0.001, 0),
 	m_currentState (eNotPresent)
 {
 	// If we can read a non 0 vector then it is present and the stationary
@@ -46,10 +46,15 @@ void AccelerometerSubsystem::WriteLog(ostream& os)
 
 void AccelerometerSubsystem::Update(UINT32 currTime)
 {
-	Vector3D accelerations = this->GetAccelerations();
-	m_x.Update(accelerations.x, currTime);
-	m_y.Update(accelerations.y, currTime);
-	m_z.Update(accelerations.z, currTime);
+	// If stationary is complete but active has not started,
+	// do not use the current acceleration values
+	if (m_currentState != eStationaryCalibrationComplete)
+	{
+		const Vector3D accelerations = this->GetRawVector();
+		m_x.Update(accelerations.x, currTime);
+		m_y.Update(accelerations.y, currTime);
+		m_z.Update(accelerations.z, currTime);
+	}
 }
 
 /**
@@ -65,13 +70,22 @@ void AccelerometerSubsystem::InitDefaultCommand()
  */
 void AccelerometerSubsystem::BeginStationaryCalibrartion()
 {
-    m_x.SetCorrectionGains(0.001, 0);
-    m_y.SetCorrectionGains(0.001, 0);
-    m_z.SetCorrectionGains(0.001, 0);
+	m_x.SetCorrectionGains(0.001, 0);
+	m_y.SetCorrectionGains(0.001, 0);
+	m_z.SetCorrectionGains(0.001, 0);
 	m_currentState = eInStationaryCalibration;
 	m_x.Clear();
 	m_y.Clear();
 	m_z.Clear();
+}
+
+//! Call to end the stationary calibration process
+void AccelerometerSubsystem::EndStationaryCalibrartion()
+{
+	if (m_currentState == eInStationaryCalibration)
+	{
+		m_currentState = eStationaryCalibrationComplete;
+	}
 }
 
 /** @brief Begins the stationary calibration process
@@ -81,7 +95,8 @@ void AccelerometerSubsystem::BeginStationaryCalibrartion()
 void AccelerometerSubsystem::BeginActiveCalibrartion (
 	bool forward)
 {
-	if (m_currentState == eInStationaryCalibration)
+	if (m_currentState == eStationaryCalibrationComplete ||
+		m_currentState == eInStationaryCalibration)
 	{
 		m_zAxis = Vector3D (m_x.GetValue(), m_y.GetValue(), m_z.GetValue());
 		m_zAxis.Normalize();
@@ -104,14 +119,10 @@ void AccelerometerSubsystem::BeginActiveCalibrartion (
  */
 void AccelerometerSubsystem::PerformCalibrartion()
 {
-	if (m_currentState == eCalibrated)
+	if (m_currentState == eCalibrated || m_currentState == eStationaryCalibrationComplete)
 		return;
 
-	const Vector3D v = GetRawVector();
-	const UINT32 now = GetFPGATime();
-	m_x.Update (v.x, now);
-	m_y.Update (v.y, now);
-	m_z.Update (v.z, now);
+	this->Update (GetFPGATime());
 }
 
 /** @brief Terminates the calibration routines
@@ -132,9 +143,9 @@ void AccelerometerSubsystem::EndCalibrartion()
 		m_xAxis = m_yAxis.CrossProduct (m_zAxis);
 		m_xAxis.Normalize();
 
-		m_x.SetCorrectionGains (0.1, 0.05);
-		m_y.SetCorrectionGains (0.1, 0.05);
-		m_z.SetCorrectionGains (0.1, 0.05);
+		m_x.SetCorrectionGains (0.05, 0.01);
+		m_y.SetCorrectionGains (0.05, 0.01);
+		m_z.SetCorrectionGains (0.05, 0.01);
 		m_currentState = eCalibrated;
 	}
 }
@@ -145,8 +156,20 @@ void AccelerometerSubsystem::EndCalibrartion()
  */
 Vector3D AccelerometerSubsystem::GetAccelerations() const
 {
-	const Vector3D current (GetRawVector());
+	const_cast<AccelerometerSubsystem&> (*this).Update(GetFPGATime());
+	const Vector3D current (m_x.GetValue(), m_y.GetValue(), m_z.GetValue());
 	return Vector3D (m_xAxis.DotProduct (current), m_yAxis.DotProduct (current), m_zAxis.DotProduct (current));
+}
+
+/** @brief Returns angle of tilt of the robot in radians
+ *
+ * @author Stephen Nutt
+ */
+float AccelerometerSubsystem::GetLevel() const
+{
+	const Vector3D current (m_x.GetValue(), m_y.GetValue(), m_z.GetValue());
+	double z = fabs (m_zAxis.DotProduct (current));
+	return z < 1.0 ? acos (z) : 0;
 }
 
 /** @brief Obtains the raw uncalibrated acceleration vector from the

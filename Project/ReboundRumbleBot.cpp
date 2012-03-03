@@ -2,6 +2,7 @@
 #include <Math.h>
 #include "CommandBase.h"
 #include "Commands/CalibrateAccelerometer.h"
+#include "Commands/SimpleCommand.h"
 
 /**
  * @brief This class controls the entire robot,
@@ -35,14 +36,15 @@ protected:
 
 	virtual void DisabledInit()
 	{
-		CommandBase::s_accelerometer->BeginStationaryCalibrartion();
+		if (AccelerometerSubsystem* const pAccelerometer = CommandBase::s_accelerometer)
+			pAccelerometer->BeginStationaryCalibrartion();
 		printf("Disabled.");
 	}
 
 	virtual void AutonomousInit()
 	{
-//		Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
-//		m_autonomousCommand = m_pCalibrationCommand;
+		Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
+		m_autonomousCommand = m_pCalibrationCommand;
 	}
 
 	virtual void AutonomousPeriodic() 
@@ -53,6 +55,9 @@ protected:
 		//@TODO test this.
 		if (CommandBase::s_camera)
 			CommandBase::oi->SetTargetLEDs(CommandBase::s_camera->HasValidTarget());
+
+		if (AccelerometerSubsystem* const pAccelerometer = CommandBase::s_accelerometer)
+			pAccelerometer->Update (GetFPGATime());
 	}
 	
 	virtual void TeleopInit() 
@@ -72,13 +77,25 @@ protected:
 	{
 		Scheduler::GetInstance()->Run();
 		this->UpdateDashboard (Teleop);
+
+		if (AccelerometerSubsystem* const pAccelerometer = CommandBase::s_accelerometer)
+		{
+			pAccelerometer->Update (GetFPGATime());
+		}
 	}
 
 	virtual void DisabledPeriodic()
 	{
-		CommandBase::s_drive->StopMotors();
+		if (CommandBase::s_drive)
+		{
+			CommandBase::s_drive->StopMotors();
+		}
+
 		this->UpdateDashboard (Disabled);
-		CommandBase::s_accelerometer->PerformCalibrartion();
+		if (AccelerometerSubsystem* const pAccelerometer = CommandBase::s_accelerometer)
+		{
+			pAccelerometer->PerformCalibrartion();
+		}
 	}
 
 	/** @brief Updates the values on the dashboard
@@ -91,7 +108,11 @@ protected:
 		if ((++m_dashboardCounter % 25) != 0) return;
 
 		SmartDashboard& dashboard = *SmartDashboard::GetInstance();
-		SetSmartDashboardDouble("Elevator limit switch()",CommandBase::s_ballLifter->GetLimit());
+		if (BallLifter* const pLifter = CommandBase::s_ballLifter)
+		{
+			SetSmartDashboardDouble("Elevator limit switch()", pLifter->GetLimit());
+		}
+
 		if (const Drive* const pDrive = CommandBase::s_drive)
 		{
 			double speed = pDrive->GetAvgSpeed();
@@ -187,8 +208,7 @@ protected:
 				SetSmartDashboardDouble ("Accelerometer X", val.x);
 				SetSmartDashboardDouble ("Accelerometer Y", val.y);
 				SetSmartDashboardDouble ("Accelerometer Z", val.z);
-				val.Normalize();
-				SetSmartDashboardDouble ("Level", acos (val.z) * 180 / M_PI);
+				SetSmartDashboardDouble ("Level", pAccelerometer->GetLevel() * 180 / M_PI);
 			}
 		}
 	}

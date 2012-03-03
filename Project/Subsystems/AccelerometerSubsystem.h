@@ -19,20 +19,23 @@ private:
 	// for methods that implement subsystem capabilities
 public:
 	AccelerometerSubsystem();
-    
+
 	AlphaBetaFilter<double>& GetX();
 	AlphaBetaFilter<double>& GetY();
 	AlphaBetaFilter<double>& GetZ();
 
-    void EnableLogging();
-    void DisableLogging();
-    void WriteLog(ostream& os);
-    void Update(UINT32 currTime);
+	void EnableLogging();
+	void DisableLogging();
+	void WriteLog(ostream& os);
+	void Update(UINT32 currTime);
 
 	void InitDefaultCommand();
-	
+
 	//! Call to begin the stationary calibration process
 	void BeginStationaryCalibrartion();
+
+	//! Call to end the stationary calibration process
+	void EndStationaryCalibrartion();
 
 	//! Call to begin the dynamic calibration process while the robot
 	//! is moving straight either forwards or backwards
@@ -59,6 +62,9 @@ public:
 	//! Returns the current acceleration vector
 	Vector3D GetAccelerations() const;
 
+	//! Returns the robot levelness in radians - 0 is level, PI/2 the robot is on it's side
+	float GetLevel() const;
+
 private:
 	Vector3D GetRawVector() const;
 
@@ -66,6 +72,7 @@ private:
 	{
 		eNotPresent,				//!< No sensor is present
 		eInStationaryCalibration,
+		eStationaryCalibrationComplete,
 		eInForwardCalibration,
 		eInReverseCalibration,
 		eCalibrated
@@ -79,7 +86,7 @@ private:
 	AlphaBetaFilter<double> m_x;
 	AlphaBetaFilter<double> m_y;
 	AlphaBetaFilter<double> m_z;
-	
+
 	Vector3D m_xAxis;	//!< Unit vector right
 	Vector3D m_yAxis;	//!< Unit vector forwards
 	Vector3D m_zAxis;	//!< Unit vector down

@@ -1,5 +1,4 @@
 #include "LogAccelerometer.h"
-//#include <fstream>
 
 IMAQ_FUNC int Priv_SetWriteFileAllowed(UINT32 enable);
 
@@ -26,7 +25,7 @@ void LogAccelerometer::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void LogAccelerometer::Execute() {
-	s_accelerometer->Update((UINT32)(1000*TimeSinceInitialized()));
+	s_accelerometer->Update(GetFPGATime());
 }
 
 // Make this return true when this Command no longer needs to run execute()
