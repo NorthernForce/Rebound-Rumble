@@ -2,9 +2,9 @@
 #include "../Robotmap.h"
 
 /**
- * @brief Constructor for the Accelerometer Subsystem. 
+ * @brief Constructor for the Accelerometer Subsystem.
  * Creates the Accelerometer object.
- * 
+ *
  * @author Arthur Lockman
  */
 AccelerometerSubsystem::AccelerometerSubsystem() :

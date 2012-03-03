@@ -10,10 +10,10 @@
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
- * 
+ *
  * @author Arthur Lockman
  */
- 
+
 // For example to map the left and right motors, you could define the
 // following variables to use with your drivetrain subsystem.
 // #define LEFTMOTOR 1
@@ -41,7 +41,7 @@ enum AnalogAddress
 	k_MaxbotixUltrasonic = 1,
 	k_targetingUltrasonic = 2,
 };
-	
+
 enum DigitalAddress
 {
 	k_Accl_SPI_CK = 1,
@@ -86,7 +86,7 @@ enum EnhancedIOAnalogAddresses
 // PWM Assigments
 enum PWMAddress
 {
-//	k_pwmCameraPan  = 1, 
+//	k_pwmCameraPan  = 1,
 //	k_pwmCameraTilt = 2,
 	k_LeftServoPort = 3,
 	k_RightServoPort = 4,
@@ -157,4 +157,11 @@ static const float k_spinConstantB = 23.865;
 static const float k_shooterWheelRadius = (6)*(0.0254);
 static const float k_driveWheelRadius = 12*0.0254;
 static const float k_driveGearRatio = 1/12.75;
+
+static const float k_shooterP = 17;
+static const float k_shooterI = .01;
+static const float k_shooterD = 1;
+static const int k_shooterEncoderLines = 65535;
+static const float k_shooterMaxOutputVoltage = 12;
+
 #endif

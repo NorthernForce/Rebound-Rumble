@@ -2,6 +2,7 @@
 #include <Math.h>
 #include "CommandBase.h"
 #include "Commands/CalibrateAccelerometer.h"
+#include "Commands/Autonomous.h"
 #include "Commands/SimpleCommand.h"
 
 /**
@@ -31,7 +32,8 @@ protected:
 	virtual void RobotInit()
 	{
 		CommandBase::init();
-		m_pCalibrationCommand = new CalibrateAccelerometer();
+		//m_pCalibrationCommand = new CalibrateAccelerometer();
+        m_autonomousCommand = new Autonomous::Autonomous();
 	}
 
 	virtual void DisabledInit()
@@ -43,8 +45,7 @@ protected:
 
 	virtual void AutonomousInit()
 	{
-		Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
-		m_autonomousCommand = m_pCalibrationCommand;
+        Scheduler::GetInstance()->AddCommand(m_autonomousCommand);
 	}
 
 	virtual void AutonomousPeriodic() 

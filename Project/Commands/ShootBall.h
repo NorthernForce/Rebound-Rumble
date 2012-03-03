@@ -10,8 +10,10 @@
  */
 class ShootBall: public CommandBase {
 	int count;
+    int m_ballsToShoot;
 public:
 	ShootBall();
+	ShootBall(int num);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
