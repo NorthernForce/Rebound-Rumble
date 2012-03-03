@@ -54,11 +54,11 @@ OI::OI() try :
     
     // Stick 2 buttons
     c2_AButton.WhileHeld(new ReversePickup());
-//    c2_BButton.WhileHeld(new TurnTurretRight());
+    c2_BButton.WhileHeld(new LockTarget());
 //    c2_BButton.WhileHeld();
-    c2_YButton.WhileHeld(new TurnTurretRight());
+   // c2_YButton.WhileHeld(new TurnTurretRight());
 //    c2_AButton.WhenPressed();
-    c2_XButton.WhileHeld(new TurnTurretLeft());
+   // c2_XButton.WhileHeld(new TurnTurretLeft());
     c2_LeftButton.WhenPressed(new StopPickup());
     c2_RightButton.WhenPressed(new StartPickup());
     c2_StartButton.WhileHeld(new LockTarget());

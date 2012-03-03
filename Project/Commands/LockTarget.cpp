@@ -18,11 +18,11 @@ void LockTarget::Execute() {
 	if(s_camera->HasTarget())
 	{
 		if(s_camera->GetDegreeAngleToTarget()>3)
-			//CommandBase::s_turret->Turn(CommandBase::s_camera->GetDegreeAngleToTarget()/23.5/10+.12);
-			CommandBase::s_turret->Turn(-.15);
+			CommandBase::s_turret->Turn(CommandBase::s_camera->GetDegreeAngleToTarget()/23.5/10+.12);
+			//CommandBase::s_turret->Turn(-.15);
 		if(s_camera->GetDegreeAngleToTarget()<3)
-			//CommandBase::s_turret->Turn(CommandBase::s_camera->GetDegreeAngleToTarget()/23.5/10-.12);
-			CommandBase::s_turret->Turn(.15);
+			CommandBase::s_turret->Turn(CommandBase::s_camera->GetDegreeAngleToTarget()/23.5/10-.12);
+			//CommandBase::s_turret->Turn(.15);
 	}
 }
 

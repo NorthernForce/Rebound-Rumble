@@ -1,6 +1,7 @@
 #include "Turret.h"
 #include "../Robotmap.h"
-#include "../Commands/AimTurret.h"
+#include "../Commands/ManualShoot.h"
+
 
 
 
@@ -27,7 +28,7 @@ Turret::Turret(): Subsystem("Turret"),
 void Turret::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
-//	SetDefaultCommand(new AimTurret());
+	SetDefaultCommand(new ManualShoot());
 }
 void Turret::SetAngle(float Angle)
 {
