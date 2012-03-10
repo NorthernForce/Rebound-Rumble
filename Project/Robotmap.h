@@ -122,16 +122,6 @@ enum RelayPort
 #define k_GravityAccel 9.8
 #define k_ArrivalAngle 45.0
 
-//PID Values and encoder references
-#define k_driveP -0.3
-#define k_driveI 0.0
-#define k_driveD 0.0
-#define k_encoderPulsesPerRev 256
-#define k_driveMaxOutputVoltage 12
-#define k_pickupMaxOutputVoltage 12
-#define k_storageMaxOutputVoltage 12
-#define k_useEncoders false
-
 // Number of Images to capture when the image capture button
 // is held down
 #define k_ImageCaptureCount 10
@@ -158,10 +148,20 @@ static const float k_shooterWheelRadius = (6)*(0.0254);
 static const float k_driveWheelRadius = 12*0.0254;
 static const float k_driveGearRatio = 1/12.75;
 
+//PID Values
+static const float k_driveP = -0.3;
+static const float k_driveI = 0.0;
+static const float k_driveD = 0.0;
 static const float k_shooterP = 17;
 static const float k_shooterI = .01;
 static const float k_shooterD = 1;
+static const float k_turretP = 960.000;
+static const float k_turretI = 3.200;
+static const float k_turretD = 32767.000;
 static const int k_shooterEncoderLines = 65535;
 static const float k_shooterMaxOutputVoltage = 12;
+static const int k_encoderPulsesPerRev = 256;
+static const int k_driveMaxOutputVoltage = 12;
+static const bool k_useEncoders = false;
 
 #endif
