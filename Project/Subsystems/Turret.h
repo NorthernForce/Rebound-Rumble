@@ -21,14 +21,10 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	float m_currentAngle; //radians
-	DigitalInput m_leftLimit;
-	DigitalInput m_rightLimit;
-	bool AtLimit();
 public:
 	Turret();
-	void SetAngle(float Angle);
-    float GetAngle();
-	void TurnTurret(float Angle);
+	void SetPosition(float Angle);
+    double GetPosition();
 	void InitDefaultCommand();
 	void Turn(float speed);
 };

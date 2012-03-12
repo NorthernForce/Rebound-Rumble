@@ -8,8 +8,12 @@
 TurretMotors::TurretMotors()  try:
 	m_turretJaguar((printf("Initializing turret jaguar. \n"), k_turretJaguar))
 	{
-		m_turretJaguar.ChangeControlMode(CANJaguar::kPercentVbus);
+		m_turretJaguar.ChangeControlMode(CANJaguar::kPosition);
 		m_turretJaguar.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+		m_turretJaguar.SetPID(k_turretP,k_turretI,k_turretD);
+		m_turretJaguar.SetPositionReference(CANJaguar::kPosRef_QuadEncoder);
+		m_turretJaguar.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+		m_turretJaguar.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
 		m_turretJaguar.EnableControl();	
 		printf("Turret jaguar successfully created. \n");
 	}
@@ -18,9 +22,7 @@ TurretMotors::TurretMotors()  try:
 		printf("Error creating turret jaguars.");
 		printf(e.what());
 	}
-Turret::Turret(): Subsystem("Turret"),
-		m_leftLimit(k_turretLeftLimit),
-		m_rightLimit(k_turretRightLimit)
+Turret::Turret(): Subsystem("Turret")
 {
 	
 }
@@ -30,18 +32,14 @@ void Turret::InitDefaultCommand() {
 	//SetDefaultCommand(new MySpecialCommand());
 	SetDefaultCommand(new ManualShoot());
 }
-void Turret::SetAngle(float Angle)
+void Turret::SetPosition(float Angle)
 {
-	
-}
-void Turret::TurnTurret(float Angle)
-{
-	
+	m_turretJaguar.Set(Angle);
 }
 
-float Turret::GetAngle()
+double Turret::GetPosition()
 {
-	return 0.0; // TODO: Implement this.
+	return m_turretJaguar.GetPosition();
 }
 
 /**
@@ -69,20 +67,4 @@ void Turret::Turn(float speed)
 //		}
 //	}
 	//m_turretJaguar.Set(speed);
-}
-
-/**
- * @brief Gets whether or not one of the limits on the 
- * turret is hit.
- * 
- * @return A bool, whether the limit is hit or not.
- */
-bool Turret::AtLimit()
-{
-	if (m_leftLimit.Get())
-		return true;
-	else if (m_rightLimit.Get())
-		return true;
-	else
-		return false;
 }
