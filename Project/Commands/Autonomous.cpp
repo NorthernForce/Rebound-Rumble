@@ -6,6 +6,7 @@
 #include "StartPickup.h"
 #include "DriveToRamp.h"
 #include "../Subsystems/AccelerometerSubsystem.h"
+#include "AimTurret.h"
 
 Autonomous::Autonomous() {
         // Add Commands here:
@@ -24,6 +25,7 @@ Autonomous::Autonomous() {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+	AddParallel(new AimTurret());
 	AddSequential(new SimpleCommand<AccelerometerSubsystem>("EndStationaryCalibration",
 															*CommandBase::s_accelerometer,
 															&AccelerometerSubsystem::EndStationaryCalibration));

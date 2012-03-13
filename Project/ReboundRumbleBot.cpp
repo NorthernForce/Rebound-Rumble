@@ -4,6 +4,7 @@
 #include "Commands/CalibrateAccelerometer.h"
 #include "Commands/Autonomous.h"
 #include "Commands/SimpleCommand.h"
+#include "Commands/AimTurret.h"
 
 /**
  * @brief This class controls the entire robot,
@@ -23,6 +24,7 @@ class ReboundRumbleBot : public IterativeRobot
 public:
 	ReboundRumbleBot() :
 		m_autonomousCommand (0),
+		m_aimCommand (),
 		m_dashboardCounter (0),
 		m_pCalibrationCommand (0)
 	{
@@ -34,6 +36,7 @@ protected:
 		CommandBase::init();
 		//m_pCalibrationCommand = new CalibrateAccelerometer();
         m_autonomousCommand = new Autonomous();
+        m_aimCommand = new AimTurret();
 	}
 
 	virtual void DisabledInit()
@@ -71,7 +74,7 @@ protected:
 			// this line or comment it out.
 			m_autonomousCommand->Cancel();
 		}
-		//Scheduler::GetInstance()->AddCommand (m_pCalibrationCommand);
+		Scheduler::GetInstance()->AddCommand (m_aimCommand);
 	}
 	
 	virtual void TeleopPeriodic() 
@@ -234,6 +237,7 @@ private:
 	}
 
 	Autonomous *m_autonomousCommand;
+	AimTurret *m_aimCommand;
 	
 	//! A counter to ensure the smart dashboard is updated frequently but
 	//! not continuously

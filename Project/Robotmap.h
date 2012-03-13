@@ -147,6 +147,7 @@ static const float k_spinConstantB = 23.865;
 static const float k_shooterWheelRadius = (6)*(0.0254);
 static const float k_driveWheelRadius = 12*0.0254;
 static const float k_driveGearRatio = 1/12.75;
+static const float k_turretCenter = 3.3;
 
 //PID Values
 static const float k_driveP = -0.3;

@@ -3,15 +3,11 @@
 
 namespace
 {
-	const double p = 0.2; //set this value
+	const double p = 1.0; //set this value
 	const double i = 0.0; //keep at zero
 	const double d = 0.0; //set this value
 
-	const double tolerance = 5; //tolerance in percent
-
-	const double maxAngle = 25; //range is +- maxAngle
-
-	const double scanSpeed = 0.1; //Speed to scan for a target if one isn't found.
+	const double tolerance = 3; //tolerance in percent
 }
 
 AimTurret::AimTurret(): PIDCommand(p,i,d)
@@ -25,40 +21,32 @@ void AimTurret::Initialize()
 {
 	this->_Initialize();
 	PIDController& PID_Controller = *GetPIDController();
-	PID_Controller.SetInputRange(-maxAngle, maxAngle);
-	PID_Controller.SetOutputRange(-1,1);
+	PID_Controller.SetInputRange(-0.4, 0.4);
+	PID_Controller.SetOutputRange(-0.3,0.3);
 	PID_Controller.SetTolerance(tolerance);
 	SetSetpoint(0.0);
 }
 
 /**
- * @brief Aims the turret. What this does at the moment is to
- * aim the turret at the target if the camera sees a target. Otherwise,
- * it will scan back and forth slowly to help the camera find a target.
- * THIS NEEDS TO BE TESTED.
+ * @brief Aims the turret.
  */
 void AimTurret::Execute()
 {
-	if (!(CommandBase::s_camera->HasTarget()))
-	{
-		CommandBase::s_turret->Turn(0);
-	}
-	else if (CommandBase::s_camera->HasTarget())
-	{
-		this->_Execute();
-	}
+	if (CommandBase::s_camera->HasTarget())
+		_Execute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AimTurret::IsFinished()
 {
-	return (CommandBase::s_camera->GetAngleToTarget() == 0);
+	return false;
 }
 
 // Called once after isFinished returns true
 void AimTurret::End()
 {
 	this->_End();
+	CommandBase::s_turret->SetPosition(k_turretCenter);
 }
 
 // Called when another command which requires one or more of the same
@@ -66,6 +54,7 @@ void AimTurret::End()
 void AimTurret::Interrupted()
 {
 	this->_Interrupted();
+	CommandBase::s_turret->SetPosition(k_turretCenter);
 }
 
 double AimTurret::ReturnPIDInput()
@@ -77,7 +66,5 @@ void AimTurret::UsePIDOutput(double output)
 {
 	//printf("Using PID Output\n\r");
 	//printf("Output: %f\n\r", output);
-	PIDController& PID_Controller = *GetPIDController();
-	if(!(PID_Controller.OnTarget()))
-		CommandBase::s_turret->Turn(output);
+	CommandBase::s_turret->SetPosition(output);
 }

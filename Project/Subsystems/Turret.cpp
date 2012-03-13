@@ -1,8 +1,7 @@
 #include "Turret.h"
 #include "../Robotmap.h"
 #include "../Commands/ManualShoot.h"
-
-
+#include "../Commands/CalibrateTurret.h"
 
 
 TurretMotors::TurretMotors()  try:
@@ -30,20 +29,58 @@ Turret::Turret(): Subsystem("Turret")
 void Turret::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new ManualShoot());
-}
-void Turret::SetPosition(float Angle)
-{
-	m_turretJaguar.Set(Angle);
+	SetDefaultCommand(new CalibrateTurret());
 }
 
+/**
+ * @brief Sets the current set position of the Turret jag.
+ * @param Angle The position to set it to.
+ */
+void Turret::SetPosition(float Angle)
+{
+	m_turretJaguar.Set(-Angle);
+}
+/**
+ * @brief Gets the current set position of the Turret jag.
+ * @return The current position of the turret.
+ */
 double Turret::GetPosition()
 {
 	return m_turretJaguar.GetPosition();
 }
 
 /**
- * @brief Turns the turret at a specified speed.
+ * @brief Enables control at a certain position.
+ * @param position The position to enable control at.
+ */
+void Turret::EnableControl(double position)
+{
+	m_turretJaguar.EnableControl(position);
+}
+
+/**
+ * @brief Disables the jaguar.
+ */
+void Turret::DisableControl()
+{
+	m_turretJaguar.DisableControl();
+}
+
+/**
+ * @brief Gets whether or not one of the limits is hit.
+ */
+bool Turret::GetLimit()
+{
+	return m_turretJaguar.GetForwardLimitOK();
+}
+
+void Turret::SetMaxVoltage(double voltage)
+{
+	m_turretJaguar.ConfigMaxOutputVoltage(voltage);
+}
+
+/**
+ * @brief [DEPRECATED] Turns the turret at a specified speed.
  * 
  * @param speed The speed at which to turn the turret.
  */

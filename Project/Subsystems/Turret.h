@@ -27,6 +27,10 @@ public:
     double GetPosition();
 	void InitDefaultCommand();
 	void Turn(float speed);
+	void EnableControl(double position = 0.0);
+	void DisableControl();
+	bool GetLimit();
+	void SetMaxVoltage(double voltage);
 };
 
 #endif
