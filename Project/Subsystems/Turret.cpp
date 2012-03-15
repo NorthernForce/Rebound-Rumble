@@ -34,28 +34,29 @@ void Turret::InitDefaultCommand() {
 
 /**
  * @brief Sets the current set position of the Turret jag.
- * @param Angle The position to set it to.
+ * @param Angle The position to set it to in radians.
  */
 void Turret::SetPosition(float Angle)
 {
-	m_turretJaguar.Set(-Angle);
+	float posAngle = Angle*(k_turretRad);
+	m_turretJaguar.Set(-posAngle);
 }
 /**
  * @brief Gets the current set position of the Turret jag.
- * @return The current position of the turret.
+ * @return The current position of the turret in radians.
  */
 double Turret::GetPosition()
 {
-	return m_turretJaguar.GetPosition();
+	return m_turretJaguar.GetPosition()*(k_turretRad);
 }
 
 /**
  * @brief Enables control at a certain position.
- * @param position The position to enable control at.
+ * @param position The position to enable control at, in radians.
  */
 void Turret::EnableControl(double position)
 {
-	m_turretJaguar.EnableControl(position);
+	m_turretJaguar.EnableControl(position/(k_turretRad));
 }
 
 /**

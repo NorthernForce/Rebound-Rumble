@@ -12,14 +12,14 @@ void CalibrateTurret::Initialize()
 {
 	s_turret->SetMaxVoltage(6.0);
 	s_turret->EnableControl(0.0);
-	s_turret->SetPosition(-10);
+	s_turret->SetPosition(-3);
 	
 }
 
 // Called repeatedly when this Command is scheduled to run
 void CalibrateTurret::Execute() 
 {
-	s_turret->SetPosition(-10);
+	s_turret->SetPosition(-3);
 }
 
 // Make this return true when this Command no longer needs to run execute()

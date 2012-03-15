@@ -80,6 +80,9 @@ private:
 	
 	//! The time it took to process the last frame in ms
 	UINT32 m_frameProcessingTime;
+	
+	//! The turret position at the time of camera readout.
+	float m_lastTurretPosition;
 };
 
 #endif

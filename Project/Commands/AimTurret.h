@@ -2,18 +2,13 @@
 #define AIMTURRET_H
 
 #include "../CommandBase.h"
-#include <math.h>
+
 /**
- * This command will aim the turret at the target. While it is
- * running, it will use a PID controller to move the turret
- * based on the error between the turret's current angle with the
- * target and the desired angle with the target (zero). It also
- * has a deadband that will stop the turret if the error is less
- * than a predefined percentage value. This is intended to prevent 
- * "jitter," but it can be easily disabled if this doesn't work.
- * @author Conor McGrory
+ * Aims the turret without using a PID command.
+ *
+ * @author Arthur Lockman
  */
-class AimTurret: public PIDCommand {
+class AimTurret: public CommandBase {
 public:
 	AimTurret();
 	virtual void Initialize();
@@ -21,8 +16,6 @@ public:
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
-	virtual double ReturnPIDInput();
-	virtual void UsePIDOutput(double output);
 };
 
 #endif

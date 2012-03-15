@@ -4,6 +4,8 @@
 #include "Camera.h"
 #include "../Robotmap.h"
 #include "Vision/BinaryImage.h"
+#include "Turret.h"
+#include "../CommandBase.h"
 
 /** Private NI function needed to write to the VxWorks target */
 IMAQ_FUNC int Priv_SetWriteFileAllowed(UINT32 enable); 
@@ -194,65 +196,25 @@ float Camera::GetAngleToTarget() const
 	// the target will be in the center of the camera
 	// image, and that is what matters.
 	int center = topTarget.left + topTarget.width / 2;
+	float turretError = CommandBase::s_turret->GetPosition() - m_lastTurretPosition;
 	switch (m_cam.GetResolution())
 	{
 		case AxisCameraParams::kResolution_160x120:
-			return (center - 80) / 4 * M_PI / 180;
+			return -((center - 80) / 4 * M_PI / 180)-turretError;
 
 		case AxisCameraParams::kResolution_320x240:
-			return (center - 160) / 8 * M_PI / 180;
+			return -((center - 160) / 8 * M_PI / 180)-turretError;
 
 		case AxisCameraParams::kResolution_640x480:
 		case AxisCameraParams::kResolution_640x360:
 		default:
-			return (center - 320) / 16 * M_PI / 180;
+			return -((center - 320) / 16 * M_PI / 180)-turretError;
 	}
 }
 
 float Camera::GetDegreeAngleToTarget() const
 {
-	Rect topTarget;
-	topTarget.top = INT_MAX;
-
-	// We need to lock m_cameraSemaphore to protect access
-	// to m_particles
-	{
-		const Synchronized sync (m_cameraSemaphore);
-		if (m_particles.empty())
-		{
-			//return std::numeric_limits<float>::quiet_NaN()
-			return -1;
-		}
-
-		for (size_t i = 0; i < m_particles.size(); ++i)
-		{
-			const Rect& r = m_particles[i].boundingRect;
-			if (r.top < topTarget.top)
-			{
-				topTarget = r;
-			}
-		}
-	}
-
-	// Calculate an approximate angle to the target
-	// This is very imprecise, but the precision does
-	// not matter as when we are aligned on the target
-	// the target will be in the center of the camera
-	// image, and that is what matters.
-	int center = topTarget.left + topTarget.width / 2;
-	switch (m_cam.GetResolution())
-	{
-		case AxisCameraParams::kResolution_160x120:
-			return (center - 80) / 4;
-
-		case AxisCameraParams::kResolution_320x240:
-			return (center - 160) / 8;
-
-		case AxisCameraParams::kResolution_640x480:
-		case AxisCameraParams::kResolution_640x360:
-		default:
-			return (center - 320) / 16;
-	}
+	return this->GetAngleToTarget() / M_PI / 180;
 }
 
 /** @brief Sets the directory within which to write the camera images
@@ -301,7 +263,7 @@ void Camera::ProcessImages()
 	m_cam.WriteResolution(AxisCamera::kResolution_320x240);
 	m_cam.WriteCompression(20);
 	m_cam.WriteBrightness(50);
-    m_cam.WriteMaxFPS(8);
+    m_cam.WriteMaxFPS(30);
 	printf("Camera parameters set.\n");
 
 	UINT32 frameStart = GetFPGATime();
@@ -313,7 +275,9 @@ void Camera::ProcessImages()
 			taskDelay (2);
 			continue;
 		}
-
+		
+		m_lastTurretPosition = CommandBase::s_turret->GetPosition();
+		
 		bool saveSourceImage = false;
 		bool saveProcessedImages = false;
 		if (m_imageNo < m_lastImageNo)
@@ -327,7 +291,7 @@ void Camera::ProcessImages()
 		if (saveSourceImage ) SaveImage(m_image, "src.jpg");
 
 		
-		Threshold violetThreshold (201,229,59,200,129,255);
+		Threshold violetThreshold (195,233,79,255,98,215);
 		const std::auto_ptr<BinaryImage> violetPixels (m_image.ThresholdHSL(violetThreshold));
 		if (violetPixels.get() == 0) continue;
 		if (saveProcessedImages) SaveImage (*violetPixels, "violet.png");

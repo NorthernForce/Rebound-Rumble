@@ -105,16 +105,19 @@ enum RelayPort
 #define k_followDeadband 2
 
 //Xbox Controller Ports
-#define k_XBoxButtonA 1
-#define	k_XBoxButtonB 2
-#define	k_XBoxButtonX 3
-#define	k_XBoxButtonY 4
-#define	k_XBoxButtonLeft 5
-#define	k_XBoxButtonRight 6
-#define	k_XBoxButtonBack 7
-#define	k_XBoxButtonStart 8
-#define	k_XBoxButtonLeftJoystick 9
-#define	k_XBoxButtonRightJoystick 10
+enum XBoxJoystickPorts
+{
+	k_XBoxButtonA = 1,
+	k_XBoxButtonB = 2,
+	k_XBoxButtonX = 3,
+	k_XBoxButtonY = 4,
+	k_XBoxButtonLeft = 5,
+	k_XBoxButtonRight = 6,
+	k_XBoxButtonBack = 7,
+	k_XBoxButtonStart = 8,
+	k_XBoxButtonLeftJoystick = 9,
+	k_XBoxButtonRightJoystick = 10,
+};
 #define k_driveJoystickPort 1
 #define k_manipulatorJoystickPort 2
 
@@ -147,7 +150,9 @@ static const float k_spinConstantB = 23.865;
 static const float k_shooterWheelRadius = (6)*(0.0254);
 static const float k_driveWheelRadius = 12*0.0254;
 static const float k_driveGearRatio = 1/12.75;
-static const float k_turretCenter = 3.3;
+//@TODO Ensure that these are correct.
+static const float k_turretCenter = 1.5707963267948966192313216916397514420985846996875529;
+static const float k_turretRad = 0.4712388980384689857693965074919254326295754099062658;
 
 //PID Values
 static const float k_driveP = -0.3;

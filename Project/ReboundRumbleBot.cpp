@@ -4,7 +4,7 @@
 #include "Commands/CalibrateAccelerometer.h"
 #include "Commands/Autonomous.h"
 #include "Commands/SimpleCommand.h"
-#include "Commands/AimTurret.h"
+#include "Commands/AimTurretPID.h"
 
 /**
  * @brief This class controls the entire robot,
@@ -36,7 +36,7 @@ protected:
 		CommandBase::init();
 		//m_pCalibrationCommand = new CalibrateAccelerometer();
         m_autonomousCommand = new Autonomous();
-        m_aimCommand = new AimTurret();
+        m_aimCommand = new AimTurretPID();
 	}
 
 	virtual void DisabledInit()
@@ -158,12 +158,14 @@ protected:
 			SetSmartDashboardDouble ("FPS", time ? 1000000.0 / time : 0.0);
 			if (pCamera->HasTarget())
 			{
-				SetSmartDashboardDouble ("Target Anglein degrees", pCamera->GetDegreeAngleToTarget());
+				SetSmartDashboardDouble ("Target Angle In Radians", pCamera->GetAngleToTarget());
+				SetSmartDashboardDouble ("Target Angle In Degrees", pCamera->GetDegreeAngleToTarget());
 				SetSmartDashboardDouble("Target Distance",pCamera->GetDistanceToTarget());
 			}
 			else
 			{
-				dashboard.PutString ("Target Angle", "No target found.");
+				dashboard.PutString ("Target Angle In Radians", "No target found.");
+				dashboard.PutString ("Target Angle In Degrees", "No target found.");
 				dashboard.PutString("Target Distance","No target found.");
 			}
 
@@ -237,7 +239,7 @@ private:
 	}
 
 	Autonomous *m_autonomousCommand;
-	AimTurret *m_aimCommand;
+	AimTurretPID *m_aimCommand;
 	
 	//! A counter to ensure the smart dashboard is updated frequently but
 	//! not continuously
