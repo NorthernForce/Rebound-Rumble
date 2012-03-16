@@ -169,6 +169,7 @@ float Camera::GetAngleToTarget() const
 {
 	Rect topTarget;
 	topTarget.top = INT_MAX;
+	float turretError;
 
 	// We need to lock m_cameraSemaphore to protect access
 	// to m_particles
@@ -188,6 +189,8 @@ float Camera::GetAngleToTarget() const
 				topTarget = r;
 			}
 		}
+		turretError = CommandBase::s_turret->GetPosition() - m_lastTurretPosition;
+			
 	}
 
 	// Calculate an approximate angle to the target
@@ -196,7 +199,6 @@ float Camera::GetAngleToTarget() const
 	// the target will be in the center of the camera
 	// image, and that is what matters.
 	int center = topTarget.left + topTarget.width / 2;
-	float turretError = CommandBase::s_turret->GetPosition() - m_lastTurretPosition;
 	switch (m_cam.GetResolution())
 	{
 		case AxisCameraParams::kResolution_160x120:
@@ -276,7 +278,7 @@ void Camera::ProcessImages()
 			continue;
 		}
 		
-		m_lastTurretPosition = CommandBase::s_turret->GetPosition();
+		float lastTurretPosition = CommandBase::s_turret->GetPosition();
 		
 		bool saveSourceImage = false;
 		bool saveProcessedImages = false;
@@ -311,6 +313,7 @@ void Camera::ProcessImages()
 		// to m_particles
 		{
 			const Synchronized sync (m_cameraSemaphore);
+			m_lastTurretPosition = lastTurretPosition;
 			m_particles.resize (particleCount);
 			for (int i = 0; i < particleCount; ++i)
 			{
