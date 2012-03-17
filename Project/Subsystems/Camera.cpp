@@ -161,18 +161,10 @@ int Camera::GetNumberOfTargets() const
 float Camera::GetTurretSetpoint() const
 {
 	float angle = this->GetAngleToTarget();
-	bool hasTarget = this->HasTarget();
-	if (hasTarget)
-	{
-		if (angle == -1)
-			return m_lastTurretPosition;
-		else
-			return angle + m_lastTurretPosition;
-	}
+	if (angle == -1)
+		return m_lastTurretPosition;
 	else
-	{
-		return k_turretCenter;
-	}
+		return angle + m_lastTurretPosition;
 }
 
 /**
