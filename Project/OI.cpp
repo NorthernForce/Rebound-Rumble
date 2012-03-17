@@ -7,8 +7,7 @@
 #include "Commands/ShootBall.h"
 #include "Commands/RaiseRampManipulator.h"
 #include "Commands/LowerRampManipulator.h"
-#include "Commands/StartPickup.h"
-#include "Commands/StopPickup.h"
+#include "Commands/Pickup.h"
 #include "Commands/TurnTurretLeft.h"
 #include "Commands/TurnTurretRight.h"
 #include "Commands/ReversePickup.h"
@@ -58,8 +57,8 @@ OI::OI() try :
     //c2_BButton.WhileHeld(new LockTarget());
     //c2_XButton.WhileHeld(new TurnTurretLeft());
     c2_YButton.WhileHeld(new ShootBall());
-    c2_LeftButton.WhenPressed(new StopPickup());
-    c2_RightButton.WhenPressed(new StartPickup());
+    c2_LeftButton.WhenPressed(CreateStopPickup());
+    c2_RightButton.WhenPressed(CreateStartPickup());
     c2_StartButton.WhileHeld(new LockTarget());
     c2_BackButton.WhenPressed(new StopFiring());
     

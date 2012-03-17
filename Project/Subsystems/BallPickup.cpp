@@ -1,6 +1,5 @@
 #include "BallPickup.h"
 #include "../Robotmap.h"
-#include "../Commands/StartPickup.h"
 
 BallPickup::BallPickup() : 
 	Subsystem("BallPickup"),
