@@ -18,10 +18,15 @@ void AimTurret::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void AimTurret::Execute() 
 {
-	if (s_camera->HasTarget())
-		s_turret->SetPosition(s_turret->GetPosition()+(s_camera->GetAngleToTarget()));
-	else
+	if (TimeSinceInitialized() < 1.4)
 		s_turret->SetPosition(k_turretCenter);
+	if (TimeSinceInitialized() > 1.5)
+	{
+		if (s_camera->HasTarget())
+			s_turret->SetPosition(s_camera->GetTurretSetpoint());
+//		else
+//			s_turret->SetPosition(k_turretCenter);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

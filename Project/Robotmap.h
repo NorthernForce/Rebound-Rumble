@@ -94,10 +94,10 @@ enum PWMAddress
 
 enum RelayPort
 {
-    k_liftMotorRelay = 6,
     k_pickupMotorRelay = 2,
     k_rampManipulatorRelayRight = 4,
     k_rampManipulatorRelayLeft = 5,
+    k_liftMotorRelay = 8,
 };
 
 #define k_rampValue 0.4
@@ -152,7 +152,7 @@ static const float k_driveWheelRadius = 12*0.0254;
 static const float k_driveGearRatio = 1/12.75;
 //@TODO Ensure that these are correct.
 static const float k_turretCenter = 1.5707963267948966192313216916397514420985846996875529;
-static const float k_turretRad = 0.4712388980384689857693965074919254326295754099062658;
+static const float k_turretRad = 0.4416484517698866;
 
 //PID Values
 static const float k_driveP = -0.3;

@@ -4,7 +4,7 @@
 #include "Commands/CalibrateAccelerometer.h"
 #include "Commands/Autonomous.h"
 #include "Commands/SimpleCommand.h"
-#include "Commands/AimTurretPID.h"
+#include "Commands/AimTurret.h"
 
 /**
  * @brief This class controls the entire robot,
@@ -36,7 +36,7 @@ protected:
 		CommandBase::init();
 		//m_pCalibrationCommand = new CalibrateAccelerometer();
         m_autonomousCommand = new Autonomous();
-        m_aimCommand = new AimTurretPID();
+        m_aimCommand = new AimTurret();
 	}
 
 	virtual void DisabledInit()
@@ -114,7 +114,7 @@ protected:
 		SmartDashboard& dashboard = *SmartDashboard::GetInstance();
 		if (BallLifter* const pLifter = CommandBase::s_ballLifter)
 		{
-			SetSmartDashboardDouble("Elevator limit switch()", pLifter->GetLimit());
+			dashboard.PutBoolean("Lifter limit switch", pLifter->GetLimit());
 		}
 
 		if (const Drive* const pDrive = CommandBase::s_drive)
@@ -160,7 +160,7 @@ protected:
 			{
 				SetSmartDashboardDouble ("Target Angle In Radians", pCamera->GetAngleToTarget());
 				SetSmartDashboardDouble ("Target Angle In Degrees", pCamera->GetDegreeAngleToTarget());
-				SetSmartDashboardDouble("Target Distance",pCamera->GetDistanceToTarget());
+				SetSmartDashboardDouble ("Target Distance",pCamera->GetDistanceToTarget());
 			}
 			else
 			{
@@ -168,7 +168,8 @@ protected:
 				dashboard.PutString ("Target Angle In Degrees", "No target found.");
 				dashboard.PutString("Target Distance","No target found.");
 			}
-
+			
+			SetSmartDashboardDouble ("Turret Setpoint",pCamera->GetTurretSetpoint());
 			float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(pCamera->GetHorizontalDistance()));
 			if( arrivalAngle < k_aAngleMax &&
 				arrivalAngle > k_aAngleMin )
@@ -239,7 +240,7 @@ private:
 	}
 
 	Autonomous *m_autonomousCommand;
-	AimTurretPID *m_aimCommand;
+	AimTurret *m_aimCommand;
 	
 	//! A counter to ensure the smart dashboard is updated frequently but
 	//! not continuously

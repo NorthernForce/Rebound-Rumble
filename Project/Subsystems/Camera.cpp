@@ -155,6 +155,27 @@ int Camera::GetNumberOfTargets() const
 }
 
 /**
+ * @brief Gets what the turret should be set to.
+ * @return A float, the angle in radians that the turret should be. 
+ */
+float Camera::GetTurretSetpoint() const
+{
+	float angle = this->GetAngleToTarget();
+	bool hasTarget = this->HasTarget();
+	if (hasTarget)
+	{
+		if (angle == -1)
+			return m_lastTurretPosition;
+		else
+			return angle + m_lastTurretPosition;
+	}
+	else
+	{
+		return k_turretCenter;
+	}
+}
+
+/**
  * @brief Gets the apparent angle that the robot lies
  * on relative to a line perpendicular to the targets.
  *
@@ -169,7 +190,6 @@ float Camera::GetAngleToTarget() const
 {
 	Rect topTarget;
 	topTarget.top = INT_MAX;
-	float turretError;
 
 	// We need to lock m_cameraSemaphore to protect access
 	// to m_particles
@@ -188,9 +208,7 @@ float Camera::GetAngleToTarget() const
 			{
 				topTarget = r;
 			}
-		}
-		turretError = CommandBase::s_turret->GetPosition() - m_lastTurretPosition;
-			
+		}	
 	}
 
 	// Calculate an approximate angle to the target
@@ -202,15 +220,15 @@ float Camera::GetAngleToTarget() const
 	switch (m_cam.GetResolution())
 	{
 		case AxisCameraParams::kResolution_160x120:
-			return -((center - 80) / 4 * M_PI / 180)-turretError;
+			return ((center - 80) / 4 * M_PI / 180);
 
 		case AxisCameraParams::kResolution_320x240:
-			return -((center - 160) / 8 * M_PI / 180)-turretError;
+			return ((center - 160) / 8 * M_PI / 180);
 
 		case AxisCameraParams::kResolution_640x480:
 		case AxisCameraParams::kResolution_640x360:
 		default:
-			return -((center - 320) / 16 * M_PI / 180)-turretError;
+			return ((center - 320) / 16 * M_PI / 180);
 	}
 }
 

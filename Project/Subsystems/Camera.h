@@ -25,6 +25,7 @@ public:
     bool HasValidTarget();
 	bool HasTarget() const;
 	int GetNumberOfTargets() const;
+	float GetTurretSetpoint() const;
 
 	//! Sets the directory within which to save the images
 	void SetDirectory (const char* directory, unsigned nextImage = 1);

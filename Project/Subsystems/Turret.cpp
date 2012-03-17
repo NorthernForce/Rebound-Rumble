@@ -12,7 +12,7 @@ TurretMotors::TurretMotors()  try:
 	m_turretJaguar.SetPID(k_turretP,k_turretI,k_turretD);
 	m_turretJaguar.SetPositionReference(CANJaguar::kPosRef_QuadEncoder);
 	m_turretJaguar.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
-	m_turretJaguar.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
+	m_turretJaguar.ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
 	m_turretJaguar.EnableControl();
 	printf("Turret jaguar successfully created. \n");
 }
@@ -39,7 +39,7 @@ void Turret::InitDefaultCommand() {
  */
 void Turret::SetPosition(float Angle)
 {
-	float posAngle = Angle*(k_turretRad);
+	float posAngle = Angle/k_turretRad;
 	m_turretJaguar.Set(-posAngle);
 }
 /**
@@ -48,7 +48,7 @@ void Turret::SetPosition(float Angle)
  */
 double Turret::GetPosition()
 {
-	return m_turretJaguar.GetPosition()*(k_turretRad);
+	return -m_turretJaguar.GetPosition()*(k_turretRad);
 }
 
 /**

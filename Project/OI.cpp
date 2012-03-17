@@ -43,8 +43,8 @@ OI::OI() try :
     m_manipulatorStick(k_manipulatorJoystickPort)
 {
 	// Stick one buttons
-    c_BButton.WhileHeld(new FollowRobot());
-    c_YButton.WhileHeld(new ShootBall());
+    //c_BButton.WhileHeld(new FollowRobot());
+    c_YButton.WhenPressed(new ShootBall());
     c_AButton.WhenPressed(new CaptureImages());
     c_XButton.WhenPressed(new LogAccelerometer());
     c_LeftButton.WhenPressed(new RaiseRampManipulator());
@@ -53,7 +53,7 @@ OI::OI() try :
     c_BackButton.WhenPressed(new ChangeControlMode(false)); 
     
     // Stick 2 buttons
-    c2_AButton.WhileHeld(new ReversePickup());
+    c2_AButton.WhenPressed(new ReversePickup());
     //c2_BButton.WhileHeld(new LockTarget());
     //c2_XButton.WhileHeld(new TurnTurretLeft());
     c2_YButton.WhileHeld(new ShootBall());

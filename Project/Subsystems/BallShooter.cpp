@@ -10,12 +10,12 @@ ShooterMotors::ShooterMotors() try:
 	m_flywheelBack((printf("Initializing rear flywheel jaguar. \n"), k_flywheelBackJaguar))
 {
 	m_flywheelFront.ChangeControlMode(CANJaguar::kPercentVbus);
-	m_flywheelFront.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_flywheelFront.ConfigMaxOutputVoltage(6);
 	m_flywheelFront.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
 	m_flywheelFront.EnableControl();
 
 	m_flywheelBack.ChangeControlMode(CANJaguar::kPercentVbus);
-	m_flywheelBack.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_flywheelBack.ConfigMaxOutputVoltage(6);
 	m_flywheelBack.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
 	m_flywheelBack.EnableControl();
 
@@ -66,7 +66,7 @@ Vector2D BallShooter::GetSpeed()
  */
 BallLifter::BallLifter():
 		Subsystem("BallLifter"),
-		m_liftLimit(k_liftLimit),
+		m_liftLimit(1),
 		m_liftMotor(k_liftMotorRelay,Relay::kBothDirections)
 {
  	//Do nothing, as the whole class is set up.
