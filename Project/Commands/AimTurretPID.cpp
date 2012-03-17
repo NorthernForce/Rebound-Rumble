@@ -34,8 +34,6 @@ void AimTurretPID::Execute()
 {
 	if (CommandBase::s_camera->HasTarget())
 		_Execute();
-	else
-		CommandBase::s_turret->SetPosition(0.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -216,7 +216,7 @@ float Camera::GetAngleToTarget() const
 
 float Camera::GetDegreeAngleToTarget() const
 {
-	return this->GetAngleToTarget() / M_PI / 180;
+	return this->GetAngleToTarget() / M_PI * 180;
 }
 
 /** @brief Sets the directory within which to write the camera images

@@ -6,21 +6,22 @@
 
 TurretMotors::TurretMotors()  try:
 	m_turretJaguar((printf("Initializing turret jaguar. \n"), k_turretJaguar))
-	{
-		m_turretJaguar.ChangeControlMode(CANJaguar::kPosition);
-		m_turretJaguar.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
-		m_turretJaguar.SetPID(k_turretP,k_turretI,k_turretD);
-		m_turretJaguar.SetPositionReference(CANJaguar::kPosRef_QuadEncoder);
-		m_turretJaguar.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
-		m_turretJaguar.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
-		m_turretJaguar.EnableControl();	
-		printf("Turret jaguar successfully created. \n");
-	}
-	catch (exception e)
-	{
-		printf("Error creating turret jaguars.");
-		printf(e.what());
-	}
+{
+	m_turretJaguar.ChangeControlMode(CANJaguar::kPosition);
+	m_turretJaguar.ConfigMaxOutputVoltage(k_driveMaxOutputVoltage);
+	m_turretJaguar.SetPID(k_turretP,k_turretI,k_turretD);
+	m_turretJaguar.SetPositionReference(CANJaguar::kPosRef_QuadEncoder);
+	m_turretJaguar.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+	m_turretJaguar.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
+	m_turretJaguar.EnableControl();
+	printf("Turret jaguar successfully created. \n");
+}
+catch (exception e)
+{
+	printf("Error creating turret jaguars.");
+	printf(e.what());
+}
+
 Turret::Turret(): Subsystem("Turret")
 {
 	
@@ -29,7 +30,7 @@ Turret::Turret(): Subsystem("Turret")
 void Turret::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new CalibrateTurret());
+//	SetDefaultCommand(new CalibrateTurret());
 }
 
 /**
