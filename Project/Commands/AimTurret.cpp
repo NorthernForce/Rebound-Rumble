@@ -12,20 +12,32 @@ AimTurret::AimTurret() : CommandBase("AimTurret")
 // Called just before this Command runs the first time
 void AimTurret::Initialize() 
 {
-	s_turret->SetPosition(k_turretCenter);
+	s_turret->Calibrate();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AimTurret::Execute() 
 {
-	if (TimeSinceInitialized() < 1.4)
-		s_turret->SetPosition(k_turretCenter);
-	if (TimeSinceInitialized() > 1.5)
+	if (!s_turret->m_calibrated)
 	{
-		if (s_camera->HasTarget())
-			s_turret->SetPosition(s_camera->GetTurretSetpoint());
-//		else
-//			s_turret->SetPosition(k_turretCenter);
+		s_turret->Calibrate();
+	}
+	else if (s_turret->m_calibrated)
+	{
+		//If camera has an image, lock onto the target. Else, allow scanning with the joystick.
+		if (s_camera->HasTarget()) {
+			if (oi->c2_YButton.Get())
+				s_turret->SetPosition(k_turretCenter);
+			else
+				s_turret->SetPosition(s_camera->GetTurretSetpoint());
+		} else {
+			if (oi->c2_BButton.Get())
+				s_turret->SetPosition(s_turret->GetPosition()+.1);
+			else if (oi->c2_XButton.Get())
+				s_turret->SetPosition(s_turret->GetPosition()-.1);
+			else if (oi->c2_YButton.Get())
+				s_turret->SetPosition(k_turretCenter);
+		}
 	}
 }
 

@@ -43,23 +43,23 @@ OI::OI() try :
     m_manipulatorStick(k_manipulatorJoystickPort)
 {
 	// Stick one buttons
-    //c_BButton.WhileHeld(new FollowRobot());
+//    c_BButton.WhileHeld(new FollowRobot());
     c_YButton.WhenPressed(new ShootBall());
-    c_AButton.WhenPressed(new CaptureImages());
-    c_XButton.WhenPressed(new LogAccelerometer());
+//    c_AButton.WhenPressed(new CaptureImages());
+//    c_XButton.WhenPressed(new LogAccelerometer());
     c_LeftButton.WhenPressed(new RaiseRampManipulator());
     c_RightButton.WhenPressed(new LowerRampManipulator());
-    c_StartButton.WhenPressed(new ChangeControlMode(true));
-    c_BackButton.WhenPressed(new ChangeControlMode(false)); 
+//    c_StartButton.WhenPressed(new ChangeControlMode(true));
+//    c_BackButton.WhenPressed(new ChangeControlMode(false)); 
     
     // Stick 2 buttons
-    c2_AButton.WhenPressed(new ReversePickup());
-    //c2_BButton.WhileHeld(new LockTarget());
-    //c2_XButton.WhileHeld(new TurnTurretLeft());
-    c2_YButton.WhileHeld(new ShootBall());
+    c2_AButton.WhenPressed(new ShootBall());
+//    c2_BButton.WhileHeld(new LockTarget()); IN USE
+//    c2_XButton.WhileHeld(new TurnTurretLeft()); IN USE
+//    c2_YButton.WhileHeld(new ShootBall()); IN USE
     c2_LeftButton.WhenPressed(CreateStopPickup());
     c2_RightButton.WhenPressed(CreateStartPickup());
-    c2_StartButton.WhileHeld(new LockTarget());
+//    c2_StartButton.WhileHeld(new LockTarget());
     c2_BackButton.WhenPressed(new StopFiring());
     
     printf("All OI elements created successfully.");

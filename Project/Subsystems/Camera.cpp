@@ -54,7 +54,8 @@ void Camera::InitCamera()
 }
 
 /**
- * @brief Returns the distance to the target.
+ * @brief TESTING: Returns the area of the target in pixels.
+ * (Returns the distance to the target.)
  * @return float Distance, in meters.
  */
 float Camera::GetDistanceToTarget() const
@@ -82,37 +83,38 @@ float Camera::GetDistanceToTarget() const
 	}
 	
 	//Calculate the distance to the target.
-	int width;
-	int height;
-	switch (m_cam.GetResolution())
-	{
-		case AxisCameraParams::kResolution_160x120:
-		default:
-			width = 160;
-			height = 120;
-			break;
-
-		case AxisCameraParams::kResolution_320x240:
-			width = 320;
-			height = 240;
-			break;
-			
-		case AxisCameraParams::kResolution_640x480:
-			width = 640;
-			height = 480;
-			break;
-			
-		case AxisCameraParams::kResolution_640x360:
-			width = 640;
-			height = 360;
-			break;
-	}
-
-	const double c = 0.292659195508492; // tan(32.625/2)
-	const double b = 0.398959545973719; // tan(43.5/2)
-	const double h = k_visionTargetHeight * height / 2 * c * topTarget.height;
-	const double w = k_visionTargetWidth * height / 2 * b * topTarget.width;
-	return (h + w) / 2;
+//	int width;
+//	int height;
+//	switch (m_cam.GetResolution())
+//	{
+//		case AxisCameraParams::kResolution_160x120:
+//		default:
+//			width = 160;
+//			height = 120;
+//			break;
+//
+//		case AxisCameraParams::kResolution_320x240:
+//			width = 320;
+//			height = 240;
+//			break;
+//			
+//		case AxisCameraParams::kResolution_640x480:
+//			width = 640;
+//			height = 480;
+//			break;
+//			
+//		case AxisCameraParams::kResolution_640x360:
+//			width = 640;
+//			height = 360;
+//			break;
+//	}
+//
+//	const double c = 0.292659195508492; // tan(32.625/2)
+//	const double b = 0.398959545973719; // tan(43.5/2)
+//	const double h = k_visionTargetHeight * height / 2 * c * topTarget.height;
+//	const double w = k_visionTargetWidth * height / 2 * b * topTarget.width;
+//	return (h + w) / 2;
+	return topTarget.height * topTarget.width;
 }
 
 float Camera::GetHorizontalDistance() const
@@ -303,7 +305,7 @@ void Camera::ProcessImages()
 		if (saveSourceImage ) SaveImage(m_image, "src.jpg");
 
 		
-		Threshold violetThreshold (195,233,79,255,98,215);
+		Threshold violetThreshold (170,200,14,91,150,230);
 		const std::auto_ptr<BinaryImage> violetPixels (m_image.ThresholdHSL(violetThreshold));
 		if (violetPixels.get() == 0) continue;
 		if (saveProcessedImages) SaveImage (*violetPixels, "violet.png");

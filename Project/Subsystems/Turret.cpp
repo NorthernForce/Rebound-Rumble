@@ -24,7 +24,7 @@ catch (exception e)
 
 Turret::Turret(): Subsystem("Turret")
 {
-	
+	m_calibrated = false;
 }
 
 void Turret::InitDefaultCommand() {
@@ -73,7 +73,7 @@ void Turret::DisableControl()
  */
 bool Turret::GetLimit()
 {
-	return m_turretJaguar.GetForwardLimitOK();
+	return !m_turretJaguar.GetForwardLimitOK();
 }
 
 void Turret::SetMaxVoltage(double voltage)
@@ -106,4 +106,16 @@ void Turret::Turn(float speed)
 //		}
 //	}
 	//m_turretJaguar.Set(speed);
+}
+
+void Turret::Calibrate()
+{
+	if (!this->GetLimit())
+		this->SetPosition(this->GetPosition()-.2);
+	else if (this->GetLimit())
+	{
+		this->EnableControl(0.0);
+		m_calibrated = true;
+		this->SetPosition(k_turretCenter);
+	}
 }

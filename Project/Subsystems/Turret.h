@@ -31,6 +31,8 @@ public:
 	void DisableControl();
 	bool GetLimit();
 	void SetMaxVoltage(double voltage);
+	bool m_calibrated;
+	void Calibrate();
 };
 
 #endif
