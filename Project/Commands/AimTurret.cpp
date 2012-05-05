@@ -26,7 +26,7 @@ void AimTurret::Execute()
 	{
 		//If camera has an image, lock onto the target. Else, allow scanning with the joystick.
 		if (s_camera->HasTarget()) {
-			if (oi->c2_YButton.Get())
+			if (oi->c2_YButton.Get() || oi->c_YButton.Get())
 				s_turret->SetPosition(k_turretCenter);
 			else
 				s_turret->SetPosition(s_camera->GetTurretSetpoint());
