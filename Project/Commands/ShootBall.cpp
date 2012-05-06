@@ -9,20 +9,23 @@ Requires(s_ballShooter);
 
 // Called just before this Command runs the first time
 void ShootBall::Initialize() {
-	s_ballShooter->SetSpeed(1.0);		
+	if (fabs(oi->GetManipulatorStick().GetRawAxis(3)) < 0.5 )
+		s_ballShooter->SetSpeed(0.5);
+	else
+		s_ballShooter->SetSpeed(fabs(oi->GetManipulatorStick().GetRawAxis(3)));
 	s_ballLifter->EnableLift();
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ShootBall::Execute() {
-	// Wait 25 cycles before we. enable the lift
+	
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShootBall::IsFinished() {
-	if (TimeSinceInitialized() > 3)
-		return s_ballLifter->GetLimit();
+	if (TimeSinceInitialized() >= 4.5 && s_ballLifter->GetLimit())
+		return true;
 	else
 		return false;
 }
