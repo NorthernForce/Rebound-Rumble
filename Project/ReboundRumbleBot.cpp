@@ -160,19 +160,23 @@ protected:
 			{
 				SetSmartDashboardDouble ("Target Angle In Radians", pCamera->GetAngleToTarget());
 				SetSmartDashboardDouble ("Target Angle In Degrees", pCamera->GetDegreeAngleToTarget());
-				SetSmartDashboardDouble ("Target Distance",pCamera->GetDistanceToTarget());
+				SetSmartDashboardDouble ("Target Area",pCamera->GetDistanceToTarget());
 			}
 			else
 			{
 				dashboard.PutString ("Target Angle In Radians", "No target found.");
 				dashboard.PutString ("Target Angle In Degrees", "No target found.");
-				dashboard.PutString("Target Distance","No target found.");
+				dashboard.PutString("Target Area","No target found.");
 			}
 			
 			SetSmartDashboardDouble ("Turret Setpoint",pCamera->GetTurretSetpoint());
 			SetSmartDashboardDouble ("Turret Position",CommandBase::s_turret->GetPosition());
 			
-			SetSmartDashboardDouble("Shot Speed",fabs(CommandBase::oi->GetManipulatorStick().GetRawAxis(3)));
+			if (fabs(CommandBase::oi->GetManipulatorStick().GetRawAxis(3)) < 0.5)
+				SetSmartDashboardDouble("Shot Speed",0.5);
+			else 
+				SetSmartDashboardDouble("Shot Speed",fabs(CommandBase::oi->GetManipulatorStick().GetRawAxis(3)));
+
 			float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(pCamera->GetHorizontalDistance()));
 			if( arrivalAngle < k_aAngleMax &&
 				arrivalAngle > k_aAngleMin )
@@ -194,7 +198,8 @@ protected:
 			SetSmartDashboardDouble ("Target Distance inches", pUltrasonic->GetRangeInInches());
 			SetSmartDashboardDouble ("Ultrasonic Analog Voltage",pUltrasonic->GetVoltage());
 			SetSmartDashboardDouble ("Target Voltage", pUltrasonic->GetVoltage());
-			SetSmartDashboardDouble("Shooter Voltage",CommandBase::oi->GetManipulatorStick().GetRawAxis(Joystick::kDefaultYAxis)*.8+.2);
+			SetSmartDashboardDouble("Shooter Voltage",
+				CommandBase::oi->GetManipulatorStick().GetRawAxis(Joystick::kDefaultYAxis)*.8+.2);
 		}
 		
 		if (const AccelerometerSubsystem* const pAccelerometer = CommandBase::s_accelerometer)
