@@ -21,46 +21,24 @@
  * the robot.
  */
 OI::OI() try :
-	c_YButton(&m_driveStick, k_XBoxButtonY),
-    c_XButton(&m_driveStick, k_XBoxButtonX),
-	c_AButton(&m_driveStick, k_XBoxButtonA),
-	c_BButton(&m_driveStick, k_XBoxButtonB),
-	c_BackButton(&m_driveStick, k_XBoxButtonBack),
-	c_StartButton(&m_driveStick, k_XBoxButtonStart),
-	c_LeftButton(&m_driveStick, k_XBoxButtonLeft),
-	c_RightButton(&m_driveStick, k_XBoxButtonRight),
-	
-	c2_YButton(&m_manipulatorStick, k_XBoxButtonY),
-    c2_XButton(&m_manipulatorStick, k_XBoxButtonX),
-	c2_AButton(&m_manipulatorStick, k_XBoxButtonA),
-	c2_BButton(&m_manipulatorStick, k_XBoxButtonB),
-	c2_BackButton(&m_manipulatorStick, k_XBoxButtonBack),
-	c2_StartButton(&m_manipulatorStick, k_XBoxButtonStart),
-	c2_LeftButton(&m_manipulatorStick, k_XBoxButtonLeft),
-	c2_RightButton(&m_manipulatorStick, k_XBoxButtonRight),
-	
     m_driveStick(k_driveJoystickPort),
     m_manipulatorStick(k_manipulatorJoystickPort)
 {
 	// Stick one buttons
-//    c_BButton.WhileHeld(new FollowRobot());
-//    c_YButton.WhenPressed(new ShootBall()); IN USE
-    c_AButton.WhenPressed(new ShootBall());
-//    c_XButton.WhenPressed(new LogAccelerometer());
-    c_LeftButton.WhenPressed(new RaiseRampManipulator());
-    c_RightButton.WhenPressed(new LowerRampManipulator());
-//    c_StartButton.WhenPressed(new ChangeControlMode(true));
-//    c_BackButton.WhenPressed(new ChangeControlMode(false)); 
+//    m_driveStick.Y.WhenPressed(new ShootBall()); IN USE, CENTERS TURRET
+	m_driveStick.A.WhenPressed(new ShootBall());
+	m_driveStick.LeftBumper.WhenPressed(new RaiseRampManipulator());
+	m_driveStick.RightBumper.WhenPressed(new LowerRampManipulator());
+
     
     // Stick 2 buttons
-    c2_AButton.WhenPressed(new ShootBall());
-//    c2_BButton.WhileHeld(new LockTarget()); IN USE
-//    c2_XButton.WhileHeld(new TurnTurretLeft()); IN USE
-//    c2_YButton.WhileHeld(new ShootBall()); IN USE
-    c2_LeftButton.WhenPressed(CreateStopPickup());
-    c2_RightButton.WhenPressed(CreateStartPickup());
-//    c2_StartButton.WhileHeld(new LockTarget());
-    c2_BackButton.WhenPressed(new StopFiring());
+	m_manipulatorStick.A.WhenPressed(new ShootBall());
+//    m_manipulatorStick.B.WhenPressed(new LockTarget()); IN USE, SCANS TURRET RIGHT
+//    m_manipulatorStick.X.WhenPressed(new TurnTurretLeft()); IN USE, SCANS TURRET LEFT
+//    m_manipulatorStick.Y.WhenPressed(new ShootBall()); IN USE, CENTERS TURRET
+	m_manipulatorStick.LeftBumper.WhenPressed(CreateStopPickup());
+	m_manipulatorStick.RightBumper.WhenPressed(CreateStartPickup());
+	m_manipulatorStick.Back.WhenPressed(new StopFiring());
     
     printf("All OI elements created successfully.");
     printf("\n");
@@ -69,33 +47,17 @@ catch (exception e)
 {
 	printf("Operator Interface failed to initialize.");
 }
-/**
- * @brief Sets the LED's on the operator console.
- * 
- * @param target Whether it has a target or not.
- */
-void OI::SetTargetLEDs(bool target)
-{
-	if (target)
-	{
-//		m_hasTargetLED.TurnOn();
-//		m_noTargetLED.TurnOff();
-	} else {
-//		m_hasTargetLED.TurnOff();
-//		m_noTargetLED.TurnOn();
-	}
-}
 
 /**
  * @brief Returns the drive joystick.
  * 
  * @return The drive joystick.
  */
-XboxJoystick& OI::GetStick()
+FRCXboxJoystick& OI::GetStick()
 {
 	return m_driveStick;
 }
-XboxJoystick& OI::GetManipulatorStick()
+FRCXboxJoystick& OI::GetManipulatorStick()
 {
 	return m_manipulatorStick;
 }

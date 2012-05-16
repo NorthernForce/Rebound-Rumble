@@ -2,7 +2,7 @@
 #define BSBOTDRIVE_H
 #include <WPILib.h>
 #include "../Robotmap.h"
-#include "XboxJoystick.h"
+#include "FRCXboxJoystick.h"
 #include "RampedCanJaguar.h"
 
 /** @brief Initializes the drive motors
@@ -38,7 +38,7 @@ class BSBotDrive :
 public:
 	BSBotDrive();
 	//! Drives the robot using an XBox controller
-	void ArcadeDrive (XboxJoystick& controller);
+	void ArcadeDrive (FRCXboxJoystick& controller);
 	//! Drives the robot using move and rotate values
 	void ArcadeDrive (float moveValue, float rotateValue, bool squaredInputs);
 	//! Alternate drive to move the robot using move and rotate values

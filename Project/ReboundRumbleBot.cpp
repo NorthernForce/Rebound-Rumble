@@ -55,10 +55,6 @@ protected:
 	{
 		Scheduler::GetInstance()->Run();
 		this->UpdateDashboard (AutonomousState);
-		//Update the LED on the driver station to say if it has a target or not.
-		//@TODO test this.
-		if (CommandBase::s_camera)
-			CommandBase::oi->SetTargetLEDs(CommandBase::s_camera->HasValidTarget());
 
 		if (AccelerometerSubsystem* const pAccelerometer = CommandBase::s_accelerometer)
 			pAccelerometer->Update (GetFPGATime());

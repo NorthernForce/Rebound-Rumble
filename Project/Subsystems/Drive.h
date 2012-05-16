@@ -2,6 +2,7 @@
 #define DRIVE_H
 #include <WPILib.h>
 #include "../Classes/BSBotDrive.h"
+#include "../Classes/FRCXboxJoystick.h"
 
 /**
  * @brief The drive object for the robot. All
@@ -18,7 +19,7 @@ private:
 public:
 	Drive();
 	void InitDefaultCommand();
-	void DriveWithStick(XboxJoystick& stick);
+	void DriveWithStick(FRCXboxJoystick& stick);
 	void DriveRobot (float speed, float direction);
 	void ChangeControlMode (bool enable);
     double GetAvgSpeed() const;

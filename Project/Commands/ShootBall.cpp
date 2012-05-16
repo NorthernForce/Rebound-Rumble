@@ -1,18 +1,13 @@
 #include "ShootBall.h"
 
 ShootBall::ShootBall(): CommandBase("ShootBall") {
-	// Use requires() here to declare subsystem dependencies
-	// eg. requires(chassis);
 	Requires(s_ballLifter);
-Requires(s_ballShooter);		
+	Requires(s_ballShooter);		
 }
 
 // Called just before this Command runs the first time
 void ShootBall::Initialize() {
-	if (fabs(oi->GetManipulatorStick().GetRawAxis(3)) < 0.5 )
-		s_ballShooter->SetSpeed(0.5);
-	else
-		s_ballShooter->SetSpeed(fabs(oi->GetManipulatorStick().GetRawAxis(3)));
+	s_ballShooter->SetSpeed(fabs(oi->GetManipulatorStick().GetTrigger()));
 	s_ballLifter->EnableLift();
 
 }
@@ -24,7 +19,7 @@ void ShootBall::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShootBall::IsFinished() {
-	if (TimeSinceInitialized() >= 4.5 && s_ballLifter->GetLimit())
+	if (TimeSinceInitialized() >= 1 && s_ballLifter->GetLimit())
 		return true;
 	else
 		return false;

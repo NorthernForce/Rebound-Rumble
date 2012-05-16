@@ -32,7 +32,7 @@ void Drive::ChangeControlMode(bool enable)
 	drive->UseEncoders(enable);
 }
 
-void Drive::DriveWithStick(XboxJoystick& stick)
+void Drive::DriveWithStick(FRCXboxJoystick& stick)
 {
 	drive->ArcadeDrive(stick);
 }

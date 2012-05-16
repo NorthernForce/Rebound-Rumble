@@ -14,7 +14,7 @@ void ManualShoot::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ManualShoot::Execute() {
-	XboxJoystick& controller = oi->GetManipulatorStick();
+	FRCXboxJoystick& controller = oi->GetManipulatorStick();
 	s_turret->Turn(-controller.GetRawAxis (4)/4);
 	//s_ballShooter->SetSpeed(-controller.GetRawAxis(Joystick::kDefaultYAxis)*.8+.2);
 }

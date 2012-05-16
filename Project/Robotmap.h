@@ -150,9 +150,8 @@ static const float k_spinConstantB = 23.865;
 static const float k_shooterWheelRadius = (6)*(0.0254);
 static const float k_driveWheelRadius = 12*0.0254;
 static const float k_driveGearRatio = 1/12.75;
-//@TODO Ensure that these are correct.
-static const float k_turretCenter = 1.5707963267948966192313216916397514420985846996875529;
-static const float k_turretRad = 0.4416484517698866;
+static const float k_turretCenter = M_PI/2;
+static const float k_turretRad = 0.441980;
 
 //PID Values
 static const float k_driveP = -0.3;
@@ -161,13 +160,16 @@ static const float k_driveD = 0.0;
 static const float k_shooterP = 17;
 static const float k_shooterI = .01;
 static const float k_shooterD = 1;
-static const float k_turretP = 960.000;
-static const float k_turretI = 3.200;
-static const float k_turretD = 32767.000;
+static const float k_turretP = 1000.000;
+static const float k_turretI = 0.000;
+static const float k_turretD = 10.000;
 static const int k_shooterEncoderLines = 65535;
 static const float k_shooterMaxOutputVoltage = 12;
 static const int k_encoderPulsesPerRev = 256;
 static const int k_driveMaxOutputVoltage = 12;
 static const bool k_useEncoders = false;
+
+//!Used to tell the turret whether to track the target or not.
+static const bool k_track = false;
 
 #endif

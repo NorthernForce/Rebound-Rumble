@@ -102,10 +102,10 @@ BSBotDrive::BSBotDrive():
  *
  * @param controller The XBoxJoystick to use to control the robot.
  */
-void BSBotDrive::ArcadeDrive(XboxJoystick& controller)
+void BSBotDrive::ArcadeDrive(FRCXboxJoystick& controller)
 {
-	float rotateValue = controller.GetRawAxis (4);
-	const float moveValue = -controller.GetRawAxis (Joystick::kDefaultYAxis);
+	float rotateValue = controller.GetRightStickX();
+	const float moveValue = -controller.GetLeftStickY();
 	this->ArcadeDrive (moveValue, -rotateValue, true);
 }
 
