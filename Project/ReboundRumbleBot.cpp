@@ -167,11 +167,7 @@ protected:
 			
 			SetSmartDashboardDouble ("Turret Setpoint",pCamera->GetTurretSetpoint());
 			SetSmartDashboardDouble ("Turret Position",CommandBase::s_turret->GetPosition());
-			
-			if (fabs(CommandBase::oi->GetManipulatorStick().GetRawAxis(3)) < 0.5)
-				SetSmartDashboardDouble("Shot Speed",0.5);
-			else 
-				SetSmartDashboardDouble("Shot Speed",fabs(CommandBase::oi->GetManipulatorStick().GetRawAxis(3)));
+			SetSmartDashboardDouble("Shot Speed",fabs(CommandBase::oi->GetManipulatorStick().GetRawAxis(3)));
 
 			float arrivalAngle = -atan(k_tanTheta + 2*k_targetHeight/(pCamera->GetHorizontalDistance()));
 			if( arrivalAngle < k_aAngleMax &&

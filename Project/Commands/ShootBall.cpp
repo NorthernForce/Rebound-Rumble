@@ -7,7 +7,7 @@ ShootBall::ShootBall(): CommandBase("ShootBall") {
 
 // Called just before this Command runs the first time
 void ShootBall::Initialize() {
-	s_ballShooter->SetSpeed(fabs(oi->GetManipulatorStick().GetTrigger()));
+	s_ballShooter->SetSpeed(0.35);
 	s_ballLifter->EnableLift();
 
 }

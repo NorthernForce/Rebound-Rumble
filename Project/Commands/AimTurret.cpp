@@ -24,19 +24,19 @@ void AimTurret::Execute()
 	}
 	else if (s_turret->m_calibrated)
 	{
-		if (s_camera->HasTarget() && k_track == true) {
-			if (oi->GetManipulatorStick().GetYButton() || oi->GetStick().GetYButton())
-				s_turret->SetPosition(k_turretCenter);
-			else
-				s_turret->SetPosition(s_camera->GetTurretSetpoint());
-		} else {
+//		if (s_camera->HasTarget() && k_track == true) {
+//			if (oi->GetManipulatorStick().GetYButton() || oi->GetStick().GetYButton())
+//				s_turret->SetPosition(k_turretCenter);
+//			else
+//				s_turret->SetPosition(s_camera->GetTurretSetpoint());
+//		} else {
 			if (oi->GetManipulatorStick().GetBButton())
 				s_turret->SetPosition(s_turret->GetPosition()+.05);
 			else if (oi->GetManipulatorStick().GetXButton())
 				s_turret->SetPosition(s_turret->GetPosition()-.05);
 			else if (oi->GetManipulatorStick().GetYButton())
 				s_turret->SetPosition(k_turretCenter);
-		}
+//		}
 	}
 }
 

@@ -51,7 +51,7 @@ void BallShooter::SetSpeed(float velocity)
 //	m_flywheelFront.Set(velocity*30/(k_shooterWheelRadius*M_PI));
 	//m_flywheelBack.Set(-velocity*30/(k_shooterWheelRadius*M_PI));
 	m_flywheelFront.Set(velocity);
-	m_flywheelBack.Set(-velocity);
+	m_flywheelBack.Set(-velocity*1.5);
 }
 
 //Gets the speed in meters per second of both wheels. "front" wheel is the x component
