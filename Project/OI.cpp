@@ -39,6 +39,7 @@ OI::OI() try :
 	m_manipulatorStick.LeftBumper.WhenPressed(CreateStopPickup());
 	m_manipulatorStick.RightBumper.WhenPressed(CreateStartPickup());
 	m_manipulatorStick.Back.WhenPressed(new StopFiring());
+	m_manipulatorStick.Start.WhenPressed(new ReversePickup());
     
     printf("All OI elements created successfully.");
     printf("\n");

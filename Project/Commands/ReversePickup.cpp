@@ -23,7 +23,7 @@ bool ReversePickup::IsFinished() {
 
 // Called once after isFinished returns true
 void ReversePickup::End() {
-	
+	s_ballPickup->Stop();
 }
 
 // Called when another command which requires one or more of the same
