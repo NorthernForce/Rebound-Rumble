@@ -9,13 +9,29 @@ ShooterMotors::ShooterMotors() try:
 	m_flywheelFront((printf("Initializing front flywheel jaguar. \n"), k_flywheelFrontJaguar)),
 	m_flywheelBack((printf("Initializing rear flywheel jaguar. \n"), k_flywheelBackJaguar))
 {
-	m_flywheelFront.ChangeControlMode(CANJaguar::kPercentVbus);
+//	m_flywheelFront.ChangeControlMode(CANJaguar::kPercentVbus);
+//	m_flywheelFront.ConfigMaxOutputVoltage(12);
+//	m_flywheelFront.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
+//	m_flywheelFront.EnableControl();
+//
+//	m_flywheelBack.ChangeControlMode(CANJaguar::kPercentVbus);
+//	m_flywheelBack.ConfigMaxOutputVoltage(12);
+//	m_flywheelBack.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
+//	m_flywheelBack.EnableControl();
+	
+	m_flywheelFront.ChangeControlMode(CANJaguar::kSpeed);
 	m_flywheelFront.ConfigMaxOutputVoltage(12);
+	m_flywheelFront.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
+	m_flyhweelFront.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+	m_flywheelFront.SetPID(k_shooterP,k_shooterI,k_shooterD);
 	m_flywheelFront.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
 	m_flywheelFront.EnableControl();
-
-	m_flywheelBack.ChangeControlMode(CANJaguar::kPercentVbus);
+	
+	m_flywheelBack.ChangeControlMode(CANJaguar::kSpeed);
 	m_flywheelBack.ConfigMaxOutputVoltage(12);
+	m_flywheelBack.SetSpeedReference(CANJaguar::kSpeedRef_QuadEncoder);
+	m_flywheelBack.ConfigEncoderCodesPerRev(k_encoderPulsesPerRev);
+	m_flyhweelBack.SetPID(k_shooterP,k_shooterI,k_shooterD);
 	m_flywheelBack.ConfigNeutralMode(CANJaguar::kNeutralMode_Coast);
 	m_flywheelBack.EnableControl();
 
