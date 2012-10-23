@@ -1,7 +1,10 @@
 PPC603gnu/*
-Makefile
+*Makefile*
 *.sublime-settings
 *.sublime-workspace
 *.sublime-project
 .ucpp
 .DS_STORE
+*.d
+*.o
+*.out
