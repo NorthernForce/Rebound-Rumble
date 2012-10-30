@@ -25,14 +25,14 @@ Autonomous::Autonomous() {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-	AddParallel(new AimTurret());
-	AddSequential(new SimpleCommand<AccelerometerSubsystem>("EndStationaryCalibration",
-															*CommandBase::s_accelerometer,
-															&AccelerometerSubsystem::EndStationaryCalibration));
-	AddSequential(new ShootBall(),6);
+//	AddParallel(new AimTurret());
+//	AddSequential(new SimpleCommand<AccelerometerSubsystem>("EndStationaryCalibration",
+//															*CommandBase::s_accelerometer,
+//															&AccelerometerSubsystem::EndStationaryCalibration));
 	AddSequential(CreateStartPickup());
-	AddSequential(new ShootBall(),7);
-	AddSequential(new CalibrateAccelerometer());
+	AddSequential(new ShootBall(),5);
+	AddSequential(new ShootBall(),5);
+//	AddSequential(new CalibrateAccelerometer());
 	//AddParallel(new DriveToRamp());
 	//AddSequential(new LowerRampManipulator());
 }

@@ -28,12 +28,12 @@ bool ShootBall::IsFinished() {
 // Called once after isFinished returns true
 void ShootBall::End() {
 	s_ballLifter->DisableLift();
-	s_ballShooter->SetSpeed(0);
+	s_ballShooter->SetSpeed(.2);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShootBall::Interrupted() {
 	s_ballLifter->DisableLift();
-	s_ballShooter->SetSpeed(0);
+	s_ballShooter->SetSpeed(.2);
 }

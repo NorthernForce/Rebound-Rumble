@@ -10,8 +10,8 @@
 
 namespace
 {
-	const float k_RightLockAngle = 1.0;
-	const float k_RightUnlockAngle = 0.6;
+	const float k_RightLockAngle = 0.6;
+	const float k_RightUnlockAngle = 1.0;
 	const float k_LeftLockAngle = 0.0;
 	const float k_LeftUnlockAngle = 0.4;
 }
